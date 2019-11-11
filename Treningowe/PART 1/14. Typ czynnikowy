@@ -1,0 +1,57 @@
+# teraz przeanalizujemy dokladniej typ czynnikowy
+a=factor((c("a","b","a","b","c","a","a")))
+a
+summary(a)
+b=summary(a)
+b[1]
+
+wektor=c("Wroclaw", "Poznan", "Wroclaw", "Czestochowa", "Wroclaw", "Wroclaw")
+wektorwyl=factor(wektor)
+wektorwyl
+# argument exclude=" " mozemy tez wylaczac pewne wartosci argumentem 
+factor(wektor,exclude='Poznan')
+# labels=c(...)  - mozemy tez nadac inne etykiety
+factor(wektor, labels=c("miasto1","miasto2","miasto3"))
+# levels(base) - pokazuje etykiety
+levels(wektorwyl)
+# mozemy tez je zmienic przypisujac po prostu temu odpowiedni wektor (tak samo jak argument labels=c(..))
+levels(wektorwyl)<-c("m1","m2","m3")
+# nlevels(base) - liczba poziomow dla zmiennej
+nlevels(wektorwyl)
+
+# table(w1,w2..) - do wyznaczania MACIERZY KONTYNGENCJI - macierz zliczajaca licznosc poszczegolnych kombinacji czynnikow
+# UWAGA! argumenty musza miec te sama dlugosc
+table(wektorwyl)
+table(wektorwyl,wektorwyl)
+wektorwyl=factor(wektor)
+wektor2=c("Wroclaw","Poznan","Kraków","Poznan", "Poznan","Wroclaw")
+wektorwyl2=factor(wektor2)
+table(wektorwyl,wektorwyl2)
+# zauwazmy jak to dziala - pokazuje jakby na ktorych pozycjach sie znajduja dane odpowiednio w drugim wektorze
+# i tak np. wroclaw znajduje sie raz na miejscu krakowa (czyli na 3 miejscu) wiec mamy tutaj 1
+
+
+# funckja cut(wektor, breaks) - sluzy do zamiany zmiennej liczbowej na zmiennej przedzialowa ( czynnikow )
+# czyli majac wektor mozemy podzielic go na przedzialy
+x=1:10
+a=cut(x,c(0,2,4,6,8,10))
+a
+summary(a)
+cut(x,seq(0,10,by=2))
+
+a1=cut(x,c(0,5,10))
+a2=cut(x^2,c(0,50,100))
+a1
+a2
+table(a1,a2)
+# prop.table(table) - zamiast liczebosci wyznacz proporcje
+prop.table(table(a1,a2))
+# margin.table(tabela, nr zmiennej czynn) wyznacza wartosci brzegowe liczebnosci w poszczegolnych klumnasz/wierszach
+margin.table(table(a1,a2),2)
+margin.table(table(a1,a2),1)
+# addmargins(tabela) - pokazuje macierz kontyngencji wraz z liczebnosciami brzegowymi
+addmargins(table(a1,a2))
+
+# gl sluzy do generowania prostych wektorow typu wyliczeniowego
+gl(2, 8, labels = c("Control", "Treat"))
+gl(2, 2, length = 12, labels = c("Control", "Treat"))

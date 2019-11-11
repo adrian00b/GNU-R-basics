@@ -1,0 +1,39 @@
+# wyœwietlanie i formatowanie obiektów
+# do wyœwietlania obiektów czêsto wykorzystywane s¹ dwie funkcje :
+# cat(base), print(base)
+a=c(0,12,1233,0.9,21)
+cat(a)
+print(a)
+# jak zobaczymy wynik ró¿n siê formatowaniem ! domyœlnie u¿wany przez R jest print (gdy zmienna nie zostanie do czegoœ przypisana)
+b=month.name
+print(b)
+cat(b)
+# cat - wyswietlanie niesformatowane, print- wyswietlanie sformatowane
+# UWAGA! funkcj¹ cat mo¿na zapisywaæ bezpoœrednio do pliku zamiast wypisywaæ w konsoli - argument file -> pozniej do tego dojde
+
+# za konkatenacje w R odpowiada funkcja paste(string_1,...,string_n)
+a="Adrian"
+b="jest"
+c="super"
+paste(a,b,c)
+# argument sep-"znak" okreœlaj¹ seperatory którymi sklejane s¹ wektory, domyœlnie w paste sep=" "
+paste(a,b,c, sep="   ")
+paste(a,b,c, sep="---lol---")
+# je¿eli argumeny maj¹ ro¿n¹ d³ugoœæ zadzia³a recycling rule -> bedzie pozniej
+paste("Jeszcze", 3:0, "...")
+paste("Mam", c(10,5,0), "prób")
+paste(1:4, c("a","b","c","d"))
+paste(1:4, c("a","b","c","d"), sep="")
+paste(1:4, c("a","b","c","d"), sep="", collapse = "-")
+# argument collapse="znak" okreœla sklejanie elementów podanych wektorów
+
+# funkcja format(base) - formatowanie obiektu na typ znakowy zgodnie z ustalonym formatowaniem - wiele argmentow ma ta funkcja
+format(11/3)
+format(11/3, digits = 3)
+format(4, nsmall=3)
+# nsmall orkesla minimalna ilosc miesc po przecinku
+zz <- data.frame("(row names)"= c("aaaaa", "b"), check.names = FALSE)
+format(zz)
+format(zz, justify = "left")
+
+

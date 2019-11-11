@@ -1,0 +1,11 @@
+# WCZYTYWANIE Z FORMATU HTML 
+
+library(rvest)
+address="https://www.filmweb.pl/premiere"
+webfw=read_html(address)
+# w html_nodes muismy podac nazwe klasy o jaka nam chodzi!!! - trzeba poszukac w html strony internetowej jaka klase
+# maja obiekty ktore chcemy pobrac
+titles=html_nodes(webfw,".filmPreview__titleDetails")
+premiery=html_text(titles)
+premiery
+write.table(premiery, "C:/Users/adria/Desktop/premiery.txt", sep = " ", quote = F)

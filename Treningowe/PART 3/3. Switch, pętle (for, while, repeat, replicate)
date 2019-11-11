@@ -1,0 +1,131 @@
+# switch switch switch switch switch switch switch
+
+# switch (klucz, value1=action1, value2=aciot2, ...)
+# mo¿emy u¿yc jak SELECT CASE z VBA w przypadku stringow
+
+# runif(amount of numbeers, begin, end) - liczby o rozkladzie jednostajnym (uniform distribution) z danego przedzialu
+x=c("col1","col2","col3")
+switch(x[ceiling(runif(1,0,3))],
+       col1="red",
+       col2="blue",
+       col3="green"
+       )
+
+# albo to samo inaczej
+
+switch(ceiling(runif(1,0,3)), "red", "blue", "green")
+
+# LOOPS LOOPS LOOPS LOOPS LOOPS LOOPS LOOPS LOOPS LOOPS
+
+# replicate replicate replicate replicate replicate 
+# przydatne np. do symulacji
+# replicate(n,expr) - powtorzenie operacji expr razy n
+unifd=runif(1000,0,1)
+hist(unifd)
+
+unifd2=replicate(1000, runif(1,0,1))
+hist(unifd2)
+# jak widac rezultat ten sam, wiec przydatne w wielu przypadkach zwiazanych z losowaniami/symulacjami
+
+#for for for for for for for for for for for for for for for
+# for (iterator in collection){}
+a=vector()
+for (i in 1:10){
+  a[i]=i^2
+}
+a
+
+# ale to tez dziala jakby jak FOR EACH z VBA, czyli mozemy robic iteracje po elementach kolekcji
+# ls()  - zwraca liste wszystkich zmiennych widzianych przez R
+
+for (ob in ls()){
+  size=object.size(get(ob))
+  cat("Obiekt", ob, "ma wielkoœæ", size, "bajtów.","\n")
+}
+
+# a teraz jak chcemy miec dodatkowo stworzony wektor z wielkosciami
+vsize=vector()
+objectlist=ls()
+for(i in seq_along(objectlist)){
+  size=object.size(get(objectlist[i]))
+  vsize[i]=size
+  cat("Obiekt", objectlist[i], "ma wielkoœæ", size, "bajtów.","\n")
+}
+vsize
+
+# while while while while while while while while while
+# while(warunek){}
+
+a=vector()
+i=1
+while(length(a)<10){
+  a[i]=i^2
+  i=i+1
+}
+a
+
+b=vector()
+i=1
+while(max(b)<95){
+  b[i]=runif(1,0,100)
+  i=i+1
+}
+cat("Iloœæ iteracji: ", i, "\n")
+b
+
+
+# a teraz zrobmy tak zeby zapisac ilosc iteracji w jakims wektorze, zeby moc zobaczyc histogram
+
+
+ivec=vector()
+j=1
+while(length(ivec)<1000){
+  i=1
+  b=vector()
+    while(max(b)<95){
+      b[i]=runif(1,0,100)
+      i=i+1
+    }
+  ivec[j]=i
+  j=j+1
+}
+hist(ivec)
+
+
+# to samo ale zewnetrzna petla zrobiona FOR
+
+ivec=vector()
+for (j in 1:1000){
+  i=1
+  b=vector()
+  while(max(b)<95){
+    b[i]=runif(1,0,100)
+    i=i+1
+  }
+  ivec[j]=i
+}
+hist(ivec)
+
+# repeat repeat repeat repeat repeat repeat repeat repeat repeat
+# czyli nieskonczona petla, nalezy ja przerwac uzywajac instrukcji "break"
+# instrukcja "next" przechodzi do nastepnej iteracji
+# repeat {}
+
+i=1
+repeat{
+  a=runif(1,0,100)
+  if (a<95){
+    i=i+1
+  } else break
+}
+cat("Liczba iteracji:", i)
+
+
+
+
+
+
+
+
+
+

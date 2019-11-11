@@ -1,0 +1,57 @@
+#wprowadzenie do operacji na plikach i katalogach
+# getwd() sprawdza aktualny katalog
+# setwd() ustawia katalog roboczy
+getwd() 
+setwd("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe/Drugie domowe")
+getwd()
+# polecenie dir() abo list.files() wyswietla liste plikow w danym aktalogu
+dir()
+list.files("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe")
+a=list.files("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe")
+dim(a)
+length(a)
+
+for (i in seq_along(a)) {
+cat(paste(a[i], "\n"))
+}
+
+# file.create() - tworzenie pliku o zadanej nazwie 
+# sink() zapisuje wyniki konsoli do pliku
+# file.remove() - usuwa pliki - ale UWAGA! musialem wlaczyc Rstudio jako administrator
+# UWAGA!!!! piszac adres mozemy klikac TAB a R samodzielnie uzupelnia adres lub podaje mozliwosci uzupelnienia
+
+file.create("probatworzenia")
+dir()
+sink("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe/Drugie domowe/probatworzenia")
+file.remove("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe/Drugie domowe/probatworzenia")
+
+# file.exists(nazwa) sprawdza czy w danym katalogu istnieje dany plik
+file.create("abc")
+dir()
+file.exists('abc')
+file.exists('afasfa')
+file.remove('abc')
+file.exists('abc')
+
+# file.rename(from, to) - zmiana nazwy pliku 
+file.create("abc")
+file.rename('abc','nowanazwa')
+dir()
+file.remove('nowanazwa')
+
+#file.info pokazuje informacje o pliku
+# file.show otwiera ten plik 
+setwd("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe")
+file.info('10. Function')
+file.show('10. Function')
+
+# funkcja file.choose() pozwala na wybor pliku zo kna ktore sie pojawi
+file.choose()
+# zauwazmy ze file.choose() zwraca adres pliku ktory wyvralismy !!!
+
+#teraz pobierzemy dane z pliku csv
+# funckje read.csv(..), read.table(...) (nazwa, headet=T/F, sep=' ') - wybrane z argumentow
+dane=read.csv('Dopobrania.csv', header = T, sep=';')
+dane2=read.table('Dopobrania.csv', header = T, sep=';')
+
+write.table(dane, file='Zapisany.csv', sep=' ')

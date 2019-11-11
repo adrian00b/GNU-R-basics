@@ -1,0 +1,7 @@
+# wprowadzenie do operacji na plikach i katalogach
+# getwd(), setwd() - pozwalaja na sprawdzenie aktualnego katalogu roboczego i jego zmiane
+getwd()
+setwd("C:/Users/abrodowicz/Desktop")
+list.files()
+# list.files wyswietli nam pliki z danego adresu - jezeli nie damy argumentu to przyjmuje obecny katalog roboczy
+setwd("C:/Users/abrodowicz/Desktop/R TPE")

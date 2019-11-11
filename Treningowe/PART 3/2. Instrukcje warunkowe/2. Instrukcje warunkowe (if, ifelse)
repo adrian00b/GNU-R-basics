@@ -1,0 +1,61 @@
+# if if if if if if if if
+# instrukcje warunkowe if
+# if(condition){
+# } if else(condition) {
+# }else {}
+
+
+# czy liczba jest parzysta?
+# operator modulo -  a %% b
+
+# 1 opcja z cat()
+a=3
+if (a%%2==0){ 
+  cat("Liczba", a, "jest liczb¹ parzyst¹.")
+}else cat("Liczba", a, "jest liczb¹ nieparzyst¹.")
+
+# 2 opcja z print() - tutaj trzeba uzyc konkatenacji - paste()
+a=3
+if (a%%2==0){ 
+  print(paste("Liczba", a, "jest liczb¹ parzyst¹."))
+} else print(paste("Liczba", a, "jest liczb¹ nieparzyst¹."))
+
+# teraz sorawdzenie czy liczba dzieli sie przez 10, czy przez 5, 2 czy przez ani to ani to
+
+if (a%%10==0){
+  cat("Liczba", a, "jest podzielna przez 10")
+} else if (a%%5==0){
+  cat("Liczba",a,"jest podzielna przez 5")
+} else if (a%%2==0){
+  cat("Liczba", a, "jest podzielna przez 2")
+} else {
+  cat("Liczba", a, "nie jest podzielna ani przez 2 ani przez 5")
+}
+
+#ifelse ifelse ifelse ifelse ifelse
+# pewna alternatywa do kosntrukcji if.. jest wbudowana funkcja ifelse
+# ifelse pozwala zastosowac ciag dzialan, np. do wektorow etc
+# ifelse(condition, inst1, inst2)
+A=c(1,2,3,4,5,6,7)
+ifelse(A>5,"wiêcej","mnniej")
+
+ifelse(A>5, A^2, A^3)
+
+# w tym przypadki funkcja if elske dziala jakby for(if) - if zagniezdzony w for
+# zrobmy tak zeby dla dowolnego wektora tworzyl wektor z "wiecej" albo "mniej" od pewnej wartosci
+
+r=vector()
+for (i in seq_along(a)){
+  if (a[i]>b){
+    r[i]="wiêksze"
+  } else if (a[i]<b){
+    r[i]="mniejsze"
+  } else {
+    r[i]="równe"
+  }
+}
+r
+
+
+
+

@@ -1,0 +1,28 @@
+#pobranie danych ze strony internetowej
+install.packages("rvest")
+library("rvest")
+address="https://pl.wikipedia.org/wiki/Reprezentacja_Polski_w_pi%C5%82ce_no%C5%BCnej_m%C4%99%C5%BCczyzn"
+webpage<-read_html(address)
+# pobieramy dane dotyczace tabel zawierajaca sie na stronie, .wikitable to klasa jaka oznaczone sa tabele na tej stronie
+# mozna to sprawdzic badajac kod HTML strony (zbadaj element), sciagamy tutaj tabele
+table_links=html_nodes(webpage,".wikitable")
+# teraz odczytujemy ta o ktora nam chodzi (trzeba znalezc konrketna), bo wczytanie wszystkich generuje blad (?) problem z pakietem
+FIFArank<-html_table(table_links[[14]], fill = TRUE)
+
+# teraz dokonamy obróbki danych
+library("tidyr")
+library("dplyr")
+
+# zmiana nazw miesiecy na cyfry arabskie
+colnames(FIFArank)[2:13]=1:12
+# uporz¹dkowanie danych z wykorzystaniem funkcji gather z tidyr (w folderze pakiety fajny pdf)
+tab=gather(FIFArank,'1','2','3','4','5','6','7','7','8','9','10','11','12', key="Miesiac", value="Pozycja")
+# zmiana nazwy pierwszej kolumny
+names(tab)[1]<-"Rok"
+# posortowanie wzgledem lat (pierwsza kolumna)
+tab=tab[order(tab[1]),]
+tab2=mutate(tab, Pozycja=as.numeric(Pozycja), Miesiac=as.numeric(Miesiac))
+
+# teraz gdy ju¿ mmay dane nale¿a³oby je przedstawic w formie wykresu
+library(ggplot2)
+ggplot(tab, aes(factor(tab[[1]]), Pozycja))+geom_boxplot()+ggtitle("Pozycja Polski w rankingu FIFA")

@@ -1,0 +1,82 @@
+library(Przewodnik)
+head(daneSoc)
+
+# STATYSTYKI GRAFICZNE
+# barplot - wykres slupkowy
+
+# table dziala tutaj tak samo jak summary (jak jeden wymiar)
+a=table(daneSoc$wyksztalcenie)
+barplot(a,horiz = T, las=1,cex.names = 0.6,xlim = c(0,100))
+
+
+barplot(a,horiz = F, las=1,cex.names = 0.85 ,ylim = c(0,100), space = 0.5, col = "orchid")
+
+# ale w table mozna tez zamieszczac wiecej zmiennych (macierze) - tworzy jakby tabele przestawna
+b=table(daneSoc$plec, daneSoc$wyksztalcenie)
+
+barplot(b,beside=F)
+
+barplot(b,beside=T, col = c("orchid1","dodgerblue"))
+legend("topright",legend=c("women","men"), fill = c("orchid1","dodgerblue"))
+
+group_by(auta,Marka) %>%
+  summarise(AvgPrice=mean(Cena), MedMileage=median(Przebieg), AvgAge=mean(2019-Produkcja), Amount=n()) %>%
+  arrange(desc(AvgPrice))->Marki
+
+barplot(Marki$AvgPrice, names.arg = Marki$Marka, ylab="Average Price", xlab="Mark", ylim=c(0,60000))
+
+#histogram
+
+hist(daneSoc$wiek,xlab = "Wiek",ylab="Wyst¹pienia", main="Histogram wieku")
+hist(daneSoc$wiek, breaks = 5,xlab = "Wiek",ylab="Wyst¹pienia", main="Histogram wieku")
+# argument  probability=TRUE, mozna przedstawiac rownie prawdopodobienstwo wystapienia, albo dajac freq=F
+a=hist(daneSoc$wiek, breaks = 10,freq = F ,xlab = "Wiek",ylab="Czêstoœæ", main="Histogram wieku",border = "white",col = "orange3")
+a
+# density nie sumuje sie do 1 bo jest liczone jako counts/(n*dlugosc przedz), a wiec do 1 bd sie sumowac:
+sum(diff(a$breaks)*a$density)
+
+# boxplot() WYKRES PUDE£KOWY
+
+boxplot(daneSoc$wiek)
+boxplot(daneSoc$cisnienie.skurczowe, daneSoc$cisnienie.rozkurczowe, names = c("rozkurczowe","skurczowe"))
+# uwaga, box wyznacza rozstep cwiartkowy, przedzial 1Q-3Q, pogrubiona linia to Med=2Q, konce wasow to MIN,MAX ale bez
+# obserrwacji odstajacych (odstajace to takie ktore odstraja od kwartyli bardziej niz o 1,5 rozstepu cwiartkowego
+
+# argumentem moze byc formula!!!!! w latwy sposob okresla co ma byc pokazane, varwidth=T dostosowuje szerokosc kolumn to liczebnosci
+boxplot(wiek~wyksztalcenie,data = daneSoc, ylab="Wiek", varwidth=T,col="seashell")
+
+pods=daneSoc[daneSoc$wyksztalcenie=="podstawowe", c("wiek")]
+hist(pods, breaks = 20)
+
+
+# j¹drowy estymator gêstoœci - czyli wyznaczenie gêstoœci na podstawie punktów, gêstoœæ w punkcie zale¿y od koncentracji obserwacji
+# w s¹siedztwie tego punktu (okno) wielkoœc okna okreœla argument bw
+# density(dane,... bw=..) i wsadziamy w plot
+plot(density(daneSoc$wiek))
+density(daneSoc$wiek)
+plot(density(daneSoc$wiek, bw=1.5),type="h", col="azure3", main = "Rozk³ad wieku")
+plot(density(daneSoc$wiek, bw="SJ"),type="h", col="azure3", main = "Rozk³ad wieku")
+
+# ecdf() - dystrybuanta empiryczna (oczywiscie nalezy wsadzic w plot)
+plot(ecdf(daneSoc$wiek))
+library(dplyr)
+# funkcja filter - do filtrowania wartosci
+men=filter(daneSoc, plec=="mezczyzna")
+# ale to samo mozna uzyskac w ten sposob:
+men2=daneSoc[daneSoc$plec=="mezczyzna",]
+
+women=filter(daneSoc, plec=="kobieta")
+
+plot(ecdf(men$wiek), main="Age/sex", pch=16, col="blue", xlab="Age")
+plot(ecdf(women$wiek), add=T, col="pink")
+legend("bottomright",c("Men","Women"), fill = c("blue","pink"))
+
+
+# WYKRES KROPKOWY (zaleznosc pomiedzy dwierma zmiennymi)
+# funkcja scatterplot , w library car::sp  (krotsza nazwa)
+library(car)
+sp(cisnienie.rozkurczowe~cisnienie.skurczowe,data=daneSoc, regLine=F,smooth=F, boxplots="", pch=21, col="blue")
+sp(cisnienie.rozkurczowe~cisnienie.skurczowe,data=daneSoc, regLine=T,smooth=F, boxplots="", pch=21, col="blue")
+
+# mozna rowniez zrobic to samo w podziale na grupy, zmienna warunkujaca mozna dodac w formule po znaku |
+sp(cisnienie.rozkurczowe~cisnienie.skurczowe|plec,data=daneSoc,smooth=F, boxplots="", pch=c(21,24), col=c("deeppink","skyblue4"))

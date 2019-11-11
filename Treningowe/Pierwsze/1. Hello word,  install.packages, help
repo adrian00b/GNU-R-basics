@@ -1,0 +1,60 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R jest oprogramowaniem darmowym i dostarczany jest BEZ JAKIEJKOLWIEK GWARANCJI.
+Mo¿esz go rozpowszechniaæ pod pewnymi warunkami.
+Wpisz 'license()' lub 'licence()' aby uzyskaæ szczegó³y dystrybucji.
+
+R jest projektem kolaboracyjnym z wieloma uczestnikami.
+Wpisz 'contributors()' aby uzyskaæ wiêcej informacji oraz
+'citation()' aby dowiedzieæ siê jak cytowaæ R lub pakiety R w publikacjach.
+
+Wpisz 'demo()' aby zobaczyæ demo, 'help()' aby uzyskaæ pomoc on-line, lub
+'help.start()' aby uzyskaæ pomoc w przegl¹darce HTML.
+Wpisz 'q()' aby wyjœæ z R.
+
+> #pierw na pocz¹tek, hello world
+> for (i in 1:10) {
++ cat("Hello world!!!\n")}
+Hello world!!!
+Hello world!!!
+Hello world!!!
+Hello world!!!
+Hello world!!!
+Hello world!!!
+Hello world!!!
+Hello world!!!
+Hello world!!!
+Hello world!!!
+> for (i in 1:10) {
++ cat("Hello world!!!")}
+Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!Hello world!!!> 
+> # zauwa¿my ró¿nicê , \n dodane w klamrze powoduje ze wyniki wypisywane sa jeden pod drugim
+> # czyli tak jakby w kolejnych wierszach, a bez \n w kolejnych kolumnach
+> 
+> # instalacja pakietow > instal.packages("nazwa pakietu", dependencies = TRUE)
+> dependencies oznacza pakiety powiazane jakies z tym pakietem ktory dodajemy
+B£¥D: nieoczekiwany symbol in "dependencies oznacza"
+> #dependencies oznacza pakiety powiazane jakies z tym pakietem ktory dodajemy
+> # mozemy uzywac funkcji  help() albo help("nazwa") aby wyswietlily nam sie jakies informacje o funkcji etc
+> help("plot")
+starting httpd help server ... done
+> ?plot
+> # jak widac help("nazwa") daje te same rezultaty co ?nazwa
+> example(plot)
+
+plot> require(stats) # for lowess, rpois, rnorm
+
+plot> plot(cars)
+Oczekiwanie na potwierdzenie zmiany strony...
+
+plot> lines(lowess(cars))
+
+plot> plot(sin, -pi, 2*pi) # see ?plot.function
+Oczekiwanie na potwierdzenie zmiany strony...
+
+> 
+> # example("nazwa funkcji") pokazuje nam rozne przyklady uzycia etc
+> 

@@ -1,0 +1,29 @@
+# TYP ZNAKOWY 
+a="Adrian"
+b="Brodowicz"
+c=paste(a,"Kamil", b)
+# cat(string) - wyswietla napisy w sposob niesformatowany
+# print(string) - wyswietla napisy w sposob sformatowany
+cat(c)
+print(c)
+# substr(string, start, end)
+substr(c,1,6)
+# strsplit(string,split) - podzial ciagu znakow, split to jest znak podzialu
+d=strsplit(c," ")
+d[[1]][1]
+d[[1]][2]
+# nchar() - liczba znakow w napisie lub wektorze napisów
+nchar(a)
+# toupper(), tolower() - zamiana liter na wielkie, ma³e, odpowiednik funkcji upper z sql
+toupper(a)
+tolower(a)
+# chartr(old, new, string) - zamiana liter, tzw. transaliteracja 
+chartr("a","x",a)
+# grep(wzorzec, string) - pokazuje wystapienia (jak widac pokazuje jedynie pierwsze wystapienie)
+grep("a",tolower(a))
+# sub(old,new, string), gsub(..) - analogicznie jak w chartr ale tutaj nie musza byc pojedyncze litery
+# sub zamienia pierwsze wystapienie, gsub zamienia wszystkie wystapienia
+sub("a","xxx", tolower(a))
+gsub("a","xxx",tolower(a))
+
+

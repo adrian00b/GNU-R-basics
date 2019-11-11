@@ -1,0 +1,30 @@
+# typ czynnikowy factor(c(...))
+a=factor((c("a","b","a","b","c","a","a")))
+a
+summary(a)
+b=summary(a)
+b[1]
+# wartosci logiczne  !, |, &, ==, != itd
+(4!=5) & (2==2)
+# wektory - wartosc NA- not avaliable - czyli nieznana wartosc
+a=c(1,2,3,4)
+mean(a)
+a=c(1,2,3,4,na)
+mean(a)
+mean(a,na.rm = TRUE)
+mean(a,na.rm = T)
+# lista dziala jak wektor, tylko ze dane nie musza byc tego samego formatu
+d=list("a","b","c",5)
+d
+d=list(imie=c("a1","a2"),nazwisko=c("b1","b2"),miasto=c("c1","c2"),wiek=c(5,8))
+d
+d[1]
+
+# ciekawa sprawa to Ramka danych - lista wektorow  o tej samej dlugosci - jakby relacja (tabela) w modelu relacyjnym
+r=data.frame(id=c(1,2,3), name=c("n1","n2","n3"), surname=c("s1","s2","s3"), student=c(T,T,F))
+r
+r[1,2]
+r[1,]
+r[,2]
+
+

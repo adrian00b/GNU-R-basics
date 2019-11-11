@@ -1,0 +1,60 @@
+
+library(odbc)
+con <- DBI::dbConnect(odbc::odbc(), 
+                      Driver = "SQL Server", 
+                      Server = "localhost\\SQLEXPRESS", 
+                      Database = "pracownicy", 
+                      Trusted_Connection = "True")
+
+# lista tabel -> schema_name="nazwa schematu", table_type="np. table/view"
+dbListTables(con, schema_name="dbo", table_type="table")
+library(DBI)
+
+# wczytanie danych
+dbReadTable(con, "ETATY")
+
+# mozna tez dodac tabele poleceniem -  dbWriteTable
+
+odbcListFields(con, table="ETATY")
+
+# dbGetQuery(connection, "sql query")
+dbGetQuery(con, 
+           "SELECT NAZWA, PLACA_OD, PLACA_DO
+            FROM ETATY
+            WHERE PLACA_OD>2000")
+
+# oprocz pisania roznych komend w SQL, mozna skorzystac z pakieru dplyr
+# korzysc jest taka ze nie musimy zwraca uwagi na to z jakiej bazy danych korzystamy i z jakiego dialektu SQL
+library(dplyr)
+ETATY=dbReadTable(con, "ETATY") 
+
+ETATY %>%
+  select(NAZWA,PLACA_OD,PLACA_DO) %>%
+  filter(PLACA_OD>2000)
+
+PRACOWNICY=dbReadTable(con, "PRACOWNICY")
+
+# srednie zarobki w zaleznosci od etatu (placa_pod+placa_dod) (na dwa sposoby, pierw SQL, pozniej dplyr)
+dbGetQuery(con, 
+           "SELECT ETAT, ROUND(AVG(PLACA_POD+ISNULL(0,PLACA_DOD)),2) AS 'AVG_Salary'
+            FROM PRACOWNICY
+            GROUP BY ETAT
+            ORDER BY 2 DESC")
+
+
+PRACOWNICY %>%
+  group_by(ETAT)%>%
+  summarise(AVG_Salary=round(mean(PLACA_POD+(is.na(PLACA_DOD)=0)),2))%>%
+  arrange(desc(AVG_Salary))->query1
+
+
+
+
+
+
+
+
+
+
+
+

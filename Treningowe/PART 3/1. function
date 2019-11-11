@@ -1,0 +1,100 @@
+# FUNKCJE
+ab2= function(a,b) a+b^2
+ab2(2,2)
+
+# jezeli polecenie w funkcji jest w tej samej linni to mozna bez zadnych klamer
+# ale generalnie zapisujemy function(arg1,...)= {}
+
+f1=function(a,b,c){
+  a+b+4*c
+}
+
+f1(1,2,3)
+
+# bywaja funkcje bezargumentowe jak np
+Sys.time()
+
+# oczywisice mozna nadawac wartosci domyslne
+f2=function(a,b,c=1){
+  a+b*c
+}
+
+f2(2,3)
+f2(2,3,2)
+
+# mozna tez uzyc "..." jako odniesienie do wszytskich podanych argumentow
+cat(paste("adada","frfrf"))
+print(paste("adada","frfrf"))
+
+mypaste=function(...){
+  paste(...)
+}
+
+mypaste(2,"dsda","grrgrgr")
+
+mysum2=function(...){
+  2*sum(...)
+}
+
+mysum2(1,2,3)
+
+
+# argumenty mozna nazywac tak jak jest to robione zwykle w funkcjach w R
+prodpower=function(a, prod=1, pow=1){
+  (a*prod)^pow
+}
+
+prodpower(a = 10, prod=5)
+prodpower(a=10, pow=2)
+
+
+# UWAGA! w R stosowane jest tzw. leniwe argumenty
+# tzn ze wartosc argumentu jest wyznaczana dopiero w momencie gdy jest ona potrzebna
+
+leniwe=function(x=y){
+  y=2
+  cat(x)
+}
+
+x<-1
+leniwe()
+# mimo ze zadalismy x=1 to x jest wyznaczany dopiero w momencie cat(x), a wtedy jest rowny x=y=2 !!!
+
+
+# funkcja zwracajaco w wyniku unna funkcje
+
+library(Przewodnik)
+# mamy funkcje ecdf(dane) - wyznacza ona empiryczna dystruuante
+head(mieszkania,10)
+plot(ecdf(mieszkania$cena))
+# ale empiryczna dystrybuanta jest funkcja, mozemy zadawac wartosci a otrzymamy w wyniku prawd ze F(t)=P(X<=t)
+a=ecdf(mieszkania$cena)
+a(150000)
+
+# przyklad stworzenia takiej funkcji
+
+generatorPoteg=function(wykladnik){
+  function(x) x^wykladnik
+}
+
+kwadrat=generatorPoteg(2)
+kwadrat(3)
+
+# FUNKCJA PRZYJMUJACA JAKO ARGUMENT INNA FUNKCJE
+# przyklad z wbudowanych funkcji:
+# funkcja  lapply(lista, FUNKCJA)
+head(mieszkania,10)
+
+library(dplyr)
+select(mieszkania, c(1,2,3)) %>%
+lapply(mean)
+
+# przyklad stworzenia takiej funkcji
+losuj10=function(FUN=rnorm,...){
+  FUN(10,...)
+}
+
+losuj10()
+losuj10(rpois,20)
+
+

@@ -1,0 +1,131 @@
+library(Przewodnik)
+library(sqldf)
+library(car)
+
+education_stats <- table(daneSoc$wyksztalcenie)
+
+barplot(education_stats
+        , width = c(1,2,3,4)
+        , horiz = T
+        , axes = T
+        , las = 1
+        , cex.names = 0.6
+        , xlim = c(0,100)
+        , col = c('lavender', 'oldlace', 'red', 'pink')
+)
+
+sex_and_education <- table(daneSoc$plec, daneSoc$wyksztalcenie)
+
+
+barplot(sex_and_education
+        , beside = T
+        , las = 1
+        , ylim = c(0,80)
+        , col = c('pink', 'steelblue1')
+        )
+legend('topright', c('women', 'men')
+       , fill = c('pink', 'steelblue1')
+       , border = 'black'
+       , box.col = 'white'
+       )
+
+car_prices_sql <- 
+'
+  SELECT Marka, AVG(Cena) AS Average_price
+  FROM auta
+  GROUP BY Marka
+  ORDER BY Average_price DESC
+'
+
+car_prices <- sqldf(car_prices_sql) 
+
+barplot(car_prices$Average_price
+        , names.arg = car_prices$Marka
+        , ylim = c(0, 70000)
+        , las = 1
+        , col = 'linen'
+)
+
+summary(daneSoc$wiek)
+
+hist(daneSoc$wiek)
+
+# parametry graficzne - https://www.rdocumentation.org/packages/graphics/versions/3.6.1/topics/par
+
+hist(daneSoc$wiek
+     , breaks = 14
+     , main = 'Age histogram'
+     , las = 1
+     , xlab = 'Age'
+     , ylab = 'Amount')
+
+hist(daneSoc$wiek
+     , breaks = 10
+     , main = 'Age histogram'
+     , las = 1
+     , xlab = 'Age'
+     , ylab = 'Amount'
+     , xlim = c(20, 80)
+     , probability = T
+     , density = T)
+
+
+# if we input a probability = T flag then we get a probability on y axis but!!
+# it's like probability for each point in interval, so true probability is value*length of interval
+
+# let's look at this histogram of uniform distribution
+
+# xaxp let us set a tick marks on x-axis
+uniform_sample <- runif(1000, 1, 10)
+hist(uniform_sample
+     , breaks = 10
+     , las = 1
+     , probability = T
+     , xlim = c(1, 10)
+     , cex.axis = 0.8
+     , xaxp = c(1, 10, 9)
+     , main = 'Uniform distribution histogram'
+     , xlab = 'Number'
+     , ylab = 'Probability'
+     , col = 'grey'
+     , border = 'white'
+)
+
+boxplot(daneSoc$cisnienie.skurczowe, daneSoc$cisnienie.rozkurczowe
+        , names = c('skurczowe','rozkurczowe')
+        , main = 'Ciœnienie'
+        , horizontal = F
+)
+
+boxplot(wiek~wyksztalcenie, data = daneSoc
+        , col = 'lightgrey'   
+        , ylab = 'Wiek'
+        , las = 1
+)
+
+density(daneSoc$wiek, bw = 'SJ') %>%
+  plot( , main = 'Age density'
+        , xlab = 'Age')
+
+# argument smooth - regresja z wygladzaniem 
+sp(daneSoc$cisnienie.skurczowe~daneSoc$cisnienie.rozkurczowe
+   , xlab = 'rozkurczowe'
+   , ylab = 'skurczowe'
+   , main = 'Cisnienie'
+   , smooth = T
+   , pch = 1
+)
+
+sp(daneSoc$cisnienie.skurczowe~daneSoc$cisnienie.rozkurczowe|daneSoc$plec
+   , xlab = 'rozkurczowe'
+   , ylab = 'skurczowe'
+   , main = 'Cisnienie'
+   , smooth = F
+   , pch = c(8, 1)
+   , legend = list(title = 'Plec')
+)
+
+
+
+
+

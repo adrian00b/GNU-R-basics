@@ -1,0 +1,53 @@
+# operatory logiczne
+a=c(T,T,F)
+b=c(T,F,F)
+a&b
+a|b
+any(a)
+all(a)
+all(c(T,T))
+
+#operatory ||, && - leniwe wartosciowanie, ale porownuja pojedyncze wartosci - w pryzpadku wektorow porownuje jedynie pierwsze elementy
+# na macierzach analogicznie jak na wektorach
+
+# przyklad prostej funkcji
+writename=function(name){cat(name)}
+writename("ada")
+
+# sekwecje
+1:10
+4:10
+seq(20)
+seq(10,25)
+a=10:25
+b=seq(10,25)
+a==b
+all(a==b)
+
+seq(10,25, by=5)
+# mozemy wybrac krok opcja by=integer, ale mozna tez podac oczekiwana dlugosc wektora funkcja LENGTH.OUT=integer , krok zostanie wtedy wyliczony automatycznie
+# zostanie wyliczony tak zeby wektor zaczynal sie od a, konczyl na b (seq(a,b, length.out=n))
+seq(10,25, length.out=5)
+
+# zanim pzejdziemy do kolejnej przydatnej funkcji fajna rzecz- predefiniowane w pakiecie R wektory
+letters
+LETTERS
+month.name
+month.abb
+
+# teraz funkcja SAMPLE(wektor, k, replace=T/F) - losowanie k elementow z wektora - replace=F ustawienie domyslne tzn wybor bez zwracania
+# replace=T oznacza losowanie ze zwracaniem
+# jako czwarty argument mozna wstawic wektor z prawdopobienstwami !!!
+
+sample(letters,10)
+a=1:10
+sample(a,5)
+sample(a,5,T)
+
+b=1:5
+sample(b,10,T,c(0.7,0.2,0.05,0.03,0.02))
+
+
+
+
+

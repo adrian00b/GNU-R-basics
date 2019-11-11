@@ -1,0 +1,1305 @@
+> # wstawiaj¹c wyra¿enie w nawiasy otrzymamy wyswietlony ywnik przypisania
+> a=5
+> b=10
+> (c=2)
+[1] 2
+> a+b+c
+[1] 17
+> d=a*b+c
+> d
+[1] 52
+> (d=a*b+c)
+[1] 52
+> string="Mam na imiê Adrian"
+> string
+[1] "Mam na imiê Adrian"
+> # dzia³ania na wektorach - wektor deklarujemy przy pomocy funkcji c()
+> a1=c(1,2,3,4,5)
+> a1
+[1] 1 2 3 4 5
+> a2=c(1,1,1,1,1)
+> c
+[1] 2
+> a2
+[1] 1 1 1 1 1
+> a1+a2
+[1] 2 3 4 5 6
+> a1*a2
+[1] 1 2 3 4 5
+> a1^2
+[1]  1  4  9 16 25
+> a1-2
+[1] -1  0  1  2  3
+> c(5:10)
+[1]  5  6  7  8  9 10
+> c(5:2:10)
+[1]  5  6  7  8  9 10
+Komunikat ostrzegawczy:
+W poleceniu '5:2:10': wyra¿enie liczbowe posiada 4 elementy: u¿yto tylko pierwszego
+> c(5:10:2)
+[1] 5 4 3 2
+Komunikat ostrzegawczy:
+W poleceniu '5:10:2': wyra¿enie liczbowe posiada 6 elementów: u¿yto tylko pierwszego
+> seq(from=1, to=10, by=2)
+[1] 1 3 5 7 9
+> # czyli mamy seq(from=start, to=end, by=step)
+> c(seq(from=1, to=10, by=2), 0, 0, 1:3)
+ [1] 1 3 5 7 9 0 0 1 2 3
+> # czyli jak widac mozemy latwo laczyc wektory i rozne wyrazenia w jeden wektor
+> a3=c(a1,a2)
+> a3
+ [1] 1 2 3 4 5 1 1 1 1 1
+> # funkcja rep(wektor, times=int) - funkcja replikujaca
+> rep(1:3, times=3)
+[1] 1 2 3 1 2 3 1 2 3
+> rep(1:3, 3)
+[1] 1 2 3 1 2 3 1 2 3
+> seq(1,10,3)
+[1]  1  4  7 10
+> rep(1:3, each=3)
+[1] 1 1 1 2 2 2 3 3 3
+> # rep(wektor, each=int) - replikuje kolejno elementy wetkora
+> rep(1:3, each=3, times=2)
+ [1] 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3
+> rep(1:3, times=2, each=3)
+ [1] 1 1 1 2 2 2 3 3 3 1 1 1 2 2 2 3 3 3
+> a=c(-2,0,-2,4,5)
+> a>0
+[1] FALSE FALSE FALSE  TRUE  TRUE
+> # manipulowanie elementami wektora
+> a=seq(1:5)
+> a(1)
+B³¹d w poleceniu 'a(1)':nie uda³o siê znaleŸæ funkcji 'a'
+> a[1]
+[1] 1
+> a[5]
+[1] 5
+> a[1]=10
+> a
+[1] 10  2  3  4  5
+> # czyli bardzo intuicyjnie - analogia do MATLABA
+> a[1,2,3]
+B³¹d w poleceniu 'a[1, 2, 3]':niepoprawna liczba wymiarów
+> a[1:3]
+[1] 10  2  3
+> a(c(1,2,3))
+B³¹d w poleceniu 'a(c(1, 2, 3))':nie uda³o siê znaleŸæ funkcji 'a'
+> a[c(1,2,3)]
+[1] 10  2  3
+> a[c(1,2,5)]
+[1] 10  2  5
+> # czyli mozemy stworzyc wetkor indeksow jakby
+> a[1:2]=a[1:2]+1/2
+> a
+[1] 10.5  2.5  3.0  4.0  5.0
+> a[a>2]
+[1] 10.5  2.5  3.0  4.0  5.0
+> a[a>3]
+[1] 10.5  4.0  5.0
+> 
+> 
+> 
+> # teraz zobaczmy jak wyglada deklarowanie i operacje na macierzach
+> a=(1,2,3;4,5,6)
+B£¥D: nieoczekiwane ',' in "a=(1,"
+> # jak widac komenda z MATLABA nie dziala
+> macierz=matrix(0,3,3)
+> macierz
+     [,1] [,2] [,3]
+[1,]    0    0    0
+[2,]    0    0    0
+[3,]    0    0    0
+> % ogolna formula matrix(zbior wartosci, rows, columns)
+B£¥D: nieoczekiwane wejœcie in "% ogolna formula matrix(zbior wartosci, rows, columns)"
+> # ogolna formula matrix(zbior wartosci, rows, columns)
+> macierz=matrix(0,3,4)
+> macierz
+     [,1] [,2] [,3] [,4]
+[1,]    0    0    0    0
+[2,]    0    0    0    0
+[3,]    0    0    0    0
+> macierz=matrix(4,3,4)
+> macierz
+     [,1] [,2] [,3] [,4]
+[1,]    4    4    4    4
+[2,]    4    4    4    4
+[3,]    4    4    4    4
+> A=(1:6,2,3)
+B£¥D: nieoczekiwane ',' in "A=(1:6,"
+> A=matrix(1:6,2,3)
+> A
+     [,1] [,2] [,3]
+[1,]    1    3    5
+[2,]    2    4    6
+> B=matrix(c(1,5,3,4,2,2),2,3)
+> B
+     [,1] [,2] [,3]
+[1,]    1    3    2
+[2,]    5    4    2
+> # jak tutaj widzimy macierze jakby sa uzupelniane kolumnowo - tak jak numeracja w MATLABIE 
+> B(1,)
+B³¹d w poleceniu 'B(1, )':nie uda³o siê znaleŸæ funkcji 'B'
+> B[1,]
+[1] 1 3 2
+> # w matlabie uzywamy : jako okreslenie wszystkich wierszy czy kolumn, tutaj zostawiamy po prostu wolne miejsce
+> 
+> 
+> # dzia³ania na macierzach
+> A=B=matrix(1:4,2,2)
+> A
+     [,1] [,2]
+[1,]    1    3
+[2,]    2    4
+> (A+B)
+     [,1] [,2]
+[1,]    2    6
+[2,]    4    8
+> # teraz nalezy wyroznic dzialania na macierzach i tablicach !!!
+> (A%+%B)
+B³¹d w poleceniu 'A %+% B':nie uda³o siê znaleŸæ funkcji '%+%'
+> # mnozenie tablicowe -> A*B , mnozenie macierzowe -> A%*%B
+> A*B
+     [,1] [,2]
+[1,]    1    9
+[2,]    4   16
+> A%*%B
+     [,1] [,2]
+[1,]    7   15
+[2,]   10   22
+> A^2
+     [,1] [,2]
+[1,]    1    9
+[2,]    4   16
+> A%^%2
+B³¹d w poleceniu 'A %^% 2':nie uda³o siê znaleŸæ funkcji '%^%'
+> # w oryginalnych pakietach nie ma okreslonego dzialania %^%, package expm do zapewnia!!
+> 
+> det(A)
+[1] -2
+> solve(A)
+     [,1] [,2]
+[1,]   -2  1.5
+[2,]    1 -0.5
+> A %*% solve(A)
+     [,1] [,2]
+[1,]    1    0
+[2,]    0    1
+> # jak widac macierz odwrotna i wyznacznik - solve(A), det(A) 
+> # mozna tez wyznaczyc wartosci wlasne i wektory wlasne
+> # a teraz sprobujmy zaladowac ten pakiet z potegowaniem macierzt
+> install.packages("expm", dependencies=TRUE)
+Instalowanie pakietu w ‘C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5’
+(poniewa¿ ‘lib’ nie jest okreœlony)
+--- Proszê wybraæ serwer lustrzany CRAN do u¿ycia w tej sesji ---
+instalowanie dodatkowych zale¿noœci ‘gmp’, ‘sfsmisc’, ‘Rmpfr’
+
+próbowanie adresu URL 'https://cran.uni-muenster.de/bin/windows/contrib/3.5/gmp_0.5-13.2.zip'
+Content type 'application/zip' length 1050734 bytes (1.0 MB)
+downloaded 1.0 MB
+
+próbowanie adresu URL 'https://cran.uni-muenster.de/bin/windows/contrib/3.5/sfsmisc_1.1-2.zip'
+Content type 'application/zip' length 580668 bytes (567 KB)
+downloaded 567 KB
+
+próbowanie adresu URL 'https://cran.uni-muenster.de/bin/windows/contrib/3.5/Rmpfr_0.7-1.zip'
+Content type 'application/zip' length 1569892 bytes (1.5 MB)
+downloaded 1.5 MB
+
+próbowanie adresu URL 'https://cran.uni-muenster.de/bin/windows/contrib/3.5/expm_0.999-3.zip'
+Content type 'application/zip' length 456375 bytes (445 KB)
+downloaded 445 KB
+
+pakiet ‘gmp’ zosta³ pomyœlnie rozpakowany oraz sumy MD5 zosta³y sprawdzone
+pakiet ‘sfsmisc’ zosta³ pomyœlnie rozpakowany oraz sumy MD5 zosta³y sprawdzone
+pakiet ‘Rmpfr’ zosta³ pomyœlnie rozpakowany oraz sumy MD5 zosta³y sprawdzone
+pakiet ‘expm’ zosta³ pomyœlnie rozpakowany oraz sumy MD5 zosta³y sprawdzone
+
+Pobrane pakiety binarne s¹ w
+        C:\Users\adria\AppData\Local\Temp\Rtmpe0Yd2o\downloaded_packages
+> library expm
+B£¥D: nieoczekiwany symbol in "library expm"
+> 
+> library(expm)
+£adowanie wymaganego pakietu: Matrix
+
+Do³¹czanie pakietu: ‘expm’
+
+Nastêpuj¹cy obiekt zosta³ zakryty z ‘package:Matrix’:
+
+    expm
+
+> A%^%2
+     [,1] [,2]
+[1,]    7   15
+[2,]   10   22
+> A%^%3
+     [,1] [,2]
+[1,]   37   81
+[2,]   54  118
+> # i teraz juz dziala- takze widzimy jak pakiety sa istotne w srodowisku R
+> installed.packages()
+                 Package            LibPath                                               Version     Priority     
+abind            "abind"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.4-5"     NA           
+acepack          "acepack"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.4.1"     NA           
+aplpack          "aplpack"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3.2"     NA           
+arm              "arm"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.10-1"    NA           
+assertthat       "assertthat"       "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.2.0"     NA           
+backports        "backports"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.1.2"     NA           
+base64enc        "base64enc"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.1-3"     NA           
+BH               "BH"               "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.66.0-1"  NA           
+callr            "callr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.0.0"     NA           
+car              "car"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.0-2"     NA           
+carData          "carData"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.0-2"     NA           
+cellranger       "cellranger"       "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.1.0"     NA           
+checkmate        "checkmate"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.8.5"     NA           
+cli              "cli"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0.1"     NA           
+clipr            "clipr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.4.1"     NA           
+coda             "coda"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.19-2"    NA           
+colorspace       "colorspace"       "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3-2"     NA           
+crayon           "crayon"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3.4"     NA           
+crosstalk        "crosstalk"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0.0"     NA           
+curl             "curl"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.2"       NA           
+data.table       "data.table"       "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.11.8"    NA           
+digest           "digest"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.6.18"    NA           
+e1071            "e1071"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.7-0"     NA           
+effects          "effects"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "4.0-3"     NA           
+estimability     "estimability"     "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3"       NA           
+evaluate         "evaluate"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.12"      NA           
+expm             "expm"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.999-3"   NA           
+fansi            "fansi"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.4.0"     NA           
+forcats          "forcats"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.3.0"     NA           
+Formula          "Formula"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2-3"     NA           
+ggplot2          "ggplot2"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.1.0"     NA           
+glue             "glue"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3.0"     NA           
+gmp              "gmp"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.5-13.2"  NA           
+gridExtra        "gridExtra"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.3"       NA           
+gtable           "gtable"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.2.0"     NA           
+haven            "haven"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.0.0"     NA           
+highr            "highr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.7"       NA           
+Hmisc            "Hmisc"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "4.1-1"     NA           
+hms              "hms"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.4.2"     NA           
+htmlTable        "htmlTable"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.12"      NA           
+htmltools        "htmltools"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.3.6"     NA           
+htmlwidgets      "htmlwidgets"      "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3"       NA           
+httpuv           "httpuv"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.4.5"     NA           
+jsonlite         "jsonlite"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.5"       NA           
+knitr            "knitr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.20"      NA           
+labeling         "labeling"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.3"       NA           
+later            "later"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.7.5"     NA           
+latticeExtra     "latticeExtra"     "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.6-28"    NA           
+lazyeval         "lazyeval"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.2.1"     NA           
+leaps            "leaps"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.0"       NA           
+lme4             "lme4"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.1-19"    NA           
+lmtest           "lmtest"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.9-36"    NA           
+magrittr         "magrittr"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.5"       NA           
+manipulateWidget "manipulateWidget" "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.10.0"    NA           
+maptools         "maptools"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.9-4"     NA           
+markdown         "markdown"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.8"       NA           
+matrixcalc       "matrixcalc"       "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0-3"     NA           
+MatrixModels     "MatrixModels"     "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.4-1"     NA           
+mi               "mi"               "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0"       NA           
+mime             "mime"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.6"       NA           
+miniUI           "miniUI"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.1.1.1"   NA           
+minqa            "minqa"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2.4"     NA           
+multcomp         "multcomp"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.4-8"     NA           
+munsell          "munsell"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.5.0"     NA           
+mvtnorm          "mvtnorm"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0-8"     NA           
+nloptr           "nloptr"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2.1"     NA           
+nortest          "nortest"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0-4"     NA           
+numDeriv         "numDeriv"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2016.8-1"  NA           
+openxlsx         "openxlsx"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "4.1.0"     NA           
+pbkrtest         "pbkrtest"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.4-7"     NA           
+pillar           "pillar"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3.0"     NA           
+pkgconfig        "pkgconfig"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.0.2"     NA           
+plyr             "plyr"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.8.4"     NA           
+processx         "processx"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.2.0"     NA           
+promises         "promises"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0.1"     NA           
+ps               "ps"               "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2.1"     NA           
+quantreg         "quantreg"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "5.36"      NA           
+R6               "R6"               "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.3.0"     NA           
+Rcmdr            "Rcmdr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.5-1"     NA           
+RcmdrMisc        "RcmdrMisc"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.5-1"     NA           
+RColorBrewer     "RColorBrewer"     "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.1-2"     NA           
+Rcpp             "Rcpp"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0.0"     NA           
+RcppEigen        "RcppEigen"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.3.3.4.0" NA           
+readr            "readr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2.1"     NA           
+readstata13      "readstata13"      "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.9.2"     NA           
+readxl           "readxl"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.1.0"     NA           
+relimp           "relimp"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0-5"     NA           
+rematch          "rematch"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0.1"     NA           
+reshape2         "reshape2"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.4.3"     NA           
+rgl              "rgl"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.99.16"   NA           
+rio              "rio"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.5.10"    NA           
+rlang            "rlang"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.3.0.1"   NA           
+rmarkdown        "rmarkdown"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.10"      NA           
+Rmpfr            "Rmpfr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.7-1"     NA           
+rprojroot        "rprojroot"        "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3-2"     NA           
+rstudioapi       "rstudioapi"       "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.8"       NA           
+sandwich         "sandwich"         "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.5-0"     NA           
+scales           "scales"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0.0"     NA           
+sem              "sem"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.1-9"     NA           
+sfsmisc          "sfsmisc"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.1-2"     NA           
+shiny            "shiny"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2.0"     NA           
+sourcetools      "sourcetools"      "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.1.7"     NA           
+sp               "sp"               "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3-1"     NA           
+SparseM          "SparseM"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.77"      NA           
+stringi          "stringi"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2.4"     NA           
+stringr          "stringr"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.3.1"     NA           
+survey           "survey"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "3.34"      NA           
+tcltk2           "tcltk2"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.2-11"    NA           
+TH.data          "TH.data"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0-9"     NA           
+tibble           "tibble"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.4.2"     NA           
+tinytex          "tinytex"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.9"       NA           
+utf8             "utf8"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.1.4"     NA           
+viridis          "viridis"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.5.1"     NA           
+viridisLite      "viridisLite"      "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.3.0"     NA           
+webshot          "webshot"          "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.5.1"     NA           
+withr            "withr"            "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.1.2"     NA           
+xfun             "xfun"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "0.4"       NA           
+xtable           "xtable"           "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.8-3"     NA           
+yaml             "yaml"             "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "2.2.0"     NA           
+zip              "zip"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.0.0"     NA           
+zoo              "zoo"              "C:/Users/adria/OneDrive/Dokumenty/R/win-library/3.5" "1.8-4"     NA           
+base             "base"             "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+boot             "boot"             "C:/Program Files/R/R-3.5.1/library"                  "1.3-20"    "recommended"
+class            "class"            "C:/Program Files/R/R-3.5.1/library"                  "7.3-14"    "recommended"
+cluster          "cluster"          "C:/Program Files/R/R-3.5.1/library"                  "2.0.7-1"   "recommended"
+codetools        "codetools"        "C:/Program Files/R/R-3.5.1/library"                  "0.2-15"    "recommended"
+compiler         "compiler"         "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+datasets         "datasets"         "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+foreign          "foreign"          "C:/Program Files/R/R-3.5.1/library"                  "0.8-70"    "recommended"
+graphics         "graphics"         "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+grDevices        "grDevices"        "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+grid             "grid"             "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+KernSmooth       "KernSmooth"       "C:/Program Files/R/R-3.5.1/library"                  "2.23-15"   "recommended"
+lattice          "lattice"          "C:/Program Files/R/R-3.5.1/library"                  "0.20-35"   "recommended"
+MASS             "MASS"             "C:/Program Files/R/R-3.5.1/library"                  "7.3-50"    "recommended"
+Matrix           "Matrix"           "C:/Program Files/R/R-3.5.1/library"                  "1.2-14"    "recommended"
+methods          "methods"          "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+mgcv             "mgcv"             "C:/Program Files/R/R-3.5.1/library"                  "1.8-24"    "recommended"
+nlme             "nlme"             "C:/Program Files/R/R-3.5.1/library"                  "3.1-137"   "recommended"
+nnet             "nnet"             "C:/Program Files/R/R-3.5.1/library"                  "7.3-12"    "recommended"
+parallel         "parallel"         "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+rpart            "rpart"            "C:/Program Files/R/R-3.5.1/library"                  "4.1-13"    "recommended"
+spatial          "spatial"          "C:/Program Files/R/R-3.5.1/library"                  "7.3-11"    "recommended"
+splines          "splines"          "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+stats            "stats"            "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+stats4           "stats4"           "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+survival         "survival"         "C:/Program Files/R/R-3.5.1/library"                  "2.42-3"    "recommended"
+tcltk            "tcltk"            "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+tools            "tools"            "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+translations     "translations"     "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     NA           
+utils            "utils"            "C:/Program Files/R/R-3.5.1/library"                  "3.5.1"     "base"       
+                 Depends                                                                                                                        
+abind            "R (>= 1.5.0)"                                                                                                                 
+acepack          NA                                                                                                                             
+aplpack          "R (>= 3.0.0), tcltk"                                                                                                          
+arm              "R (>= 3.1.0), MASS, Matrix (>= 1.0), stats, lme4 (>= 1.0)"                                                                    
+assertthat       NA                                                                                                                             
+backports        "R (>= 3.0.0)"                                                                                                                 
+base64enc        "R (>= 2.9.0)"                                                                                                                 
+BH               NA                                                                                                                             
+callr            NA                                                                                                                             
+car              "R (>= 3.2.0), carData (>= 3.0-0)"                                                                                             
+carData          "R (>= 3.0)"                                                                                                                   
+cellranger       "R (>= 3.0.0)"                                                                                                                 
+checkmate        "R (>= 3.0.0)"                                                                                                                 
+cli              "R (>= 2.10)"                                                                                                                  
+clipr            NA                                                                                                                             
+coda             "R (>= 2.14.0)"                                                                                                                
+colorspace       "R (>= 2.13.0), methods"                                                                                                       
+crayon           NA                                                                                                                             
+crosstalk        NA                                                                                                                             
+curl             "R (>= 3.0.0)"                                                                                                                 
+data.table       "R (>= 3.1.0)"                                                                                                                 
+digest           "R (>= 3.1.0)"                                                                                                                 
+e1071            NA                                                                                                                             
+effects          "R (>= 3.5.0), carData"                                                                                                        
+estimability     "stats"                                                                                                                        
+evaluate         "R (>= 3.0.2)"                                                                                                                 
+expm             "Matrix"                                                                                                                       
+fansi            "R (>= 3.1.0)"                                                                                                                 
+forcats          "R (>= 3.1)"                                                                                                                   
+Formula          "R (>= 2.0.0), stats"                                                                                                          
+ggplot2          "R (>= 3.1)"                                                                                                                   
+glue             "R (>= 3.1)"                                                                                                                   
+gmp              "R (>= 3.0.0)"                                                                                                                 
+gridExtra        NA                                                                                                                             
+gtable           "R (>= 2.14)"                                                                                                                  
+haven            "R (>= 3.1)"                                                                                                                   
+highr            "R (>= 3.0.2)"                                                                                                                 
+Hmisc            "lattice, survival (>= 2.40-1), Formula, ggplot2 (>= 2.2)"                                                                     
+hms              NA                                                                                                                             
+htmlTable        NA                                                                                                                             
+htmltools        "R (>= 2.14.1)"                                                                                                                
+htmlwidgets      NA                                                                                                                             
+httpuv           "R (>= 2.15.1), methods"                                                                                                       
+jsonlite         "methods"                                                                                                                      
+knitr            "R (>= 3.1.0)"                                                                                                                 
+labeling         NA                                                                                                                             
+later            NA                                                                                                                             
+latticeExtra     "R (>= 2.10.0), lattice, RColorBrewer"                                                                                         
+lazyeval         "R (>= 3.1.0)"                                                                                                                 
+leaps            ""                                                                                                                             
+lme4             "R (>= 3.2.0), Matrix (>= 1.2-1), methods, stats"                                                                              
+lmtest           "R (>= 2.10.0), stats, zoo"                                                                                                    
+magrittr         NA                                                                                                                             
+manipulateWidget NA                                                                                                                             
+maptools         "R (>= 2.10), sp (>= 1.0-11)"                                                                                                  
+markdown         "R (>= 2.11.1)"                                                                                                                
+matrixcalc       "R (>= 2.0.1)"                                                                                                                 
+MatrixModels     "R (>= 3.0.1)"                                                                                                                 
+mi               "R (>= 3.0.0), methods, Matrix, stats4"                                                                                        
+mime             NA                                                                                                                             
+miniUI           NA                                                                                                                             
+minqa            NA                                                                                                                             
+multcomp         "stats, graphics, mvtnorm (>= 1.0-3), survival (>= 2.39-4),\nTH.data (>= 1.0-2)"                                               
+munsell          NA                                                                                                                             
+mvtnorm          "R(>= 1.9.0)"                                                                                                                  
+nloptr           NA                                                                                                                             
+nortest          NA                                                                                                                             
+numDeriv         "R (>= 2.11.1)"                                                                                                                
+openxlsx         "R (>= 3.3.0)"                                                                                                                 
+pbkrtest         "R (>= 3.2.3), lme4 (>= 1.1.10)"                                                                                               
+pillar           NA                                                                                                                             
+pkgconfig        NA                                                                                                                             
+plyr             "R (>= 3.1.0)"                                                                                                                 
+processx         NA                                                                                                                             
+promises         NA                                                                                                                             
+ps               "R (>= 3.1)"                                                                                                                   
+quantreg         "R (>= 2.6), stats, SparseM"                                                                                                   
+R6               "R (>= 3.0)"                                                                                                                   
+Rcmdr            "R (>= 3.5.0), grDevices, graphics, methods, stats, utils,\nsplines, RcmdrMisc (>= 2.5-0), car (>= 3.0-1), effects (>=\n4.0-3)"
+RcmdrMisc        "R (>= 3.5.0), utils, car (>= 3.0-0), sandwich"                                                                                
+RColorBrewer     "R (>= 2.0.0)"                                                                                                                 
+Rcpp             "R (>= 3.0.0)"                                                                                                                 
+RcppEigen        "R (>= 2.15.1)"                                                                                                                
+readr            "R (>= 3.0.2)"                                                                                                                 
+readstata13      NA                                                                                                                             
+readxl           NA                                                                                                                             
+relimp           "R (>= 2.0.0)"                                                                                                                 
+rematch          NA                                                                                                                             
+reshape2         "R (>= 3.1)"                                                                                                                   
+rgl              "R (>= 3.2.0)"                                                                                                                 
+rio              "R (>= 2.15.0)"                                                                                                                
+rlang            "R (>= 3.1.0)"                                                                                                                 
+rmarkdown        "R (>= 3.0)"                                                                                                                   
+Rmpfr            "gmp (>= 0.5-8), R (>= 3.3.0)"                                                                                                 
+rprojroot        "R (>= 3.0.0)"                                                                                                                 
+rstudioapi       NA                                                                                                                             
+sandwich         "R (>= 2.10.0)"                                                                                                                
+scales           "R (>= 3.1)"                                                                                                                   
+sem              "R (>= 2.14.0), stats"                                                                                                         
+sfsmisc          "R (>= 3.2.0)"                                                                                                                 
+shiny            "R (>= 3.0.2), methods"                                                                                                        
+sourcetools      "R (>= 3.0.2)"                                                                                                                 
+sp               "R (>= 3.0.0), methods"                                                                                                        
+SparseM          "R (>= 2.15), methods"                                                                                                         
+stringi          "R (>= 2.14)"                                                                                                                  
+stringr          "R (>= 3.1)"                                                                                                                   
+survey           "R (>= 2.16.0), grid, methods, Matrix, survival"                                                                               
+tcltk2           "R (>= 2.8.0), tcltk"                                                                                                          
+TH.data          "R (>= 2.10.0), survival, MASS"                                                                                                
+tibble           "R (>= 3.1.0)"                                                                                                                 
+tinytex          NA                                                                                                                             
+utf8             "R (>= 2.10)"                                                                                                                  
+viridis          "R (>= 2.10), viridisLite (>= 0.3.0)"                                                                                          
+viridisLite      "R (>= 2.10)"                                                                                                                  
+webshot          "R (>= 3.0)"                                                                                                                   
+withr            "R (>= 3.0.2)"                                                                                                                 
+xfun             NA                                                                                                                             
+xtable           "R (>= 2.10.0)"                                                                                                                
+yaml             NA                                                                                                                             
+zip              NA                                                                                                                             
+zoo              "R (>= 3.1.0), stats"                                                                                                          
+base             NA                                                                                                                             
+boot             "R (>= 3.0.0), graphics, stats"                                                                                                
+class            "R (>= 3.0.0), stats, utils"                                                                                                   
+cluster          "R (>= 3.2.0)"                                                                                                                 
+codetools        "R (>= 2.1)"                                                                                                                   
+compiler         NA                                                                                                                             
+datasets         NA                                                                                                                             
+foreign          "R (>= 3.0.0)"                                                                                                                 
+graphics         NA                                                                                                                             
+grDevices        NA                                                                                                                             
+grid             NA                                                                                                                             
+KernSmooth       "R (>= 2.5.0), stats"                                                                                                          
+lattice          "R (>= 3.0.0)"                                                                                                                 
+MASS             "R (>= 3.1.0), grDevices, graphics, stats, utils"                                                                              
+Matrix           "R (>= 3.2.0)"                                                                                                                 
+methods          NA                                                                                                                             
+mgcv             "R (>= 2.14.0), nlme (>= 3.1-64)"                                                                                              
+nlme             "R (>= 3.4.0)"                                                                                                                 
+nnet             "R (>= 2.14.0), stats, utils"                                                                                                  
+parallel         NA                                                                                                                             
+rpart            "R (>= 2.15.0), graphics, stats, grDevices"                                                                                    
+spatial          "R (>= 3.0.0), graphics, stats, utils"                                                                                         
+splines          NA                                                                                                                             
+stats            NA                                                                                                                             
+stats4           NA                                                                                                                             
+survival         "R (>= 2.13.0)"                                                                                                                
+tcltk            NA                                                                                                                             
+tools            NA                                                                                                                             
+translations     NA                                                                                                                             
+utils            NA                                                                                                                             
+                 Imports                                                                                                                                                                                                   
+abind            "methods, utils"                                                                                                                                                                                          
+acepack          NA                                                                                                                                                                                                        
+aplpack          NA                                                                                                                                                                                                        
+arm              "abind, coda, graphics, grDevices, methods, nlme, utils"                                                                                                                                                  
+assertthat       "tools"                                                                                                                                                                                                   
+backports        "utils"                                                                                                                                                                                                   
+base64enc        NA                                                                                                                                                                                                        
+BH               NA                                                                                                                                                                                                        
+callr            "base64enc, processx (>= 3.2.0), R6, utils"                                                                                                                                                               
+car              "abind, MASS, mgcv, nnet, pbkrtest (>= 0.4-4), quantreg,\ngrDevices, utils, stats, graphics, maptools, rio, lme4, nlme"                                                                                   
+carData          NA                                                                                                                                                                                                        
+cellranger       "rematch, tibble"                                                                                                                                                                                         
+checkmate        "backports (>= 1.1.0), utils"                                                                                                                                                                             
+cli              "assertthat, crayon (>= 1.3.4), methods, utils"                                                                                                                                                           
+clipr            "utils"                                                                                                                                                                                                   
+coda             "lattice"                                                                                                                                                                                                 
+colorspace       "graphics, grDevices"                                                                                                                                                                                     
+crayon           "grDevices, methods, utils"                                                                                                                                                                               
+crosstalk        "htmltools (>= 0.3.5), jsonlite, lazyeval, R6, shiny (>= 0.11),\nggplot2"                                                                                                                                 
+curl             NA                                                                                                                                                                                                        
+data.table       "methods"                                                                                                                                                                                                 
+digest           NA                                                                                                                                                                                                        
+e1071            "graphics, grDevices, class, stats, methods, utils"                                                                                                                                                       
+effects          "lme4, nnet, lattice, grid, colorspace, graphics, grDevices,\nstats, survey, utils, estimability"                                                                                                         
+estimability     NA                                                                                                                                                                                                        
+evaluate         "methods"                                                                                                                                                                                                 
+expm             "methods"                                                                                                                                                                                                 
+fansi            NA                                                                                                                                                                                                        
+forcats          "magrittr, rlang, tibble"                                                                                                                                                                                 
+Formula          NA                                                                                                                                                                                                        
+ggplot2          "digest, grid, gtable (>= 0.1.1), lazyeval, MASS, mgcv, plyr\n(>= 1.7.1), reshape2, rlang (>= 0.2.1), scales (>= 0.5.0),\nstats, tibble, viridisLite, withr (>= 2.0.0)"                                   
+glue             "methods"                                                                                                                                                                                                 
+gmp              "methods"                                                                                                                                                                                                 
+gridExtra        "gtable, grid, grDevices, graphics, utils"                                                                                                                                                                
+gtable           "grid"                                                                                                                                                                                                    
+haven            "forcats (>= 0.2.0), hms, Rcpp (>= 0.11.4), readr (>= 0.1.0),\ntibble"                                                                                                                                    
+highr            NA                                                                                                                                                                                                        
+Hmisc            "methods, latticeExtra, cluster, rpart, nnet, acepack, foreign,\ngtable, grid, gridExtra, data.table, htmlTable (>= 1.11.0),\nviridis, htmltools, base64enc"                                              
+hms              "methods, pkgconfig, rlang"                                                                                                                                                                               
+htmlTable        "stringr, knitr (>= 1.6), magrittr (>= 1.5), methods,\ncheckmate, htmlwidgets, htmltools, rstudioapi (>= 0.6)"                                                                                            
+htmltools        "utils, digest, Rcpp"                                                                                                                                                                                     
+htmlwidgets      "grDevices, htmltools (>= 0.3), jsonlite (>= 0.9.16), yaml"                                                                                                                                               
+httpuv           "Rcpp (>= 0.11.0), utils, promises, later (>= 0.7.3)"                                                                                                                                                     
+jsonlite         NA                                                                                                                                                                                                        
+knitr            "evaluate (>= 0.10), highr, markdown, stringr (>= 0.6), yaml,\nmethods, tools"                                                                                                                            
+labeling         NA                                                                                                                                                                                                        
+later            "Rcpp (>= 0.12.9), rlang"                                                                                                                                                                                 
+latticeExtra     "grid, stats, utils, grDevices"                                                                                                                                                                           
+lazyeval         NA                                                                                                                                                                                                        
+leaps            NA                                                                                                                                                                                                        
+lme4             "graphics, grid, splines, utils, parallel, MASS, lattice, nlme\n(>= 3.1-123), minqa (>= 1.1.15), nloptr (>= 1.0.4)"                                                                                       
+lmtest           "graphics"                                                                                                                                                                                                
+magrittr         NA                                                                                                                                                                                                        
+manipulateWidget "shiny (>= 1.0.3), miniUI, htmltools, htmlwidgets, knitr,\nmethods, tools, base64enc, grDevices, codetools, webshot"                                                                                      
+maptools         "foreign (>= 0.8), methods, grid, lattice, stats, utils,\ngrDevices"                                                                                                                                      
+markdown         "utils, mime (>= 0.3)"                                                                                                                                                                                    
+matrixcalc       NA                                                                                                                                                                                                        
+MatrixModels     "stats, methods, Matrix (>= 1.1-5)"                                                                                                                                                                       
+mi               "arm (>= 1.4-11)"                                                                                                                                                                                         
+mime             "tools"                                                                                                                                                                                                   
+miniUI           "shiny (>= 0.13), htmltools (>= 0.3), utils"                                                                                                                                                              
+minqa            "Rcpp (>= 0.9.10)"                                                                                                                                                                                        
+multcomp         "sandwich (>= 2.3-0), codetools"                                                                                                                                                                          
+munsell          "colorspace, methods"                                                                                                                                                                                     
+mvtnorm          "stats, methods"                                                                                                                                                                                          
+nloptr           NA                                                                                                                                                                                                        
+nortest          "stats"                                                                                                                                                                                                   
+numDeriv         NA                                                                                                                                                                                                        
+openxlsx         "methods, Rcpp, grDevices, stats, utils, zip"                                                                                                                                                             
+pbkrtest         "Matrix (>= 1.2.3), parallel, MASS, methods"                                                                                                                                                              
+pillar           "cli (>= 1.0.0), crayon (>= 1.3.4), fansi, methods, rlang (>=\n0.2.0), utf8 (>= 1.1.3)"                                                                                                                   
+pkgconfig        "utils"                                                                                                                                                                                                   
+plyr             "Rcpp (>= 0.11.0)"                                                                                                                                                                                        
+processx         "assertthat, crayon, ps, R6, utils"                                                                                                                                                                       
+promises         "R6, Rcpp, later, rlang, stats, magrittr"                                                                                                                                                                 
+ps               "utils"                                                                                                                                                                                                   
+quantreg         "methods, graphics, Matrix, MatrixModels"                                                                                                                                                                 
+R6               NA                                                                                                                                                                                                        
+Rcmdr            "tcltk, tcltk2 (>= 1.2-6), abind, relimp (>= 1.0-5)"                                                                                                                                                      
+RcmdrMisc        "abind, colorspace, Hmisc (>= 4.1-0), MASS, e1071, foreign,\nhaven, readstata13, readxl, graphics, grDevices, stats, nortest"                                                                             
+RColorBrewer     NA                                                                                                                                                                                                        
+Rcpp             "methods, utils"                                                                                                                                                                                          
+RcppEigen        "Matrix (>= 1.1-0), Rcpp (>= 0.11.0), stats, utils"                                                                                                                                                       
+readr            "Rcpp (>= 0.12.0.5), tibble, hms (>= 0.4.1), R6, clipr"                                                                                                                                                   
+readstata13      "Rcpp (>= 0.11.5)"                                                                                                                                                                                        
+readxl           "cellranger, Rcpp (>= 0.12.12), tibble (>= 1.1)"                                                                                                                                                          
+relimp           "stats, utils"                                                                                                                                                                                            
+rematch          NA                                                                                                                                                                                                        
+reshape2         "plyr (>= 1.8.1), Rcpp, stringr"                                                                                                                                                                          
+rgl              "graphics, grDevices, stats, utils, htmlwidgets, htmltools,\nknitr, jsonlite (>= 0.9.20), shiny, magrittr, crosstalk,\nmanipulateWidget (>= 0.9.0)"                                                       
+rio              "tools, stats, utils, foreign, haven (>= 1.1.0), curl (>= 0.6),\ndata.table (>= 1.9.8), readxl (>= 0.1.1), openxlsx, tibble"                                                                              
+rlang            NA                                                                                                                                                                                                        
+rmarkdown        "tools, utils, knitr (>= 1.18), yaml (>= 2.1.5), htmltools (>=\n0.3.5), evaluate (>= 0.8), base64enc, jsonlite, rprojroot,\nmime, tinytex (>= 0.3), methods, stringr (>= 1.2.0)"                          
+Rmpfr            "stats, utils, methods"                                                                                                                                                                                   
+rprojroot        "backports"                                                                                                                                                                                               
+rstudioapi       NA                                                                                                                                                                                                        
+sandwich         "stats, utils, zoo"                                                                                                                                                                                       
+scales           "labeling, munsell (>= 0.5), R6, RColorBrewer, Rcpp,\nviridisLite"                                                                                                                                        
+sem              "matrixcalc, MASS, boot, mi (>= 0.9-99), utils"                                                                                                                                                           
+sfsmisc          "grDevices, methods, utils, stats"                                                                                                                                                                        
+shiny            "utils, grDevices, httpuv (>= 1.4.4), mime (>= 0.3), jsonlite\n(>= 0.9.16), xtable, digest, htmltools (>= 0.3.5), R6 (>= 2.0),\nsourcetools, later (>= 0.7.2), promises (>= 1.0.1), tools,\ncrayon, rlang"
+sourcetools      NA                                                                                                                                                                                                        
+sp               "utils, stats, graphics, grDevices, lattice, grid"                                                                                                                                                        
+SparseM          "graphics, stats, utils"                                                                                                                                                                                  
+stringi          "tools, utils, stats"                                                                                                                                                                                     
+stringr          "glue (>= 1.2.0), magrittr, stringi (>= 1.1.7)"                                                                                                                                                           
+survey           "stats, graphics, splines, lattice, minqa, numDeriv"                                                                                                                                                      
+tcltk2           NA                                                                                                                                                                                                        
+TH.data          NA                                                                                                                                                                                                        
+tibble           "cli, crayon, methods, pillar (>= 1.1.0), rlang, utils"                                                                                                                                                   
+tinytex          "xfun (>= 0.3)"                                                                                                                                                                                           
+utf8             NA                                                                                                                                                                                                        
+viridis          "stats, ggplot2 (>= 1.0.1), gridExtra"                                                                                                                                                                    
+viridisLite      NA                                                                                                                                                                                                        
+webshot          "magrittr, jsonlite, callr"                                                                                                                                                                               
+withr            "stats, graphics, grDevices"                                                                                                                                                                              
+xfun             "tools"                                                                                                                                                                                                   
+xtable           "stats, utils"                                                                                                                                                                                            
+yaml             NA                                                                                                                                                                                                        
+zip              NA                                                                                                                                                                                                        
+zoo              "utils, graphics, grDevices, lattice (>= 0.20-27)"                                                                                                                                                        
+base             NA                                                                                                                                                                                                        
+boot             NA                                                                                                                                                                                                        
+class            "MASS"                                                                                                                                                                                                    
+cluster          "graphics, grDevices, stats, utils"                                                                                                                                                                       
+codetools        NA                                                                                                                                                                                                        
+compiler         NA                                                                                                                                                                                                        
+datasets         NA                                                                                                                                                                                                        
+foreign          "methods, utils, stats"                                                                                                                                                                                   
+graphics         "grDevices"                                                                                                                                                                                               
+grDevices        NA                                                                                                                                                                                                        
+grid             "grDevices, utils"                                                                                                                                                                                        
+KernSmooth       NA                                                                                                                                                                                                        
+lattice          "grid, grDevices, graphics, stats, utils"                                                                                                                                                                 
+MASS             "methods"                                                                                                                                                                                                 
+Matrix           "methods, graphics, grid, stats, utils, lattice"                                                                                                                                                          
+methods          "utils, stats"                                                                                                                                                                                            
+mgcv             "methods, stats, graphics, Matrix"                                                                                                                                                                        
+nlme             "graphics, stats, utils, lattice"                                                                                                                                                                         
+nnet             NA                                                                                                                                                                                                        
+parallel         "tools, compiler"                                                                                                                                                                                         
+rpart            NA                                                                                                                                                                                                        
+spatial          NA                                                                                                                                                                                                        
+splines          "graphics, stats"                                                                                                                                                                                         
+stats            "utils, grDevices, graphics"                                                                                                                                                                              
+stats4           "graphics, methods, stats"                                                                                                                                                                                
+survival         "graphics, Matrix, methods, splines, stats, utils"                                                                                                                                                        
+tcltk            "utils"                                                                                                                                                                                                   
+tools            NA                                                                                                                                                                                                        
+translations     NA                                                                                                                                                                                                        
+utils            NA                                                                                                                                                                                                        
+                 LinkingTo                    
+abind            NA                           
+acepack          NA                           
+aplpack          NA                           
+arm              NA                           
+assertthat       NA                           
+backports        NA                           
+base64enc        NA                           
+BH               NA                           
+callr            NA                           
+car              NA                           
+carData          NA                           
+cellranger       NA                           
+checkmate        NA                           
+cli              NA                           
+clipr            NA                           
+coda             NA                           
+colorspace       NA                           
+crayon           NA                           
+crosstalk        NA                           
+curl             NA                           
+data.table       NA                           
+digest           NA                           
+e1071            NA                           
+effects          NA                           
+estimability     NA                           
+evaluate         NA                           
+expm             NA                           
+fansi            NA                           
+forcats          NA                           
+Formula          NA                           
+ggplot2          NA                           
+glue             NA                           
+gmp              NA                           
+gridExtra        NA                           
+gtable           NA                           
+haven            "Rcpp"                       
+highr            NA                           
+Hmisc            NA                           
+hms              NA                           
+htmlTable        NA                           
+htmltools        "Rcpp"                       
+htmlwidgets      NA                           
+httpuv           "Rcpp, BH, later"            
+jsonlite         NA                           
+knitr            NA                           
+labeling         NA                           
+later            "Rcpp, BH"                   
+latticeExtra     NA                           
+lazyeval         NA                           
+leaps            NA                           
+lme4             "Rcpp (>= 0.10.5), RcppEigen"
+lmtest           NA                           
+magrittr         NA                           
+manipulateWidget NA                           
+maptools         NA                           
+markdown         NA                           
+matrixcalc       NA                           
+MatrixModels     NA                           
+mi               NA                           
+mime             NA                           
+miniUI           NA                           
+minqa            "Rcpp"                       
+multcomp         NA                           
+munsell          NA                           
+mvtnorm          NA                           
+nloptr           NA                           
+nortest          NA                           
+numDeriv         NA                           
+openxlsx         "Rcpp"                       
+pbkrtest         NA                           
+pillar           NA                           
+pkgconfig        NA                           
+plyr             "Rcpp"                       
+processx         NA                           
+promises         "later, Rcpp"                
+ps               NA                           
+quantreg         NA                           
+R6               NA                           
+Rcmdr            NA                           
+RcmdrMisc        NA                           
+RColorBrewer     NA                           
+Rcpp             NA                           
+RcppEigen        "Rcpp"                       
+readr            "Rcpp, BH"                   
+readstata13      "Rcpp"                       
+readxl           "Rcpp"                       
+relimp           NA                           
+rematch          NA                           
+reshape2         "Rcpp"                       
+rgl              NA                           
+rio              NA                           
+rlang            NA                           
+rmarkdown        NA                           
+Rmpfr            NA                           
+rprojroot        NA                           
+rstudioapi       NA                           
+sandwich         NA                           
+scales           "Rcpp"                       
+sem              NA                           
+sfsmisc          NA                           
+shiny            NA                           
+sourcetools      NA                           
+sp               NA                           
+SparseM          NA                           
+stringi          NA                           
+stringr          NA                           
+survey           NA                           
+tcltk2           NA                           
+TH.data          NA                           
+tibble           NA                           
+tinytex          NA                           
+utf8             NA                           
+viridis          NA                           
+viridisLite      NA                           
+webshot          NA                           
+withr            NA                           
+xfun             NA                           
+xtable           NA                           
+yaml             NA                           
+zip              NA                           
+zoo              NA                           
+base             NA                           
+boot             NA                           
+class            NA                           
+cluster          NA                           
+codetools        NA                           
+compiler         NA                           
+datasets         NA                           
+foreign          NA                           
+graphics         NA                           
+grDevices        NA                           
+grid             NA                           
+KernSmooth       NA                           
+lattice          NA                           
+MASS             NA                           
+Matrix           NA                           
+methods          NA                           
+mgcv             NA                           
+nlme             NA                           
+nnet             NA                           
+parallel         NA                           
+rpart            NA                           
+spatial          NA                           
+splines          NA                           
+stats            NA                           
+stats4           NA                           
+survival         NA                           
+tcltk            NA                           
+tools            NA                           
+translations     NA                           
+utils            NA                           
+                 Suggests                                                                                                                                                                                                                                       
+abind            NA                                                                                                                                                                                                                                             
+acepack          "testthat"                                                                                                                                                                                                                                     
+aplpack          "tkrplot, jpeg, png, splines, utils"                                                                                                                                                                                                           
+arm              NA                                                                                                                                                                                                                                             
+assertthat       "testthat"                                                                                                                                                                                                                                     
+backports        NA                                                                                                                                                                                                                                             
+base64enc        NA                                                                                                                                                                                                                                             
+BH               NA                                                                                                                                                                                                                                             
+callr            "covr, crayon, ps, testthat, withr"                                                                                                                                                                                                            
+car              "alr4, boot, coxme, leaps, lmtest, Matrix, MatrixModels, rgl\n(>= 0.93.960), sandwich, SparseM, survival, survey"                                                                                                                              
+carData          NA                                                                                                                                                                                                                                             
+cellranger       "covr, testthat (>= 1.0.0), knitr, rmarkdown"                                                                                                                                                                                                  
+checkmate        "R6, bit, fastmatch, data.table (>= 1.9.8), devtools, ggplot2,\nknitr, magrittr, microbenchmark, rmarkdown, testthat (>=\n0.11.0), tibble"                                                                                                     
+cli              "covr, fansi, mockery, testthat, webshot, withr"                                                                                                                                                                                               
+clipr            "rstudioapi (>= 0.5), testthat, covr"                                                                                                                                                                                                          
+coda             NA                                                                                                                                                                                                                                             
+colorspace       "datasets, stats, utils, KernSmooth, MASS, kernlab, mvtnorm,\nvcd, dichromat, tcltk, shiny, shinyjs"                                                                                                                                           
+crayon           "mockery, rstudioapi, testthat, withr"                                                                                                                                                                                                         
+crosstalk        NA                                                                                                                                                                                                                                             
+curl             "spelling, testthat (>= 1.0.0), knitr, jsonlite, rmarkdown,\nmagrittr, httpuv, webutils"                                                                                                                                                       
+data.table       "bit64, curl, R.utils, knitr, xts, nanotime, zoo"                                                                                                                                                                                              
+digest           "knitr, rmarkdown"                                                                                                                                                                                                                             
+e1071            "cluster, mlbench, nnet, randomForest, rpart, SparseM, xtable,\nMatrix, MASS"                                                                                                                                                                  
+effects          "pbkrtest (>= 0.4-4), nlme, MASS, poLCA, heplots, splines,\nordinal, car, knitr"                                                                                                                                                               
+estimability     NA                                                                                                                                                                                                                                             
+evaluate         "testthat, lattice, ggplot2"                                                                                                                                                                                                                   
+expm             "RColorBrewer, sfsmisc, Rmpfr"                                                                                                                                                                                                                 
+fansi            "unitizer, knitr, rmarkdown"                                                                                                                                                                                                                   
+forcats          "covr, ggplot2, testthat"                                                                                                                                                                                                                      
+Formula          NA                                                                                                                                                                                                                                             
+ggplot2          "covr, dplyr, ggplot2movies, hexbin, Hmisc, lattice, mapproj,\nmaps, maptools, multcomp, munsell, nlme, testthat (>= 0.11.0),\nvdiffr, quantreg, knitr, rgeos, rpart, rmarkdown, sf (>=\n0.3-4), svglite (>= 1.2.0.9001)"                      
+glue             "testthat, covr, magrittr, crayon, knitr, rmarkdown, DBI,\nRSQLite, R.utils, forcats, microbenchmark, rprintf, stringr,\nggplot2, dplyr, withr"                                                                                                
+gmp              "Rmpfr"                                                                                                                                                                                                                                        
+gridExtra        "ggplot2, egg, lattice, knitr, testthat"                                                                                                                                                                                                       
+gtable           "testthat, covr"                                                                                                                                                                                                                               
+haven            "covr, fs, knitr, rmarkdown, testthat"                                                                                                                                                                                                         
+highr            "knitr, testit"                                                                                                                                                                                                                                
+Hmisc            "chron, rms, mice, tables, knitr, ff, ffbase, plotly (>=\n4.5.6)"                                                                                                                                                                              
+hms              "crayon, lubridate, pillar (>= 1.1.0), testthat"                                                                                                                                                                                               
+htmlTable        "testthat, XML, xtable, ztable, Hmisc, reshape, rmarkdown,\npander, chron, lubridate, tibble, tidyr (>= 0.7.2), dplyr (>=\n0.7.4)"                                                                                                             
+htmltools        "markdown, testthat"                                                                                                                                                                                                                           
+htmlwidgets      "knitr (>= 1.8)"                                                                                                                                                                                                                               
+httpuv           "testthat, callr"                                                                                                                                                                                                                              
+jsonlite         "httr, curl, plyr, testthat, knitr, rmarkdown, R.rsp, sp"                                                                                                                                                                                      
+knitr            "formatR, testit, digest, rgl (>= 0.95.1201), codetools,\nrmarkdown, htmlwidgets (>= 0.7), webshot, tikzDevice (>= 0.10),\ntinytex, xfun, reticulate (>= 1.4), JuliaCall (>= 0.11.1), png,\njpeg, xml2, httr, DBI (>= 0.4-1), showtext, tibble"
+labeling         NA                                                                                                                                                                                                                                             
+later            "knitr, rmarkdown, testthat"                                                                                                                                                                                                                   
+latticeExtra     "maps, mapproj, deldir, tripack, zoo, MASS, quantreg, mgcv"                                                                                                                                                                                    
+lazyeval         "knitr, rmarkdown (>= 0.2.65), testthat, covr"                                                                                                                                                                                                 
+leaps            "biglm"                                                                                                                                                                                                                                        
+lme4             "knitr, boot, PKPDmodels, MEMSS, testthat (>= 0.8.1), ggplot2,\nmlmRev, optimx (>= 2013.8.6), gamm4, pbkrtest, HSAUR2,\nnumDeriv, car, dfoptim"                                                                                                
+lmtest           "car, strucchange, sandwich, dynlm, stats4, survival, AER"                                                                                                                                                                                     
+magrittr         "testthat, knitr"                                                                                                                                                                                                                              
+manipulateWidget "dygraphs, leaflet, plotly, xts, rmarkdown, testthat, covr"                                                                                                                                                                                    
+maptools         "rgeos (>= 0.1-8), spatstat (>= 1.50), PBSmapping, maps,\nRColorBrewer, raster, polyclip, spatstat.utils"                                                                                                                                      
+markdown         "knitr, RCurl"                                                                                                                                                                                                                                 
+matrixcalc       NA                                                                                                                                                                                                                                             
+MatrixModels     NA                                                                                                                                                                                                                                             
+mi               "betareg, lattice, knitr, MASS, nnet, parallel, sn, survival,\ntruncnorm, foreign"                                                                                                                                                             
+mime             NA                                                                                                                                                                                                                                             
+miniUI           NA                                                                                                                                                                                                                                             
+minqa            NA                                                                                                                                                                                                                                             
+multcomp         "lme4 (>= 0.999375-16), nlme, robustbase, coin, MASS, car,\nforeign, xtable, lmtest, coxme (>= 2.2-1), SimComp, ISwR"                                                                                                                          
+munsell          "ggplot2, testthat"                                                                                                                                                                                                                            
+mvtnorm          NA                                                                                                                                                                                                                                             
+nloptr           "testthat (>= 0.8.1), knitr, rmarkdown, inline (>= 0.3.14)"                                                                                                                                                                                    
+nortest          NA                                                                                                                                                                                                                                             
+numDeriv         NA                                                                                                                                                                                                                                             
+openxlsx         "knitr, testthat"                                                                                                                                                                                                                              
+pbkrtest         NA                                                                                                                                                                                                                                             
+pillar           "knitr (>= 1.19), lubridate, testthat (>= 2.0.0), withr"                                                                                                                                                                                       
+pkgconfig        "covr, testthat, disposables (>= 1.0.3)"                                                                                                                                                                                                       
+plyr             "abind, testthat, tcltk, foreach, doParallel, itertools,\niterators, covr"                                                                                                                                                                     
+processx         "callr, covr, debugme, parallel, testthat, withr"                                                                                                                                                                                              
+promises         "testthat, future, knitr, rmarkdown"                                                                                                                                                                                                           
+ps               "callr, covr, curl, pingr, processx (>= 3.1.0), R6, rlang,\ntestthat, tibble"                                                                                                                                                                  
+quantreg         "tripack, akima, MASS, survival, rgl, logspline, nor1mix,\nFormula, zoo"                                                                                                                                                                       
+R6               "knitr, microbenchmark, pryr, testthat, ggplot2, scales"                                                                                                                                                                                       
+Rcmdr            "aplpack, boot, colorspace, e1071, foreign, grid, Hmisc,\nknitr, lattice, leaps, lmtest, markdown, MASS, mgcv, multcomp\n(>= 0.991-2), nlme, nnet, nortest, readxl, rgl (>= 0.96.0),\nrmarkdown (>= 0.9.5), sem (>= 2.1-1)"                    
+RcmdrMisc        "boot, datasets"                                                                                                                                                                                                                               
+RColorBrewer     NA                                                                                                                                                                                                                                             
+Rcpp             "RUnit, inline, rbenchmark, knitr, rmarkdown, pinp, pkgKitten\n(>= 0.1.2)"                                                                                                                                                                     
+RcppEigen        "inline, RUnit, pkgKitten"                                                                                                                                                                                                                     
+readr            "curl, testthat, knitr, rmarkdown, stringi, covr, spelling"                                                                                                                                                                                    
+readstata13      "testthat"                                                                                                                                                                                                                                     
+readxl           "covr, knitr, rmarkdown, rprojroot (>= 1.1), testthat"                                                                                                                                                                                         
+relimp           "tcltk, nnet, MASS, Rcmdr"                                                                                                                                                                                                                     
+rematch          "covr, testthat"                                                                                                                                                                                                                               
+reshape2         "covr, lattice, testthat (>= 0.8.0)"                                                                                                                                                                                                           
+rgl              "MASS, rmarkdown, deldir, orientlib, lattice, misc3d,\nrstudioapi, magick"                                                                                                                                                                     
+rio              "datasets, bit64, testthat, knitr, magrittr, clipr, csvy,\nfeather, fst, jsonlite, readODS (>= 1.6.4), readr, rmatio, xml2\n(>= 1.2.0), yaml"                                                                                                  
+rlang            "crayon, magrittr, methods, pillar, testthat (>= 2.0.0), covr"                                                                                                                                                                                 
+rmarkdown        "shiny (>= 0.11), tufte, testthat, digest, dygraphs, tibble"                                                                                                                                                                                   
+Rmpfr            "MASS, polynom, sfsmisc (>= 1.0-20), Matrix"                                                                                                                                                                                                   
+rprojroot        "testthat, mockr, knitr, withr, rmarkdown"                                                                                                                                                                                                     
+rstudioapi       "testthat, knitr, rmarkdown"                                                                                                                                                                                                                   
+sandwich         "AER, car, geepack, lattice, lmtest, MASS, multiwayvcov,\nparallel, pcse, plm, pscl, scatterplot3d, stats4, strucchange,\nsurvival"                                                                                                            
+scales           "dichromat, bit64, covr, hms, testthat (>= 2.0)"                                                                                                                                                                                               
+sem              "polycor, MBESS, DiagrammeR"                                                                                                                                                                                                                   
+sfsmisc          "datasets, tcltk, cluster, lattice, MASS, Matrix, nlme, lokern"                                                                                                                                                                                
+shiny            "datasets, Cairo (>= 1.5-5), testthat, knitr (>= 1.6),\nmarkdown, rmarkdown, ggplot2, magrittr"                                                                                                                                                
+sourcetools      "testthat"                                                                                                                                                                                                                                     
+sp               "RColorBrewer, rgdal (>= 0.8-7), rgeos (>= 0.3-13), gstat,\nmaptools, deldir"                                                                                                                                                                  
+SparseM          NA                                                                                                                                                                                                                                             
+stringi          NA                                                                                                                                                                                                                                             
+stringr          "covr, htmltools, htmlwidgets, knitr, rmarkdown, testthat"                                                                                                                                                                                     
+survey           "foreign, MASS, KernSmooth, hexbin, mitools, RSQLite, RODBC,\nquantreg, parallel, CompQuadForm, DBI"                                                                                                                                           
+tcltk2           "utils"                                                                                                                                                                                                                                        
+TH.data          "dplyr, gdata, plyr"                                                                                                                                                                                                                           
+tibble           "covr, dplyr, import, knitr (>= 1.5.32), microbenchmark,\nmockr, nycflights13, rmarkdown, testthat, withr"                                                                                                                                     
+tinytex          "testit, rstudioapi"                                                                                                                                                                                                                           
+utf8             "knitr, rmarkdown, testthat"                                                                                                                                                                                                                   
+viridis          "hexbin (>= 1.27.0), scales, MASS, knitr, dichromat,\ncolorspace, rasterVis, httr, mapproj, vdiffr, svglite (>=\n1.2.0), testthat, covr, rmarkdown, rgdal"                                                                                     
+viridisLite      "hexbin (>= 1.27.0), ggplot2 (>= 1.0.1), testthat, covr"                                                                                                                                                                                       
+webshot          "httpuv, knitr, rmarkdown, shiny"                                                                                                                                                                                                              
+withr            "testthat, covr, lattice, DBI, RSQLite, methods, knitr,\nrmarkdown"                                                                                                                                                                            
+xfun             "testit, parallel, rstudioapi, tinytex, mime, markdown, knitr,\nhtmltools, base64enc, rmarkdown"                                                                                                                                               
+xtable           "knitr, spdep, splm, sphet, plm, zoo, survival"                                                                                                                                                                                                
+yaml             "RUnit"                                                                                                                                                                                                                                        
+zip              "covr, testthat, withr"                                                                                                                                                                                                                        
+zoo              "coda, chron, DAAG, fts, ggplot2, mondate, scales,\nstrucchange, timeDate, timeSeries, tis, tseries, xts"                                                                                                                                      
+base             "methods"                                                                                                                                                                                                                                      
+boot             "MASS, survival"                                                                                                                                                                                                                               
+class            NA                                                                                                                                                                                                                                             
+cluster          "MASS, Matrix"                                                                                                                                                                                                                                 
+codetools        NA                                                                                                                                                                                                                                             
+compiler         NA                                                                                                                                                                                                                                             
+datasets         NA                                                                                                                                                                                                                                             
+foreign          NA                                                                                                                                                                                                                                             
+graphics         NA                                                                                                                                                                                                                                             
+grDevices        "KernSmooth"                                                                                                                                                                                                                                   
+grid             "lattice"                                                                                                                                                                                                                                      
+KernSmooth       "MASS"                                                                                                                                                                                                                                         
+lattice          "KernSmooth, MASS, latticeExtra"                                                                                                                                                                                                               
+MASS             "lattice, nlme, nnet, survival"                                                                                                                                                                                                                
+Matrix           "expm, MASS"                                                                                                                                                                                                                                   
+methods          "codetools"                                                                                                                                                                                                                                    
+mgcv             "splines, parallel, survival, MASS"                                                                                                                                                                                                            
+nlme             "Hmisc, MASS"                                                                                                                                                                                                                                  
+nnet             "MASS"                                                                                                                                                                                                                                         
+parallel         "methods"                                                                                                                                                                                                                                      
+rpart            "survival"                                                                                                                                                                                                                                     
+spatial          "MASS"                                                                                                                                                                                                                                         
+splines          "Matrix, methods"                                                                                                                                                                                                                              
+stats            "MASS, Matrix, SuppDists, methods, stats4"                                                                                                                                                                                                     
+stats4           NA                                                                                                                                                                                                                                             
+survival         NA                                                                                                                                                                                                                                             
+tcltk            NA                                                                                                                                                                                                                                             
+tools            "codetools, methods, xml2, curl"                                                                                                                                                                                                               
+translations     NA                                                                                                                                                                                                                                             
+utils            "methods, xml2, commonmark"                                                                                                                                                                                                                    
+                 Enhances                                        License                                  License_is_FOSS License_restricts_use OS_type
+abind            NA                                              "LGPL (>= 2)"                            NA              NA                    NA     
+acepack          NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+aplpack          NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+arm              NA                                              "GPL (>= 3)"                             NA              NA                    NA     
+assertthat       NA                                              "GPL-3"                                  NA              NA                    NA     
+backports        NA                                              "GPL-2"                                  NA              NA                    NA     
+base64enc        "png"                                           "GPL-2 | GPL-3"                          NA              NA                    NA     
+BH               NA                                              "BSL-1.0"                                NA              NA                    NA     
+callr            NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+car              NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+carData          NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+cellranger       NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+checkmate        NA                                              "BSD_3_clause + file LICENSE"            NA              NA                    NA     
+cli              NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+clipr            NA                                              "GPL-3"                                  NA              NA                    NA     
+coda             NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+colorspace       NA                                              "BSD_3_clause + file LICENSE"            NA              NA                    NA     
+crayon           NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+crosstalk        NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+curl             NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+data.table       NA                                              "MPL-2.0 | file LICENSE"                 NA              NA                    NA     
+digest           NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+e1071            NA                                              "GPL-2"                                  NA              NA                    NA     
+effects          NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+estimability     NA                                              "GPL (>= 3)"                             NA              NA                    NA     
+evaluate         NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+expm             NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+fansi            NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+forcats          NA                                              "GPL-3"                                  NA              NA                    NA     
+Formula          NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+ggplot2          "sp"                                            "GPL-2 | file LICENSE"                   NA              NA                    NA     
+glue             NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+gmp              NA                                              "GPL"                                    NA              NA                    NA     
+gridExtra        NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+gtable           NA                                              "GPL-2"                                  NA              NA                    NA     
+haven            NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+highr            NA                                              "GPL"                                    NA              NA                    NA     
+Hmisc            NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+hms              NA                                              "GPL-3"                                  NA              NA                    NA     
+htmlTable        NA                                              "GPL (>= 3)"                             NA              NA                    NA     
+htmltools        "knitr"                                         "GPL (>= 2)"                             NA              NA                    NA     
+htmlwidgets      "shiny (>= 1.1)"                                "MIT + file LICENSE"                     NA              NA                    NA     
+httpuv           NA                                              "GPL (>= 2) | file LICENSE"              NA              NA                    NA     
+jsonlite         NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+knitr            NA                                              "GPL"                                    NA              NA                    NA     
+labeling         NA                                              "MIT + file LICENSE | Unlimited"         NA              NA                    NA     
+later            NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+latticeExtra     NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+lazyeval         NA                                              "GPL-3"                                  NA              NA                    NA     
+leaps            NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+lme4             NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+lmtest           NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+magrittr         NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+manipulateWidget NA                                              "GPL (>= 2) | file LICENSE"              NA              NA                    NA     
+maptools         "gpclib, RArcInfo"                              "GPL (>= 2)"                             NA              NA                    NA     
+markdown         NA                                              "GPL-2"                                  NA              NA                    NA     
+matrixcalc       NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+MatrixModels     NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+mi               NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+mime             NA                                              "GPL"                                    NA              NA                    NA     
+miniUI           NA                                              "GPL-3"                                  NA              NA                    NA     
+minqa            NA                                              "GPL-2"                                  NA              NA                    NA     
+multcomp         NA                                              "GPL-2"                                  NA              NA                    NA     
+munsell          NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+mvtnorm          NA                                              "GPL-2"                                  NA              NA                    NA     
+nloptr           NA                                              "LGPL-3"                                 NA              NA                    NA     
+nortest          NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+numDeriv         NA                                              "GPL-2"                                  NA              NA                    NA     
+openxlsx         NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+pbkrtest         NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+pillar           NA                                              "GPL-3"                                  NA              NA                    NA     
+pkgconfig        NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+plyr             NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+processx         NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+promises         NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+ps               NA                                              "BSD_3_clause + file LICENSE"            NA              NA                    NA     
+quantreg         NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+R6               NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+Rcmdr            NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+RcmdrMisc        NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+RColorBrewer     NA                                              "Apache License 2.0"                     NA              NA                    NA     
+Rcpp             NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+RcppEigen        NA                                              "GPL (>= 2) | file LICENSE"              NA              NA                    NA     
+readr            NA                                              "GPL (>= 2) | file LICENSE"              NA              NA                    NA     
+readstata13      NA                                              "GPL-2 | file LICENSE"                   NA              NA                    NA     
+readxl           NA                                              "GPL-3"                                  NA              NA                    NA     
+relimp           NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+rematch          NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+reshape2         NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+rgl              NA                                              "GPL"                                    NA              NA                    NA     
+rio              NA                                              "GPL-2"                                  NA              NA                    NA     
+rlang            NA                                              "GPL-3"                                  NA              NA                    NA     
+rmarkdown        NA                                              "GPL-3"                                  NA              NA                    NA     
+Rmpfr            NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+rprojroot        NA                                              "GPL-3"                                  NA              NA                    NA     
+rstudioapi       NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+sandwich         NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+scales           NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+sem              NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+sfsmisc          "mgcv, rpart, nor1mix, polycor, sm, tikzDevice" "GPL (>= 2)"                             NA              NA                    NA     
+shiny            NA                                              "GPL-3 | file LICENSE"                   NA              NA                    NA     
+sourcetools      NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+sp               NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+SparseM          NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+stringi          NA                                              "file LICENSE"                           "yes"           NA                    NA     
+stringr          NA                                              "GPL-2 | file LICENSE"                   NA              NA                    NA     
+survey           NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+tcltk2           NA                                              "LGPL-3 + file LICENSE"                  NA              NA                    NA     
+TH.data          NA                                              "GPL-3"                                  NA              NA                    NA     
+tibble           NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+tinytex          NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+utf8             NA                                              "Apache License (== 2.0) | file LICENSE" NA              NA                    NA     
+viridis          NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+viridisLite      NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+webshot          NA                                              "GPL-2"                                  NA              NA                    NA     
+withr            NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+xfun             NA                                              "MIT + file LICENSE"                     NA              NA                    NA     
+xtable           NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+yaml             NA                                              "BSD_3_clause + file LICENSE"            NA              NA                    NA     
+zip              NA                                              "CC0"                                    NA              NA                    NA     
+zoo              NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+base             NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+boot             NA                                              "Unlimited"                              NA              NA                    NA     
+class            NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+cluster          NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+codetools        NA                                              "GPL"                                    NA              NA                    NA     
+compiler         NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+datasets         NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+foreign          NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+graphics         NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+grDevices        NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+grid             NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+KernSmooth       NA                                              "Unlimited"                              NA              NA                    NA     
+lattice          "chron"                                         "GPL (>= 2)"                             NA              NA                    NA     
+MASS             NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+Matrix           "MatrixModels, graph, SparseM, sfsmisc"         "GPL (>= 2) | file LICENCE"              NA              NA                    NA     
+methods          NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+mgcv             NA                                              "GPL (>= 2)"                             NA              NA                    NA     
+nlme             NA                                              "GPL (>= 2) | file LICENCE"              NA              NA                    NA     
+nnet             NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+parallel         "snow, nws, Rmpi"                               "Part of R 3.5.1"                        NA              NA                    NA     
+rpart            NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+spatial          NA                                              "GPL-2 | GPL-3"                          NA              NA                    NA     
+splines          NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+stats            NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+stats4           NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+survival         NA                                              "LGPL (>= 2)"                            NA              NA                    NA     
+tcltk            NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+tools            NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+translations     NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+utils            NA                                              "Part of R 3.5.1"                        NA              NA                    NA     
+                 MD5sum NeedsCompilation Built  
+abind            NA     "no"             "3.5.0"
+acepack          NA     "yes"            "3.5.1"
+aplpack          NA     "no"             "3.5.1"
+arm              NA     "no"             "3.5.1"
+assertthat       NA     "no"             "3.5.1"
+backports        NA     "yes"            "3.5.0"
+base64enc        NA     "yes"            "3.5.0"
+BH               NA     "no"             "3.5.0"
+callr            NA     "no"             "3.5.1"
+car              NA     "no"             "3.5.1"
+carData          NA     "no"             "3.5.1"
+cellranger       NA     "no"             "3.5.1"
+checkmate        NA     "yes"            "3.5.1"
+cli              NA     "no"             "3.5.1"
+clipr            NA     "no"             "3.5.1"
+coda             NA     "no"             "3.5.1"
+colorspace       NA     "yes"            "3.5.1"
+crayon           NA     "no"             "3.5.1"
+crosstalk        NA     "no"             "3.5.1"
+curl             NA     "yes"            "3.5.1"
+data.table       NA     "yes"            "3.5.1"
+digest           NA     "yes"            "3.5.1"
+e1071            NA     "yes"            "3.5.1"
+effects          NA     "no"             "3.5.1"
+estimability     NA     "no"             "3.5.0"
+evaluate         NA     "no"             "3.5.1"
+expm             NA     "yes"            "3.5.1"
+fansi            NA     "yes"            "3.5.1"
+forcats          NA     "no"             "3.5.1"
+Formula          NA     "no"             "3.5.0"
+ggplot2          NA     "no"             "3.5.1"
+glue             NA     "yes"            "3.5.1"
+gmp              NA     "yes"            "3.5.1"
+gridExtra        NA     "no"             "3.5.1"
+gtable           NA     "no"             "3.5.1"
+haven            NA     "yes"            "3.5.1"
+highr            NA     "no"             "3.5.1"
+Hmisc            NA     "yes"            "3.5.1"
+hms              NA     "no"             "3.5.1"
+htmlTable        NA     "no"             "3.5.1"
+htmltools        NA     "yes"            "3.5.1"
+htmlwidgets      NA     "no"             "3.5.1"
+httpuv           NA     "yes"            "3.5.1"
+jsonlite         NA     "yes"            "3.5.1"
+knitr            NA     "no"             "3.5.1"
+labeling         NA     "no"             "3.5.0"
+later            NA     "yes"            "3.5.1"
+latticeExtra     NA     "no"             "3.5.1"
+lazyeval         NA     "yes"            "3.5.1"
+leaps            NA     "yes"            "3.5.1"
+lme4             NA     "yes"            "3.5.1"
+lmtest           NA     "yes"            "3.5.1"
+magrittr         NA     "no"             "3.5.1"
+manipulateWidget NA     "no"             "3.5.1"
+maptools         NA     "yes"            "3.5.1"
+markdown         NA     "yes"            "3.5.1"
+matrixcalc       NA     NA               "3.5.0"
+MatrixModels     NA     "no"             "3.5.1"
+mi               NA     "no"             "3.5.1"
+mime             NA     "yes"            "3.5.1"
+miniUI           NA     "no"             "3.5.1"
+minqa            NA     "yes"            "3.5.1"
+multcomp         NA     "no"             "3.5.1"
+munsell          NA     "no"             "3.5.1"
+mvtnorm          NA     "yes"            "3.5.0"
+nloptr           NA     "yes"            "3.5.1"
+nortest          NA     "no"             "3.5.0"
+numDeriv         NA     "no"             "3.5.0"
+openxlsx         NA     "yes"            "3.5.1"
+pbkrtest         NA     "no"             "3.5.1"
+pillar           NA     "no"             "3.5.1"
+pkgconfig        NA     "no"             "3.5.1"
+plyr             NA     "yes"            "3.5.1"
+processx         NA     "yes"            "3.5.1"
+promises         NA     "yes"            "3.5.1"
+ps               NA     "yes"            "3.5.1"
+quantreg         NA     "yes"            "3.5.1"
+R6               NA     "no"             "3.5.1"
+Rcmdr            NA     "no"             "3.5.1"
+RcmdrMisc        NA     "no"             "3.5.1"
+RColorBrewer     NA     "no"             "3.5.0"
+Rcpp             NA     "yes"            "3.5.1"
+RcppEigen        NA     "yes"            "3.5.1"
+readr            NA     "yes"            "3.5.1"
+readstata13      NA     "yes"            "3.5.1"
+readxl           NA     "yes"            "3.5.1"
+relimp           NA     "no"             "3.5.1"
+rematch          NA     "no"             "3.5.1"
+reshape2         NA     "yes"            "3.5.1"
+rgl              NA     "yes"            "3.5.1"
+rio              NA     "no"             "3.5.1"
+rlang            NA     "yes"            "3.5.1"
+rmarkdown        NA     "no"             "3.5.1"
+Rmpfr            NA     "yes"            "3.5.1"
+rprojroot        NA     "no"             "3.5.1"
+rstudioapi       NA     "no"             "3.5.1"
+sandwich         NA     "no"             "3.5.1"
+scales           NA     "yes"            "3.5.1"
+sem              NA     "yes"            "3.5.1"
+sfsmisc          NA     "no"             "3.5.1"
+shiny            NA     "no"             "3.5.1"
+sourcetools      NA     "yes"            "3.5.1"
+sp               NA     "yes"            "3.5.1"
+SparseM          NA     "yes"            "3.5.0"
+stringi          NA     "yes"            "3.5.1"
+stringr          NA     "no"             "3.5.1"
+survey           NA     "no"             "3.5.1"
+tcltk2           NA     "no"             "3.5.0"
+TH.data          NA     "no"             "3.5.1"
+tibble           NA     "yes"            "3.5.1"
+tinytex          NA     "no"             "3.5.1"
+utf8             NA     "yes"            "3.5.1"
+viridis          NA     "no"             "3.5.1"
+viridisLite      NA     "no"             "3.5.1"
+webshot          NA     "no"             "3.5.1"
+withr            NA     "no"             "3.5.1"
+xfun             NA     "no"             "3.5.1"
+xtable           NA     "no"             "3.5.1"
+yaml             NA     "yes"            "3.5.1"
+zip              NA     "yes"            "3.5.1"
+zoo              NA     "yes"            "3.5.1"
+base             NA     NA               "3.5.1"
+boot             NA     "no"             "3.5.1"
+class            NA     "yes"            "3.5.1"
+cluster          NA     "yes"            "3.5.1"
+codetools        NA     "no"             "3.5.1"
+compiler         NA     NA               "3.5.1"
+datasets         NA     NA               "3.5.1"
+foreign          NA     "yes"            "3.5.1"
+graphics         NA     "yes"            "3.5.1"
+grDevices        NA     "yes"            "3.5.1"
+grid             NA     "yes"            "3.5.1"
+KernSmooth       NA     "yes"            "3.5.1"
+lattice          NA     "yes"            "3.5.1"
+MASS             NA     "yes"            "3.5.1"
+Matrix           NA     "yes"            "3.5.1"
+methods          NA     "yes"            "3.5.1"
+mgcv             NA     "yes"            "3.5.1"
+nlme             NA     "yes"            "3.5.1"
+nnet             NA     "yes"            "3.5.1"
+parallel         NA     "yes"            "3.5.1"
+rpart            NA     "yes"            "3.5.1"
+spatial          NA     "yes"            "3.5.1"
+splines          NA     "yes"            "3.5.1"
+stats            NA     "yes"            "3.5.1"
+stats4           NA     NA               "3.5.1"
+survival         NA     "yes"            "3.5.1"
+tcltk            NA     "yes"            "3.5.1"
+tools            NA     "yes"            "3.5.1"
+translations     NA     NA               "3.5.1"
+utils            NA     "yes"            "3.5.1"
+> 

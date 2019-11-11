@@ -1,0 +1,38 @@
+# WCZYTYWANIE DANYCH Z PLIKÓW TEKSTOWYCH itd
+
+# read.table sluzy do odczytywania danych w postaci tabelarycznej, mozna tez odczytywac inne dane
+# wykorzystujac funkcje scan
+
+data1=scan("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe/PART 2/10/abc.txt", what = "character")
+data1
+
+data2=scan("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe/PART 2/10/abc.txt", what = "character", sep="\n")
+data2
+
+# widzimy ze w pierwszym przypadku oddzielnie obliczyl wszystkie stringi, sepatator to spacja, 
+# w drugim przeypadku dalem jako sep "\n" co oznacza nowa linie i pobralo dane w liniach
+
+
+# UWAGA! dane mog¹ byc zapisane w pliku tekstowym w blokach o stalej szerokosci
+# read.fwf(file, widths=c(...)) - widths dzieli jakby dlugosciowo kolejne kolumny (jak left etc)
+
+a1=scan("http://www.biecek.pl/R/dane/daneFWF.txt", what="character", sep="\n")
+a1
+a2=read.fwf("http://www.biecek.pl/R/dane/daneFWF.txt", widths = c(1,2,4,5,2))
+a2
+# mozna tez to jakby polaczyc w jeden lancuch- podajac format dla kazdej linii z osobna
+a3=read.fwf("http://www.biecek.pl/R/dane/daneFWF.txt", widths = list(c(1,2,4,5,2), c(1,2,4,5,2)))
+a3
+
+# wczesniej wczytywalismy pliki .csv (czyli to jest rownoznaczna z latwym pobieraniem plikow z Excela), ale teraz:
+# WCZYTYWANIE PLIKOW EXCELA (.xlsx)
+# jednym z pakietow jest "openxlsx"
+library(openxlsx)
+# funkcja  read.xslx(file, sheet= (number))
+
+
+b1=read.xlsx("C:/Users/adria/Desktop/Foldery/GNU R/Treningowe/PART 2/10/abc.xlsx", sheet=2, colNames = T, rowNames = T)
+b1
+b1[1,1]
+b1[1,]
+

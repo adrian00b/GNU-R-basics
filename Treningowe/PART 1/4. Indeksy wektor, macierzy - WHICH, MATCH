@@ -1,0 +1,52 @@
+# odwolywanie sie do elementow wekora - indeksy
+a=11:20
+a[1]
+a[2:5]
+a[c(1,2,5)]
+a[c(-1,-2,-5)]
+# zauwa¿my sposób odwolania w ostatnim przykladzie - wektor z ujemnymi elementami, oznacza, ze tych elementow ma NIE WYSWIETLAC
+
+# odwolywanie siê do elementów macierzy
+a=matrix(1:9,3,3)
+a[1,1]
+a[1]
+a[3,3]
+a[9]
+a[1,]
+a[-1,-1]
+# zauwazmy w otatnim przykladzie - ponownie wartosci z minusem oznaczaja ze chcemy wyswietlic elementy poza kolumna i wierszem nr 1
+# zauwazmy rowniez ze w przykladzie a[1,] zwracany jest format wektora - jezeli chcemy aby zwracany wektor byl w formacie macierzy nalezy uzyc opcji  drop=F,
+# domyslnie drop ma wartosc T
+a[1,,drop=F]
+
+
+# funkcja which(warunek), match(wektor2, wektor1) - funkcja which zwraca indeksy z wektora o wartosci T, 
+# funkcja match zwraca indeksy wektora1 dla korych wektor1[i]=wektor2[j]
+a=c(1,2,5,8,2,-4,-2,10)
+which(a>2)
+which(a==2)
+match(c(1,2,10),a)
+match(c(1,2,2),a)
+# niestety jak widac na ostatnim przykladzie match wyszukuje tylko pozycje pierwszego pojawienia sie danego elementu, nie wszystkie
+max(a)
+min(a)
+which(a==max(a))
+which(a==min(a))
+which.max(a)
+which.min(a)
+b=c(2,1,2,-1,-5)
+which.max(b)
+which(b==max(b))
+# ponownie widzimy ze dedykowana funkcja which.max znajduje tylko pierwszy indeks wartosci maksymalnej
+# aby uzyskac wszystkkie indeksy w ktorych znajduje si wartosc maksymalna nalezy uzyc  which(b==max(b)), albo po prsotu b[b==max(b)]
+
+# wystêpuje tez operator %in% - wektor1 %in% wektor 2 - zwraca tablice logiczna pokazujaca czy elementy z wektor2 znajduja sie gdzies w wektor1
+a1=c(1:10)
+a2=c(5:8)
+a1 %in% a2
+
+
+
+
+
+

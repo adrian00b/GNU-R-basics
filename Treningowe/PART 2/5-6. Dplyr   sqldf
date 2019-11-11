@@ -1,0 +1,141 @@
+library(dplyr)
+library(Przewodnik)
+library(sqldf)
+library(lubridate)
+
+filter(auta, Model == 'Corsa')
+sqldf("
+      SELECT *
+      FROM auta
+      WHERE Model = 'Corsa' 
+      "
+)
+
+filter(auta, Model == 'Corsa' | Produkcja == 2004)
+
+# funkcja select pozwala wybrac atrybuty, ma kilka przydatnych funkcji
+
+select(auta, contains('o')) %>%
+  head()
+
+select(auta, starts_with('P')) %>%
+  head()
+
+# everything moze byc przydatne do przeniesienia wybranego atrybutu na poczatek
+select(auta, 'Produkcja', everything()) %>%
+  head()
+
+# ale to samo mozemy uzyskac wykorzystujac sql
+sqldf("
+      SELECT Produkcja, *
+      FROM auta
+      WHERE Model = 'Corsa' 
+      "
+)
+
+select(auta, prod = "Produkcja") %>%
+  head()
+
+# mutate do tworzenia nowych atrybutow na podstawie istniejacych
+current_year <- as.integer(format(Sys.Date(), "%Y"))
+mutate(auta
+       , age = current_year - Produkcja
+) %>%
+  head()
+
+sqldf(
+  "
+  SELECT *
+    , STRFTIME('%Y' ,DATETIME('now')) - Produkcja AS age
+  FROM auta
+  "
+) %>%
+  head()
+
+# ale mozna tez to zrobic inaczej? recznie stworzyc wektor i zapisac jako ostatnia kolumne
+
+
+auta_modified <- auta
+auta_modified[, 9] = current_year - auta$Produkcja
+
+arrange(auta, desc(Cena)) %>%
+  head()
+ 
+sqldf(
+  "
+  SELECT Model
+    , Cena
+    , Przebieg
+    , Produkcja
+  FROM auta
+  WHERE Marka = 'Kia'
+  ORDER BY Cena
+  "
+)
+
+auta %>%
+  filter(Marka == 'Kia') %>%
+  select(Model, Cena, Przebieg, Produkcja) %>%
+  arrange(Cena) %>%
+  head()
+
+# funkcje agregujace - summarise() oraz group_by()
+
+summarise(auta
+          , Avg_price = mean(Cena) 
+          , Sample = n()          
+)
+
+sqldf(
+  "
+  SELECT AVG(Cena) AS avg_price
+  , COUNT(*) AS sample
+  FROM auta
+  "
+)
+
+
+group_by(auta, Marka) %>%
+  summarise(avg_price = mean(Cena)
+            , sample = n()
+            )
+
+sqldf(
+  "
+  SELECT Marka
+    , AVG(Cena) AS avg_price
+    , COUNT(*) AS sample
+  FROM auta
+  GROUP BY Marka
+  "
+)
+
+# dla kazdego wiersza podziel przebieg przez sredni przebieg dla tej marki
+auta %>%
+  select(Marka, Model, Przebieg) %>%
+  group_by(Marka) %>%
+  mutate(Przebieg = Przebieg/mean(Przebieg)) %>%
+  arrange(Marka, Model, Przebieg)
+
+sqldf(
+  "
+  SELECT Marka 
+    , Model
+    , Przebieg / AVG(Przebieg) OVER (PARTITION BY Marka) AS przebieg_ratio
+  FROM auta
+  ORDER BY Marka
+    , Model
+    , przebieg_ratio
+  LIMIT 5
+  "
+)
+
+
+
+
+
+
+
+
+
+

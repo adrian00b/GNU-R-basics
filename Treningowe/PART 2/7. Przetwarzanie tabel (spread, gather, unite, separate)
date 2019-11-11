@@ -1,0 +1,49 @@
+
+library(eurostat)
+# pobieramy dane z eurostatu
+data1=get_eurostat("t2020_rk310", time_format = "num")
+head(data1, 10 )
+
+# pobrane dane sa w tzw. postaci waskiej
+# przejdziemy teraz do postaci szerokiej
+
+# spread(dane, columns, records)
+# funkcja spread pozwala zrobic kolumny z wartosci w danej kolumnie, 3ci argument to wartosci w tych kolumnach
+# zmodyfikowanie do tzw. postaci szerokiej
+
+library("tidyr")
+data2=spread(data1, time, values)
+data2
+
+library(dplyr)
+data2 %>%
+  filter(geo=="PL")
+
+# uwaga! na razie nie do konca wiem jak zamienic dane w takiej postaci kolumnowej w wykres (?)
+mtry=filter(data1, geo=="PL", vehicle=="BUS_TOT")
+plot(mtry$values~mtry$time, type="l")
+
+# teraz podobnie jak wczesniej, ale w kolumnach chcemy miec kraje i tylko 2010 rok
+filter(data1, time==2010) %>%
+  spread(geo,values) ->data3
+
+# a teraz przetworzenie danych w postaci szerokiej na te w postaci w¹skiej!!
+# gather(key column name, values column name, nazwy kolumn ktore maja bys zebrane)
+data2 %>%
+  gather(rok, wartosc,-geo, -vehicle, -unit)
+
+#SKLEJANIE/ROZCINANIE KOLUMN
+
+# sklejanie kolumn (konkatenacja)
+# unite( data, name of new column, columns.., sep=" ")
+data1 %>%
+  unite(geo_time, geo, time, sep = "-") -> data1b
+
+#rozcinanie kolumn
+# seperate( data, col= , into=c(...), sep=" ")
+
+separate(data1b, col=geo_time, into=c("geo","time"), sep="-") ->data1c
+data1c
+
+
+

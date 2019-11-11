@@ -1,0 +1,50 @@
+# funkcje polimorficzne- inaczej przeci¹¿anie funkcji
+# dla okreslonego typu argumentow funkcja bedzie zachowywala sie inaczej
+# np. mozemy przeciazyc funkcje plot
+x=c(1,2,3,4)
+plot(x)
+# zawazmy jak fajnie funkcja plot dziala dla wyrazen logicznych
+plot(1:10<3)
+# w tym momencie mozemy uzyc przeciazenia zeby funkcja plot dla wartosci logicznych zwracala wektor a nie rysunek
+
+plot.logical=function(x){
+cat(ifelse(x,"prawda","fa³sz"))
+}
+plot(1:10<3)
+# przeciazylismy funkcje aby dla okreslonych wartosci zachowywala sie inaczej
+
+# gdy sami chcemy stworzyc taka funkcje bakezy oznaczyc ze funkcja ma byc przeciazana z wkorzystanem UseMethod("nazwa funkcji")
+# stworzmy funkcje przeciazona ktora zwraca liczbe elementow
+
+rozmiar<-fuction(x) {UseMethod("rozmiar")}
+rozmiar.default<-function(x) {length(x)}
+rozmiar.character<-function(x) {length(x)}
+rozmiar.matrix<-function(x) {dim(a)[1]*dim(a)[2]}
+rozmiar.array<-function(x) {prod(dim(a))}
+# z jakiegos powodu to nie dziala - ale sprobujmy zrobic ta funkcje przy pomocy normalnej funkcji
+# class(a) sprawdza nam klase obiketu - macierz etc
+rozmiar<-function(x) {
+if (class(x)=="matrix") {
+dim(x)[1]*dim(x)[2]
+} else if (class(x)=="array") {
+prod(dim(x))
+} else {length(x)}
+}
+
+
+# mozemy tez tworzyc nowe opaeratory funkcyjne, np
+
+"%v%"<-function(a,b) {a+b+2*a*b}
+2 %v% 3
+
+# funkcja  do.call(base) - wywoluje okreslona funkcje ze wskazanymi agumenami
+a=c(1,2,3)
+do.call("plot",a)
+do.call("plot", list(a))
+# drugi agument musi byc lista! dlatego podanie samego a nie zadziala
+# przyk³ad zastosowania- wywolanie funkcji runif, rnorm, rexp - jakies rozklady zdaje sie
+nazwy=paste("r",c("unif","norm","exp"),sep="")
+sapply(nazwy,FUN = do.call,list(4))
+
+
+

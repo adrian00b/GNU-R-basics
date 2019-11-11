@@ -1,0 +1,4 @@
+pakiet z roznymi miarami statystycznymi
+
+kurtosis()
+skewness()

@@ -1,0 +1,13 @@
+install.packages('bigrquery')
+library(bigrquery)
+sql <- 
+"
+SELECT *
+FROM `tinydragons-983ab.analytics.sales_with_dimensions`
+WHERE fr_install_version IN ('0.15.1501','0.16.1503')
+"
+
+ds <- 'tinydragons-983ab'
+sales_with_dim <- bq_project_query(ds, sql)
+
+sales <- bq_table_download(sales_with_dim)

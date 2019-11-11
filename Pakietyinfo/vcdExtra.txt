@@ -1,0 +1,3 @@
+w pakiecie występuje funkcja, która wyświetla zbiory danych znajudjące się w wybranym pakiecie:
+
+datasets('package name') 

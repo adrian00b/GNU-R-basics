@@ -1,0 +1,31 @@
+# wczytanie z plikow excela (tu akurat csv)
+# latwo mozna File->Import Datasets, ale kodem rowniez w bardzo prosty sposob mozna pobrac
+auta=read.table("http://www.biecek.pl/R/auta.csv",header = T, sep = ";")
+head(auta)
+# ramki danych - zbiór kolumn (zmiennych) gdzie kazda kolumna to wektor tej samej dlugosci, czyli jak w relacyjnych bazach danych
+install.packages("Przewodnik")
+library(Przewodnik)
+# head wyswietla pierwsze 6 rekordow ramki danych
+head(koty_ptaki)
+#jak uzyskac druga kolumne?
+koty_ptaki[2]
+# a jezeli chcemy to uzsykac jako wektor
+a=koty_ptaki[[2]]
+a[1]
+a[2]
+koty_ptaki[[2]][1]
+
+koty_ptaki[2,1]
+koty_ptaki[c(1,3,4),]
+
+# mozna pisac ,,zapytania,, zwracajace odpowiednie wartosci jak w SQL
+# np. pokaz zwierzeta o predkosci>100, pojaz kolumny gatunek,predkosc,dlugosc
+koty_ptaki[koty_ptaki[,"predkosc"]>100,c("gatunek","predkosc","dlugosc")]
+koty_ptaki[koty_ptaki[,4]>100,c(1,4,3)]
+koty_ptaki["predkosc"]
+koty_ptaki[["predkosc"]]
+koty_ptaki[,"predkosc"]
+koty_ptaki$predkosc
+
+# wykorzystujac operator $ mozna latwo dodac kolumne
+koty_ptaki$predkosc_mile=koty_ptaki$predkosc*1.6

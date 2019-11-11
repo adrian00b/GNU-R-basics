@@ -1,0 +1,56 @@
+# wprowadzenie do grfiki - podstawowa funkcja -> plot
+a=seq(1,10,by=3)
+plot(a)
+# rózne typy
+plot(a, type="b")
+plot(a, type="p")
+plot(a, type="l")
+plot(a, type="c")
+plot(a, type="o")
+plot(a, type="h")
+plot(a, type="s")
+plot(a, type="S")
+plot(a, type="n")
+# nazwa wykresu
+plot(a, type="l",main="Pierwszy wykres")
+# subtitle wykresu
+plot(a, type="l",main="Pierwszy wykres", sub="Subtitle")
+# nazwy osi
+plot(a, type="l",main="Pierwszy wykres", sub="Subtitle", xlab="Oœ X", ylab="Oœ Y")
+#kolor
+plot(a, type="l",main="Pierwszy wykres", col="red")
+plot(a, type="l",main="Pierwszy wykres", col=654) 
+# ogolnie jest wiele argumentow, w internecie mozna przeszukiwac
+# pogrubienie: lwd=liczba, gdzie lwd=1 to zwykla grubosc, pozniej wielokrotnosci 
+plot(a, type="l",main="Pierwszy wykres", col=654,lwd=2) 
+plot(a, type="l",main="Pierwszy wykres", col=654,lwd=2) 
+colors()
+# polecenie colors() zwroci nam wszystkie mozliwe kolory
+# xlim, ylim - latwo mozna dzieki nim ograniczyc osie 
+plot(a, type="l", xlim=c(0,10), ylim=c(-10,10),main="Pierwszy wykres", col=654,lwd=2) 
+
+
+x=seq(-2*pi,2*pi,by=pi/4)
+plot(x,sin(x))
+plot(x,sin(x),type="b", xlim=c(-2*pi,2*pi))
+x2=seq(-2*pi,2*pi,by=pi/8)
+lines(x2,sin(x2),type="b",col=259)
+
+# a jak zmianiec os x na radiany? np. w ten sposob
+plot(x,sin(x),type="b", xlim=c(-2*pi,2*pi),axes=FALSE)
+axis(1,at=seq(-2*pi,2*pi, by=pi),labels=expression(-2*pi,-pi,0,pi,2*pi))
+axis(side=2)
+x2=seq(-2*pi,2*pi,by=pi/16)
+lines(x2,sin(x2),type="l",col=259)
+
+# rysowanie funkcji matematycznych
+curve(sin(x),-2*pi, 2*pi)
+curve(x^2,-5,5,col="red")
+# abline dodaje do wykrsu prosta y=ax+b. abline(b,a)
+curve(x^2-10,0,20, col="red")
+for (i in 1:10) {abline(0,i)}
+text(17.5,190,"a=10, b=0")
+
+
+
+

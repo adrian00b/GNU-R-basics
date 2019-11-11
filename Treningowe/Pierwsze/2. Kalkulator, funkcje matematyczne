@@ -1,0 +1,109 @@
+
+R version 3.5.1 (2018-07-02) -- "Feather Spray"
+Copyright (C) 2018 The R Foundation for Statistical Computing
+Platform: x86_64-w64-mingw32/x64 (64-bit)
+
+R jest oprogramowaniem darmowym i dostarczany jest BEZ JAKIEJKOLWIEK GWARANCJI.
+Mo¿esz go rozpowszechniaæ pod pewnymi warunkami.
+Wpisz 'license()' lub 'licence()' aby uzyskaæ szczegó³y dystrybucji.
+
+R jest projektem kolaboracyjnym z wieloma uczestnikami.
+Wpisz 'contributors()' aby uzyskaæ wiêcej informacji oraz
+'citation()' aby dowiedzieæ siê jak cytowaæ R lub pakiety R w publikacjach.
+
+Wpisz 'demo()' aby zobaczyæ demo, 'help()' aby uzyskaæ pomoc on-line, lub
+'help.start()' aby uzyskaæ pomoc w przegl¹darce HTML.
+Wpisz 'q()' aby wyjœæ z R.
+
+> 2+2
+[1] 4
+> 2^2
+[1] 4
+> 2^10-1
+[1] 1023
+> sin(1)
+[1] 0.841471
+> sin(pi/4)
+[1] 0.7071068
+> sin(pi/2)
+[1] 1
+> tan(pi)
+[1] -1.224647e-16
+> tan(0)
+[1] 0
+> tan(pi/2)
+[1] 1.633124e+16
+> tan(pi/4)
+[1] 1
+> sin(2)^2+cos(2)^2
+[1] 1
+> atan(1)
+[1] 0.7853982
+> round(4.24)
+[1] 4
+> round(4.84)
+[1] 5
+> # round - zwykle zaokraglanie do najblizszej liczby calkowitej
+> x=4,84444
+B£¥D: nieoczekiwane ',' in "x=4,"
+> x=4.84444
+> signif(x,2)
+[1] 4.8
+> signif(x,3)
+[1] 4.84
+> # funkcja signif(x,k) - zaokraglenie liczby x do k cyfr
+> signif(x,8)
+[1] 4.84444
+> floor(4.9)
+[1] 4
+> ceiling(4.1)
+[1] 5
+> # floor- podloga, celiing - sufit
+> abs(-5)
+[1] 5
+> log(e)
+B£¥D: nie znaleziono obiektu 'e'
+> log(exp(1))
+[1] 1
+> # log czyli logarytm naturalny - exp(1) to e^1=e
+> sqrt(4)
+[1] 2
+> 4^(1/2)
+[1] 2
+> # modulo - w t-sql mamy %, tutaj mamy %%
+> 5%%2
+[1] 1
+> 10%4
+B£¥D: nieoczekiwane wejœcie in "10%4"
+> 10%%4
+[1] 2
+> # DWUMIAN NEWTONA - mozemy tutaj uzyc - choosen(n,k) - liczba k-elementowych podzbiorow zbioru n-elementowego
+> choose(5,2)
+[1] 10
+> choose)5,3)
+B£¥D: nieoczekiwane ')' in "choose)"
+> choose(5,3)
+[1] 10
+> combn(5,3)
+     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+[1,]    1    1    1    1    1    1    2    2    2     3
+[2,]    2    2    2    3    3    4    3    3    4     4
+[3,]    3    4    5    4    5    5    4    5    5     5
+> a=comb(5,3)
+B³¹d w poleceniu 'comb(5, 3)':nie uda³o siê znaleŸæ funkcji 'comb'
+> a=combn(5,3)
+> a[1,1]
+[1] 1
+> a[:,1]
+B£¥D: nieoczekiwane ':' in "a[:"
+> a[[1,2,3],1]
+B£¥D: nieoczekiwane ',' in "a[[1,2,3],"
+> a[,1]
+[1] 1 2 3
+> a[,2]
+[1] 1 2 4
+> factorial(4)
+[1] 24
+> # factorial(n)= n!
+> 
+> 

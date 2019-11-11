@@ -1,0 +1,41 @@
+# pêtla FOR 
+# for (i in wektor) istr
+for (i in 1:5) 
+cat("adrian");
+
+for (i in 1:5)
+cat("adrian \n");
+
+# paste( , , ) - konkatenacja !
+for (i in 1:5)
+cat(paste("aktualna wartoœæ i to ", i, "\n"))
+
+a=seq(1,10,by=2)
+for (i in 1:length(a))
+cat("a")
+
+for(i in 1:length(a))
+cat(paste("a[",i,"]","=",a[i]),"\n")
+
+# zamiast length() mozna uzyc fukcji seq_along() - zwraca wektor indeksow - i w przypadku pustego wektora zwroci pusty wektor
+# length natomiast wcale nie zwróci pustego
+
+a=c()
+seq_along(a)
+length(a)
+# jak widac length zwraca wektor jednoelementowy zawierajacy 0 - co moze byc potencjalbym problemem w petli
+b=1:5
+for(i in seq_along(b))
+cat(paste("a[",i,"]","=",b[i]),"\n")
+
+# pêtla WHILE(war) instr
+
+i=0
+while(i<=3){
+cat(paste("ju¿", i, "\n"))
+i=i+1
+}
+
+
+
+

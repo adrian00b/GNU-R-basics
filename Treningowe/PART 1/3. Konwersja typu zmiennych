@@ -1,0 +1,30 @@
+# sprawdzenie typu zmiennej, konwersja
+a=4
+is.numeric(a)
+is.integer(a)
+is.double(a)
+b=as.integer(a)
+is.numeric(b)
+is.integer(b)
+is.double(b)
+as.integer(4.6)
+# UWAGA! konwersja as.integer(a) zwraca jakby floor(a) - podloge od a
+# oczywisice mozna przeprowadzac wiele konwersji w analogiczny sposob
+
+# przyklad1 - przekonwertuj wektor c("1","2") na wektor zawierajacy liczby calkowite
+a=c("2","2")
+is.character(a)
+is.numeric(a)
+a=as.integer(a)
+a
+is.numeric(a)
+is.integer(a)
+
+# przyklad 2- przekonwertuj wektor c(5,5) na wektor zawierajacy elementy typu integer
+d=c(5,5)
+is.double(d)
+is.integer(d)
+d1=as.integer(d)
+d1
+
+#class(zmienna), mode(zmienna) - zwracaja typ zmiennej

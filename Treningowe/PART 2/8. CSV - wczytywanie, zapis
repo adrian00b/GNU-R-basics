@@ -1,0 +1,35 @@
+# WCZYTYWANIE DANYCH/ ZAPIS DO PLIKU
+# wczytywanie danych z pakietów (dla treningu)
+data(package="PogromcyDanych")
+# to polecenie pokaze nam jakie sa dostepne zbiory danych w wybranym pakiecie
+
+library(PogromcyDanych)
+data("koty_ptaki")
+
+head(koty_ptaki,10)
+
+# wczytywanie z plików tekstowych - z CSV
+# do tego sluzy funkcja read.table - istniej¹ równie¿ funkcje juz z okreslonymi jej parametrami 
+# jak read.csv , read.csv2
+
+kp=read.table("http://biecek.pl/R/koty_ptaki.csv", sep = ";",dec = ",", header = T)
+kp
+
+kp2=read.table("C:/Users/adria/Desktop/koty_ptaki.csv", sep = ";",dec = ",", header = T)
+kp2
+
+# jak widac mozna dowolnie pobierac z adresow URL czy adresow na komputerze
+# read.csv oraz read.csv2 maja juz wbudowane ustawione arg read.table, csv2 ma srednik i dec=","
+kp3=read.csv2("http://biecek.pl/R/koty_ptaki.csv")
+kp3
+
+# w analogiczny sposób mo¿emy zpaisaæ obiekt do plku csv
+# wykorzystuj¹c write.table - analogicznie mozna wykorzystac write.csv2
+
+write.table(kp3, file = "C:/Users/adria/Desktop/kp_zapis.csv",sep = ";", dec = ",")
+write.csv2(kp3, file="C:/Users/adria/Desktop/kp_zapis2.csv")
+
+
+
+
+

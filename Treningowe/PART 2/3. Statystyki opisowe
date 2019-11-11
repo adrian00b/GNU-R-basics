@@ -1,0 +1,64 @@
+#Statystyki opisowe
+
+library(Przewodnik)
+head(daneSoc)
+
+# ZMIENNE ILOSCIOWE
+a=daneSoc$wiek
+# rozrzut? najmniejsza i najwikesza wartosc, przedzial wartosci
+range(a)
+
+mean(a)
+median(a)
+# funkcja summary przedstawia najwazniejsze charakterystyki - min,max, kwartyle
+summary(daneSoc$wiek)
+
+# srednia ktora odcina wartosci odstajace, tzn. w tym przypadku odcina 10% najmniejszych i najwiekszyc hwartosci
+#  oznacz to ze jest ro srednia z 80% srodkowych wartosci
+mean(a,trim = 0.1)
+
+# standard deviation
+sd(daneSoc$wiek)
+
+# kurtoza- miara splaszczenia
+install.packages("e1071")
+library(e1071)
+kurtosis(a)
+# kurtoza<0 oznacza rozklad bardziej splaszczony od rozkladu normalnego
+
+
+#skosnosc
+# >0 prawostronna skosnosc (srednia>dominanty)
+# <0 lewostronna skosnosc (srednia<dominanta)
+
+skewness(a)
+
+# quantile(data,vector) - kwantyle
+quantile(a,c(0.1,0.25,0.5,0.75,0.9))
+
+# cor() - korelacja, mozna wyznaczyc macierz
+
+cor(daneSoc$wiek,daneSoc$cisnienie.skurczowe)
+cor(daneSoc[,c(1,6,7)])
+
+#range() - pokazuje zakres proby, przedzial zmiennosci (min,max)
+range(daneSoc$wiek)
+
+# weighted.mean(x, weight) - srednia wazona
+weighted.mean(daneSoc$wiek, daneSoc$cisnienie.rozkurczowe)
+
+# IQR - rozstep miedzykwartylowy
+IQR(daneSoc$wiek)==quantile(daneSoc$wiek, 0.75)-quantile(daneSoc$wiek, 0.25)
+
+# ZMIENNE JAKOSCIOWE
+# typ wyliczeniowy,zmienne ktore przyjmuja okreslone wartosci (czesto nieliczobowe) np. plec
+b=daneSoc$wyksztalcenie
+# table(dane) - tablica liczebnosci!!
+table(b)
+table(daneSoc$wyksztalcenie,daneSoc$praca)
+
+daneSoc[daneSoc[,"wyksztalcenie"]=="wyzsze",c("wyksztalcenie","praca")]
+# analogicznie jak table dziala funkcja summary, wypisuje ona jeszcze NA a table to ignoruje
+summary(b)
+
+summary(daneSoc)

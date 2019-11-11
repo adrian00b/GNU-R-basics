@@ -1,0 +1,22 @@
+dominant = function(vector){
+  a = c()
+  
+  for (i in seq_along(vector)){
+    a[i] = (all(vector[i] != vector[1:i-1]))
+  }
+  
+  keys = vector[a]
+  
+  map = tibble(keys, value = 0)
+  
+  for (i in seq_along(vector)){
+    for (j in seq_along(keys)){
+      if(map$keys[j] == vector[i]){
+        map$value[j] = map$value[j] + 1
+      }
+    }
+  }
+  
+  max_bool = (map$value == max(map$value))
+  return(map[max_bool,])
+}

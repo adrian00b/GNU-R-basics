@@ -1,0 +1,42 @@
+#przetwarzanie danych z pakietem dplyr
+
+# podstawowe operacja przetwarzania - przypominaja pdstawowe operacje zapytan SQL
+
+library(dplyr)
+library(Przewodnik)
+# filtrowanie danych
+
+# mamy zbior auta, jak wybrac tylko Corsy (WHERE model="Corsa")
+# filter(data, warunki)
+
+filter(auta, Model=="Corsa")
+
+# teraz marka Corsa, wyprodukowane w 2010 roku z silnikiem diesla
+
+a=filter(auta, Model=="Corsa", Paliwo=="diesel", Produkcja==2010)
+plot(a$Cena)
+plot(a$Przebieg, a$Cena)
+scatterplot(Cena~Przebieg, data=a, boxplots="", smooth=F)
+
+# jak wybieraæ kolumny? select .... 
+# select(data, kolumny)
+
+select(auta, Marka, Model, Cena)
+# mozna okreslic oprocz ktorych kolumn (dajac znak -)
+select(auta, -KM,-Marka)
+
+select(auta, starts_with("M"))%>%
+  head(20)
+
+
+# DODAWANIE KOLUMN
+# funkcja Mutate(dane, Newcolumnname=...)
+
+# zad do bazy dodaj kolumny z wiekiem i srednim przebiegiem na rok
+auta2=mutate(auta, Wiek=(2019-Produkcja), Sr_przebieg=Przebieg/Wiek)
+head(auta2)
+
+#SORTOWANIE , funkcja arrange
+# arrange(dane,.....)  mozna
+head(arrange(auta,Produkcja, desc(Przebieg)))
+

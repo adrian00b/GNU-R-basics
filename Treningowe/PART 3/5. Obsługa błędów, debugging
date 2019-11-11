@@ -1,0 +1,159 @@
+# b³êdy i ich debuggowanie
+
+funkcja=function(x){
+  return(log(x))
+}
+
+funkcja(10)
+
+# teraz dajm yargumenty ktore zwroca blad- wartosc minusowa, albo nienumeryczna
+funkcja(-2)
+funkcja('abc')
+
+# traceback()  - pokaz nam jakie funkcje i z jakimi argumentami byly wywolywane w miejscu gdzie wystapil blad
+funkcja('abc')
+traceback()
+
+funkcja2=function(x,y){
+  return(c(funkcja(x), funkcja(y)))}
+
+funkcja2(2,5)
+
+funkcja2('abc',5)
+traceback()
+# zwraca nam ze przy wykonywanie funkcja(x) wystapil blad
+
+# funkcja debugowania krok po kroku
+# n- wykonaj nastepna linie kodu, c-wykonaj cala funkcje, Q-zamknij debuger
+# mozna tez wpisywac x,y bedzie nam zwracalo wartosc zmiennych
+
+debug(funkcja2)
+funkcja2(2,'abc')
+
+# teraz zuzyciem debug przesledzmy sobie prosta petle!!!
+loop1=function(j){
+  v=numeric(j);
+  for (i in seq_along(1:j)){
+  v[i]=i
+  }  
+  return(v)
+}
+
+debug(loop1)
+loop1(4)
+
+# IGNOROWANIE I OBSLUGA BLEDOW
+
+# blad mozemy wygenerowac za pomoca stop('..') - naglowek erroe, warning('...')-naglowek warning
+# UWAGA! STOP tez przerywa dzialanie calej funkcji, WARNING nie
+# np. funkcja losujaca i roznych liczb (bez zwracania) z przedzialu od 1 do 10
+los10=function(i){
+  if (i>=1 & i<=10){
+  sample(1:10, i)} else{
+    warning("Podano nieodpowiedni¹ wartoœæ i. Podaj liczbê ca³kowit¹ od 1 do 10")
+  }
+}
+
+# teraz zrobmy funkcje ktora pozwala wylosowac i liczb z podanego wektora v
+losv=function(i,v=1:10){
+  if (i>=1 & i<=length(v)){
+  sample(v,i)}else{
+    warning("Podano nieodpowiednie wartoœci. Podaj wektor 'v' oraz ilosc elementow 'i' jaka chcesz z niego wylosowac")
+  }
+}
+
+# a teraz to samo ale bez uzycia funkcji sample!!!!! - czyli napisac algorytm losowania
+# uzyje do tego rozkladu jednostajnego oraz sprawdzania czy nie wylosowana wartosci ktora juz byla wczesniej
+
+sample1=function(i){
+  a=1:10
+  v=numeric(i)
+  for (k in 1:i){
+    repeat {
+    v[k]=ceiling(runif(1,0,10))
+    if (all(v[k]!=v[1:k-1])){
+      break
+  }}}
+  return(v)
+}
+
+# teraz takze z podaniem PRZEDZIALU z ktorego losujemy (to nie uogolnia sie na wetkory bo mmay min i max)
+sample2=function(i,a){
+  v=numeric(i);
+  for (k in 1:i){
+    repeat{
+      v[k]=ceiling(runif(1,min(a)-1,max(a)))
+      if (all(v[k]!=v[1:k-1])){
+        break
+      }
+    }
+  }
+  return(v)
+}
+
+# a teraz z doowlnych WEKTOROW!!! tzn ze musimy dzialac na indeksach tego wektora
+sample2=function(i,a){
+  v=numeric(i);
+  for (k in 1:i){
+    repeat{
+      v[k]=a[ceiling(runif(1,0,length(a)))]
+      if (all(v[k]!=v[1:k-1])){
+        break
+      }
+    }
+  }
+  return(v)
+}
+
+# a teraz z obsluga bledow
+
+sample2b=function(i,a){
+  if (i<1){
+    stop("Liczba losowanych elementów musi byæ wiêksza lub równa 1")
+  } else if (i%%1!=0){
+    stop("Liczba losowanych elementów musi byæ liczb¹ ca³kowit¹")
+  } else if (is.vector(a)==F){
+    stop("Nie podano poprawnego wektora")
+  } else if (i>length(a)){
+    stop("Liczba losowanych elementów nie mo¿e byæ wiêksza od liczby elementów wektora")
+  }
+  
+  v=numeric(i);
+  for (k in 1:i){
+    repeat{
+      v[k]=a[ceiling(runif(1,0,length(a)))]
+      if (all(v[k]!=v[1:k-1])){
+        break
+      }
+    }
+  }
+  return(v)
+}
+
+# bledy mozna obslugiwac takze z wykrozystaniem try(polecenie, silent=T)
+# wtedy obiekt mu przypisany bedzie mial albo wartosc polecenia albo klase 'try-error'
+
+cor(5)
+# oczywiscie zwroci blad, bo funkcja korelacji potrzebuje wiecej arugmentow
+
+zabez.cor=function(x){
+  tmp<-try(cor(x),silent = T);
+  if (class(tmp)=="try-error"){
+    warning("Korelacja nie zosta³a obliczona")
+  }
+}
+
+
+# UWAGA!!! CZESC BLEDOW MOZE WYNIKAC Z ZAOKRAGLEN NUMERYCZNYCH
+0.7+0.1==0.8
+# to rownanie zwroci nam FALSE!!!!!!
+
+a=(sqrt(2))^2-2
+
+
+
+
+
+
+
+

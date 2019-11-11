@@ -1,0 +1,29 @@
+# teraz omówimy funcjê SWITCH(base) - przypomina funkcjê CASE z SQL czy VBA
+# switch(klucz, wartosc1=akcja1, wartosc2=akcja2)
+a=2;
+switch(class(a),
+logical=cat("typ logiczny"),
+numeric=cat("typ liczbowy"),
+factor=cat("typ czynnikowy"),
+cat("trudno okreœliæ"))
+# a teraz postarajmy siê to zamieœciæ w ciele funkcji i dodac jeszcze obsluge stringow - czyli characters tutaj
+typ=function(a) {
+switch(class(a),
+logical=cat("typ logiczny"),
+numeric=cat("typ liczbowy"),
+character=cat("typ znakowy"),
+factor=cat("typ czynnikowy"),
+cat("trudno okreœliæ"))
+}
+
+# inny przyk³ad , chcemy zrobiæ funcjê, która w zale¿noœci od podanego argumentu bêdzie zwraca¹ sredni¹ (mean), mediane (median)
+require(stats)
+stats=function(x, type) { 
+switch(type,
+  mean=mean(x),
+  median=median(x),
+  cat("Point mean or median")) 
+}
+x=c(1,1,1,1,1)
+stats(x,"mean")
+stats(x,"asdsa")

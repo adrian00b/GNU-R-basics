@@ -1,0 +1,58 @@
+> #sprawdzenie typu danych, konwersja
+> a=2
+> is.numeric(a)
+[1] TRUE
+> is.double(a)
+[1] TRUE
+> is.integer(a)
+[1] FALSE
+> # czyli tutaj widzimy ze a jest zapisywana jako double - chociaz jako integer zajmowaloby mniej pamieci
+> as.integer(a)
+[1] 2
+> is.integer(a)
+[1] FALSE
+> a=as.integer(a)
+> is.integer(a)
+[1] TRUE
+> is.double(a)
+[1] FALSE
+> # tutaj przekonwertowalismy zmienna double a na zmiena integer
+> a=c(1,2,NA)
+> is.na(a)
+[1] FALSE FALSE  TRUE
+> class(a)
+[1] "numeric"
+> b=1:6
+> class(b)
+[1] "integer"
+> is.numeric(b)
+[1] TRUE
+> 
+> 
+> #przypisywanie wartosci do zmiennych
+> a=4
+> a<-4
+> a
+[1] 4
+> 4->c
+> c
+[1] 4
+> d<-4
+> d
+[1] 4
+> r=5
+> r
+[1] 5
+> 10
+[1] 10
+> .last.value
+B£¥D: nie znaleziono obiektu '.last.value'
+> last.value
+B£¥D: nie znaleziono obiektu 'last.value'
+> a=last.value
+B£¥D: nie znaleziono obiektu 'last.value'
+> 10+5
+[1] 15
+> last.value
+B£¥D: nie znaleziono obiektu 'last.value'
+> 

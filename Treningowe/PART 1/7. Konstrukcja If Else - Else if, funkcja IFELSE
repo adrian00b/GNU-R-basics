@@ -1,0 +1,39 @@
+# kosntrukcja if else
+# if (warunek) {isntr1} else {instr2}
+# tutaj od razu jako funkcje zapiszemy
+modulo2=function(a) {
++ if(a%%2==0){
++ cat("ta liczba jest parzysta\n")
++ } else { cat("ta liczba jest nieparzysta")}}
+modulo2(2)
+modulo2(7)
+
+a=rep(c(1,-1),5)
+if (a[2]<0) {a[2]=0}
+
+#oczywiœcie mo¿na te¿ wiêcej warunków, np funkcja ktora okresla premie w zaleznosci od sprzedazy
+# if (war1) {instr1
+# } else if (war2) {isntr2
+# } else if (war3) {instr3}
+# jezeli piszemy to w klamrach funkcyjnych nie musimy przenosic klamry do nowego wiersza, chodzi tylko o to
+# zeby inerpreter wiedzial ze kod sie jeszcze nie skonczyl (ze insrukcja if jest kontynuowana)
+premia=function(sales) {
+if (sales>100) {200}
+else if(sales>50){100}
+else {0}}
+
+premia(120)
+premia(80)
+premia(40)
+
+
+# pewn¹ alternatyw¹ jest funkcja ifelse(war, isntr1, instr2)
+# UWAGA! funkcja ta pozwala na wykonanie ciagu dzialan w zalensosci od wektora warunkow logicznych
+ifelse(4>0,"tak", "nie")
+ifelse(c(1,1,1)>0, "tak", "nie")
+ifelse(rep(c(1,-1),8)>0, "tak", "nie")
+
+
+
+
+

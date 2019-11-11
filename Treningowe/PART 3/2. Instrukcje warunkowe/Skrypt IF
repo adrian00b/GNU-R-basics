@@ -1,0 +1,10 @@
+
+
+a <- readline("Podaj liczbê: ")
+
+a=as.numeric(a)
+if (a%%2==0){ 
+  cat("Liczba", a, "jest liczb¹ parzyst¹.")
+  }else cat("Liczba", a, "jest liczb¹ nieparzyst¹.")
+
+

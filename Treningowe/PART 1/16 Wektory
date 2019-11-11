@@ -1,0 +1,69 @@
+# WEKTORY
+# ponizej podstawowe sposoby deklarowania wektorow
+a=1:5
+b=c(1,2,3,4,5)
+c=seq(1,5)
+d=seq(1,10,by=2)
+
+#aby utworzyc wektor z danymi okreslonego typu:
+# vector("type", numberofelements)
+# mozna tez: double(n), integer(n), character(n), logical(n)
+a1=vector("integer",10)
+double(10)
+character(10)
+logical(10)
+
+# length(w) - dlugosc wektora
+length(a)
+
+# rep(base), zwielokrotnianie wektorów
+b1=rep(b, times=2)
+length(b1)
+b1[c(1:8)]
+b1[-(1:4)]
+b1[b1<4]
+# inne mozliwosci replikacji, times, length.out, each
+rep(b, length.out=14)
+rep(b, each=4)
+
+#table(a) - podsumwoanie liczebnosci roznych wartosci w wektorach
+a=c(1,2,3,4,2323,1,2,98,2,4,4,1,5,6621,2)
+table(a)
+
+# sortowanie- sort() i rev() - rev odwraca oryginalna kolejnosc wektora 
+sort(a,decreasing = T)
+sort(a)
+rev(a)
+
+# a jak dowolnie spermutowac elementy wektora?
+# mozemy wykorzystac funkcja sample, losujaco podzbior bez zwracania
+sample(a,3)
+sample(a,length(a))
+
+for (i in 1:10) {
+  print(sample(a,length(a)))
+}
+
+# cumsum(a) - fajna funkcja zwracajaca w rezultacie wektor gdzie [i]=sum(a[1:i])
+a=1:10
+acum=cumsum(a)
+acum
+plot(seq_along(acum),acum)
+plot(seq_along(acum),acum,type = "l")
+plot(seq_along(acum),acum,type = "S")
+lines(seq_along(acum),acum,type = "s",col="red")
+
+# cumprod(a) - analogicznie tylko iloczyn
+a=1:10
+acum=cumprod(a)
+acum
+plot(seq_along(acum),acum,type = "S")
+lines(seq_along(acum),acum,type = "s",col="red")
+plot(seq_along(acum),acum,type = "l")
+
+# cummin(a), cummax(a) - analogicznie tylko z wartoscia min, max
+cummin(a)
+
+# unique(a) - wyznacza tylko unikalne elementy wektora
+a=c(1,2,3,4,1,2,3)
+unique(a)
