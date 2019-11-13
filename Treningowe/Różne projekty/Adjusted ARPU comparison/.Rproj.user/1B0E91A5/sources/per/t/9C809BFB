@@ -1,0 +1,23 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1571403501265.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "741151607",
+    "id" : "9C809BFB",
+    "lastKnownWriteTime" : 1571405633,
+    "last_content_update" : 1571405633265,
+    "path" : "C:/Users/abrodowicz.ARDA/Desktop/R Tools/Adjusted ARPU comparison/Launcher.R",
+    "project_path" : "Launcher.R",
+    "properties" : {
+        "cursorPosition" : "9,30",
+        "scrollLine" : "0",
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
