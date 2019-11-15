@@ -20,7 +20,6 @@ sql_v1 <- paste(
       "AND s_amount_pln IS NOT NULL
       AND fr_install_version IN (" , paste("", v1, "", sep = "'"), ") 
       AND se_day_no < 30
-      AND fr_app_store = 'Google Play'
     )
     WHERE constant_version
     GROUP BY user_id
@@ -50,7 +49,6 @@ sql_v2 <- paste(
       "AND s_amount_pln IS NOT NULL
       AND fr_install_version IN (" , paste("", v2, "", sep = "'"), ") 
       AND se_day_no < 30
-      AND fr_app_store = 'Google Play'
     )
     WHERE constant_version
     GROUP BY user_id
@@ -81,7 +79,6 @@ sql_v1_v2 <- paste(
       "AND s_amount_pln IS NOT NULL
       AND fr_install_version IN (" , paste("", v1, "", sep = "'"), ",", paste("", v2, "", sep = "'"), ") 
       AND se_day_no < 30
-      AND fr_app_store = 'Google Play'
     )
     WHERE constant_version
     GROUP BY user_id
@@ -105,9 +102,9 @@ sql_number_of_users_v1 <- paste(
     FROM `tinydragons-983ab.analytics.sales_with_dimensions` 
     WHERE fr_first_open_date BETWEEN" , paste("", first_open_date_start, "", sep = "'")    
     , "AND", paste("", first_open_date_end, "", sep = "'"),
-    "AND fr_install_version IN (" , paste("", v1, "", sep = "'"), ") 
+    "AND s_amount_pln IS NOT NULL
+    AND fr_install_version IN (" , paste("", v1, "", sep = "'"), ") 
     AND se_day_no < 30
-    AND fr_app_store = 'Google Play'
   )
   WHERE constant_version
   "
@@ -127,9 +124,9 @@ sql_number_of_users_v2 <- paste(
     FROM `tinydragons-983ab.analytics.sales_with_dimensions` 
     WHERE fr_first_open_date BETWEEN" , paste("", first_open_date_start, "", sep = "'")    
     , "AND", paste("", first_open_date_end, "", sep = "'"),
-    "AND fr_install_version IN (" , paste("", v2, "", sep = "'"), ") 
+    "AND s_amount_pln IS NOT NULL
+    AND fr_install_version IN (" , paste("", v2, "", sep = "'"), ") 
     AND se_day_no < 30
-    AND fr_app_store = 'Google Play'
   )
   WHERE constant_version
   "
