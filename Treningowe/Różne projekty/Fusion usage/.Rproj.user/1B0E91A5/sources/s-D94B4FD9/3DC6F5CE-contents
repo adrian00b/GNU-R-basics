@@ -1,0 +1,87 @@
+# POTOKI
+# ciag funkcji, instrukcji, w ktorej jedna zalezy od drugiej mozna tworzyc przez zagniezdzanie
+# ale mozna tez uzywac POTOK?W
+library(dplyr)
+library(Przewodnik)
+# pierw przyklad zagniezdzania
+
+head(select(
+  arrange(
+    filter(auta, Marka=="Kia"), Cena), Model, Cena, Przebieg,Produkcja),10)
+
+# a zaraz zrobimy to samo z wykorzystaniem potoku, jest czytelniej
+# %>% - operator potoku, jest w pakiecie dplyr albo magrittr
+10 %>% sum(2)
+# taki zapis oznacz sum(10,2) - operator przypisuje pierwszy argument funkcji
+10 %>% sum(2,.)
+# ale korpka mozemy oznaczyc jezeli chcemy zeby to byl inny argument funkcji (inny niz pierwszy)
+
+filter(auta, Marka=="Kia") %>%
+  arrange(Cena) %>%
+  select(Model,Cena,Przebieg,Produkcja)->
+  autaedit
+
+head(autaedit)
+
+
+# AGREGATY calosciowe i w poszcczegolnych grupach (GROUP BY)
+#1 . summarise(..) - z summarise mozna okreslac jakie agregaty nas interesuja
+# funkcje agregujace wspolpracujace z summarise -> https://www.guru99.com/r-aggregate-function.html
+summary(auta)
+summarise(auta, AvgPrice=mean(Cena), MedMileage=median(Przebieg),
+          AvgAge=mean(2019-Produkcja),
+          amount=n(),
+          Modelamount=n_distinct(Model))
+
+# group_by(dane,args) - to jest argument summarise
+group_by(auta, Marka) %>%
+  summarise(Amount=n())
+
+table(auta$Marka,auta$Paliwo)
+
+# cwicz.podaj dla kazdej marki - srednia cene, medianeprzebiegu, sredniwiek, liczbe, posortuj wdl sredniejceny malejaco
+
+group_by(auta,Marka) %>%
+summarise(AvgPrice=mean(Cena), MedMileage=median(Przebieg), AvgAge=mean(2019-Produkcja), Amount=n()) %>%
+  arrange(desc(AvgPrice))->Marki
+
+Marki
+
+arrange(select(Marki, Marka, AvgPrice), desc(AvgPrice)) %>%
+  plot(type="h")
+
+
+barplot(Marki$AvgPrice, names.arg = Marki$Marka, ylab="Average Price", xlab="Mark", ylim=c(0,60000))
+
+barplot(Marki$AvgPrice, Marki$Amount, names.arg = Marki$Marka, ylab="Average Price", xlab="Mark", ylim=c(0,60000))
+
+
+# a gdybym chcial obok dodac liczbe sprzedanych obok? (Amount)
+library(ggplot2)
+arrange(Marki, desc(AvgPrice)) %>%
+  ggplot(aes(factor(Marka), AvgPrice, Amount)) + 
+  geom_bar(stat="identity", position = "dodge", col="red", fill="red")
+  
+arrange(Marki, desc(AvgPrice)) %>%
+  ggplot(aes(x=Marka, y=AvgPrice)) + 
+  geom_bar(stat="identity", position = "dodge", col="red", fill="red") ->p
+
+
+b1<-barplot(Marki$AvgPrice, names.arg = Marki$Marka, ylab="Average Price", xlab="Mark", ylim=c(0,60000))
+b2<-barplot(Marki$Amount, names.arg = Marki$Marka, ylab="Amount", xlab="Mark")
+
+# na razie zostawiam problem narysowania wykresu z dwoma osiami i ilosciami, dosc trudno zrobic
+
+#a teraz zmodyfikujmy zmienna przebieg, dzielac ja przez sredni przebieg danej marki
+
+select(auta, Marka, Cena, Przebieg, Model) %>%
+  group_by(Marka) %>%
+  mutate(Przebieg=Przebieg/(mean(Przebieg, na.rm = T)))
+
+
+
+
+
+
+
+

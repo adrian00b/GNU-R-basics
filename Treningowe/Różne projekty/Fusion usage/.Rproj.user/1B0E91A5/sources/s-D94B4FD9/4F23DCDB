@@ -1,0 +1,22 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1573808924639.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "4F23DCDB",
+    "lastKnownWriteTime" : 1571405597,
+    "last_content_update" : 1571405597,
+    "path" : "C:/Users/abrodowicz.ARDA/Desktop/R Tools/Adjusted ARPU comparison/Data.R",
+    "project_path" : null,
+    "properties" : {
+        "cursorPosition" : "86,0",
+        "scrollLine" : "66"
+    },
+    "relative_order" : 2,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
