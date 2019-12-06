@@ -1,0 +1,66 @@
+library(dplyr)
+library(Przewodnik)
+library(sqldf)
+
+# srednia cena, mediana przebiegu, sredni wiek, liczba wystapien
+
+auta %>%
+  summarise(
+    avg_price = mean(Cena)
+    , med_mileage = median(Przebieg)
+    , avg_age = mean(as.numeric(format(Sys.Date(), "%Y")) - Produkcja)
+    , sample = n()
+  )
+
+
+# funkcje dat w RSQLite https://www.sqlite.org/lang_datefunc.html
+sqldf("
+      SELECT AVG(Cena) AS avg_price
+        , MEDIAN(Przebieg) AS med_milea
+        , AVG(strftime('%Y', 'now') - Produkcja) AS avg_age
+        , COUNT(*) AS sample
+      FROM auta
+      ")
+
+# a teraz grupowanie po Marce
+
+auta %>%
+  group_by(Marka) %>%
+    summarise(
+      avg_price = mean(Cena)
+      , med_mileage = median(Przebieg)
+      , avg_age = mean(as.numeric(format(Sys.Date(), "%Y")) - Produkcja)
+      , sample = n()
+    ) %>%
+  arrange(desc(avg_price))
+
+sqldf("
+      SELECT Marka 
+        , AVG(Cena) AS avg_price
+        , MEDIAN(Przebieg) AS med_milea
+        , AVG(strftime('%Y', 'now') - Produkcja) AS avg_age
+        , COUNT(*) AS sample
+      FROM auta
+      GROUP BY Marka
+      ORDER BY avg_price DESC    
+      ")
+
+# znormalizuj atrybut Przebieg dzielac przez srednie przebieg danej marki 
+
+auta %>%
+  select(Marka, Cena, Przebieg) %>%
+  group_by(Marka) %>%
+  mutate(Przebieg = Przebieg/mean(Przebieg))
+
+sqldf(
+  "
+  SELECT Marka
+    , Cena
+    , ROUND(Przebieg / AVG(Przebieg) OVER (PARTITION BY Marka), 2) AS normalized_mileage
+  FROM auta
+  "
+)
+
+
+
+

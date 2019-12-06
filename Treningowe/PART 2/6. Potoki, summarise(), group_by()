@@ -28,10 +28,15 @@ head(autaedit)
 #1 . summarise(..) - z summarise mozna okreslac jakie agregaty nas interesuja
 # funkcje agregujace wspolpracujace z summarise -> https://www.guru99.com/r-aggregate-function.html
 summary(auta)
-summarise(auta, AvgPrice=mean(Cena), MedMileage=median(Przebieg),
-          AvgAge=mean(2019-Produkcja),
-          amount=n(),
-          Modelamount=n_distinct(Model))
+
+# srednia cena, mediana przebiegu, sredni wiek, liczba wystapien
+auta %>%
+  summarise(
+    avg_price = mean(Cena)
+    , med_mileage = median(Przebieg)
+    , avg_age = mean(as.numeric(format(Sys.Date(), "%Y")) - Produkcja)
+    , sample = n()
+  )
 
 # group_by(dane,args) - to jest argument summarise
 group_by(auta, Marka) %>%
