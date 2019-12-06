@@ -1,0 +1,11 @@
+library(tidyr)
+
+to_spread <- read.csv2('7/to_spread.csv')
+
+# funkcja pozwalaj¹ca edytowaæ zawartosc pliku
+file.edit('7/to_spread.csv')
+
+#funkcja spread - przenosi unikalne wartosci danego atrybutu jako kolumny, wartosci nastepnego argumentu zostaja rozlozone
+spread(to_spread, year, value)
+
+spread(to_spread, country, value)
