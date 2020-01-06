@@ -9,3 +9,30 @@ titles=html_nodes(webfw,".filmPreview__titleDetails")
 premiery=html_text(titles)
 premiery
 write.table(premiery, "C:/Users/adria/Desktop/premiery.txt", sep = " ", quote = F)
+
+# pobor z filmwebu (prosta wersja projektu scrapping filmweb with selenium)
+
+library(rvest)
+films = c()
+for(i in 1:34){
+  address <- paste('https://www.filmweb.pl/user/S_roksana/films?page=', i, sep = "")
+  films_html <- read_html(address)
+  films_html_2 <- html_nodes(films_html, "h3.filmPreview__title")
+  films <- append(films, html_text(films_html_2))
+}
+
+write.table(films, file = 'C:/Users/adria/Desktop/films.csv', col.names = F, quote = F)
+
+
+address <- 'https://www.filmweb.pl/user/S_roksana/films?page=1'
+films_html <- read_html(address)
+films_html_2 <- films_html %>%
+  html_nodes(".userRate.userRate--film.userRate--stroke.UserRateFilm.userRate--display.userRate--hasRate.userRate--showSeenWhenZero ")
+films_data <- html_attr(films_html_2, name = 'data-rate')
+
+# fajnie by bylo pobrac liczbe stron, zeby zrobic uniwersalna apke, ale jak widac atrybut ktory zawiera ta liczbe nie pobiera sie w odpowiedni sposob
+# dlatego ze nie ma go w sourcie strony - jest to przetwarzane przez JS na pozniejszym etapie, potrzebne Selenium
+initial_addres <- 'https://www.filmweb.pl/user/S_roksana/films?page=1'
+read_html(initial_addres) %>%
+  html_nodes('.section.section.userVotesPage.userVotesPage--userVotes.__Filters.isLoading.ribbonsContainer.page__section') -> test
+#html_attr(name = 'data-pages-count') -> max_page
