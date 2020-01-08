@@ -16,7 +16,9 @@ remDr <- rD$client
 #maximize window size (full screen)
 remDr$maxWindowSize()
 remDr$navigate(paste('https://www.filmweb.pl/user/', user, '/films', sep = ''))
-Sys.sleep(10)
+
+# sleep because of possible ads
+Sys.sleep(25)
 
 # rodo button
 button <- remDr$findElement(using = 'css'

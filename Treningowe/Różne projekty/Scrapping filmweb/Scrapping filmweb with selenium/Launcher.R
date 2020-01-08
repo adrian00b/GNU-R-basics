@@ -8,7 +8,7 @@
 # 3) after starting script enter password to your facebook account (secure with keyring package)
 
 # 1) 
-user <- 'S_roksana'
+user <- 'malinowykisiel'
 
 # 2)
 login <- 'adrianbrodowicz6@wp.pl'
