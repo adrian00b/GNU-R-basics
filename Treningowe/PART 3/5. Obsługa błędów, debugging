@@ -54,6 +54,13 @@ los10=function(i){
   }
 }
 
+sampling1 <- function(n){
+  if(n <= 1 | n >= 10){
+    stop('Podaj wartoœæ numeryczn¹ z zakresu od 1 do 10')
+  }
+  return(sample(1:10, n))
+}
+
 # teraz zrobmy funkcje ktora pozwala wylosowac i liczb z podanego wektora v
 losv=function(i,v=1:10){
   if (i>=1 & i<=length(v)){
@@ -92,6 +99,8 @@ sample2=function(i,a){
 }
 
 # a teraz z doowlnych WEKTOROW!!! tzn ze musimy dzialac na indeksach tego wektora
+# UWAGA! ten algorytm dziala przy zalozaeniu ze elementy wektora sa rozne!!! a przeciez wektor moze miec kilaka takich samych elementow
+# ponizej bedzie funkcja sampling_algorithm ktora obsluguje takie przypadki (tworzony jest wektor unikalnych indeksow)
 sample2=function(i,a){
   v=numeric(i);
   for (k in 1:i){
@@ -128,6 +137,31 @@ sample2b=function(i,a){
     }
   }
   return(v)
+}
+
+#inny algorytm
+
+# algorytm losowania bez zwracania n elementow z podanego wektora
+
+sampling_algorithm <- function(v, n){
+  
+  if((!(is.numeric(n)) | n <= 0)){
+    stop('Enter a valid arguments: n should be a positive number')
+  } else if (!is.vector(v)){
+    stop('Enter a valid arguments: v should be a vector')
+  }
+  
+  sample_indexes <- c()
+  i <- 1
+  # smaller than minimum for cases when n > length(v)
+  while(length(sample_indexes) < min(n, length(v))){
+    ind = ceiling(runif(1, 0, length(v)))
+    if(all(ind != sample_indexes)){
+      sample_indexes[i] <- ind
+      i <- i + 1
+    }
+  }
+  return(v[sample_indexes])
 }
 
 # bledy mozna obslugiwac takze z wykrozystaniem try(polecenie, silent=T)
