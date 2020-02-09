@@ -25,7 +25,7 @@ hist(unifd)
 
 unifd2=replicate(1000, runif(1,0,1))
 hist(unifd2)
-# jak widac rezultat ten sam, wiec przydatne w wielu przypadkach zwiazanych z losowaniami/symulacjami
++# jak widac rezultat ten sam, wiec przydatne w wielu przypadkach zwiazanych z losowaniami/symulacjami
 
 #for for for for for for for for for for for for for for for
 # for (iterator in collection){}
@@ -73,6 +73,22 @@ while(max(b)<95){
 cat("Iloœæ iteracji: ", i, "\n")
 b
 
+# mozna to fajnie zapisac w postaci funkcji
+
+uniform1 <- function(){
+  a = c()
+  i = 1
+  
+  while(max(a) < 90){
+    a[i] <- runif(1, 0, 100)
+    i <- i + 1
+  }
+  cat('Ilosc iteracji: ', i - 1 , '\n')
+  print(a)
+  
+}
+
+uniform1()
 
 # a teraz zrobmy tak zeby zapisac ilosc iteracji w jakims wektorze, zeby moc zobaczyc histogram
 
@@ -91,6 +107,31 @@ while(length(ivec)<1000){
 }
 hist(ivec)
 
+#mozna to opakowac funkcjami
+
+uniform2 <- function(){
+  a = c()
+  i = 1
+  
+  while(max(a) < 99){
+    a[i] <- runif(1, 0, 100)
+    i <- i + 1
+  }
+  return(i - 1)
+}
+
+uniform1_iterations <- function(n){
+  i_vector = c()
+  for (j in 1:n){
+    i_vector[j] <- uniform2()   
+  }
+  return(i_vector)
+}
+
+a <- uniform1_iterations(1000) 
+a %>%
+  hist(breaks = 100 , labels = T, right = F)
+axis(1, at = seq(0, max(a), 5))
 
 # to samo ale zewnetrzna petla zrobiona FOR
 
