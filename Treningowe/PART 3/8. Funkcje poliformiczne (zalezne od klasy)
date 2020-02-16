@@ -1,0 +1,36 @@
+# funkcje poliformiczne, czyli takie ktore dzialaja dla roznych klsa
+# np funkcja plot - w zaleznosci jakiej klasy jest input to jej dzialanie jest inne
+# odpalana jest wtedy jedna z funkcji plot.name
+methods(plot)
+
+# tak samo tworzac funkcje mozna uzaleznic jej dzialanie od klasy inputu (bez robienia prymitywnego ifa)
+
+rozmiar <- function(x){
+  UseMethod("rozmiar")
+}
+
+rozmiar.default <- function(x) {
+  length(x)
+}
+
+rozmiar.character <- function(x){
+  length(x)
+}
+
+rozmiar.matrix <- function(x){
+  dim(x)[1] * dim(x)[2]
+}
+
+rozmiar.array <- function(x){
+  prod(dim(x))
+}
+
+a = matrix(c(1,2,3,4), 2, 2)
+rozmiar(a)
+
+b = array(c(1:8), dim = c(2,2,2))
+b[1,1,1]
+b[1,1,2]
+
+class(b)
+rozmiar(b)

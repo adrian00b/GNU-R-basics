@@ -1,0 +1,94 @@
+## sprawdzenie wydajnosci roznych rozwiazan na przykladzie prostego algorytmu
+
+## funkcja ma umozliwic obliczenie jaki jest % szansy ze dwie losowo wybrane cyfry z przedzialu 1:n
+## dadza iloczyn konczacy sie dana cyfra
+
+## funkcja bedzie pokazywala liczebnosc - prawdopodobienstwo sb odpuszcze (wystarczy podzielic przez n^2)
+
+## pierwsze rozwiazanie, na pewno najmniej wydajne, bo konkatenacja i brak wczesniejszej deklaracji wielksoci wektora
+how_many_end_numbers_1 = function(n){
+  v = vector();
+  for (i in 1:n){
+    for (j in 1:n){
+      v = c(v, i*j)
+    }
+  }
+  return(table(vmod = v %% 10))
+}
+
+# 1.39
+system.time({
+  v = how_many_end_numbers_1(200)  
+}
+)
+
+# pozbycie sie konkatenacji! warto zwrocic uwage na sprytne indeksowanie wektora v
+how_many_end_numbers_2 = function(n){
+  v = vector();
+  z = 0
+  for (i in 1:n){
+    for (j in 1:n){
+      v[z <- z + 1] = i*j
+    }
+  }
+  return(table(vmod = v %% 10))
+}
+
+# 0.07 - jak widac duzo bardziej korzystny czas
+system.time({
+  v = how_many_end_numbers_2(200)  
+}
+)
+
+# teraz z zadeklarowana wielksocia wektora
+how_many_end_numbers_3 = function(n){
+  v = numeric(n^2);
+  z = 0
+  for (i in 1:n){
+    for (j in 1:n){
+      v[z <- z + 1] = i*j
+    }
+  }
+  return(table(vmod = v %% 10))
+}
+
+# 0.05 - takze rowniez widoczna jest roznica
+system.time({
+  v = how_many_end_numbers_3(200)  
+}
+)
+
+# kolejnym krokiem byloby pozbycie sie petli, jednej petli mozemy pozbyc sie funkcjami z rodziny apply
+# w tym przypadku mamy podowjna petle i iloczyn elementow
+# idealna bedzie funkcja OUTER - products of two arrays
+
+table(outer(2:5, 1:2, FUN = "*"))
+library(dplyr)
+
+how_many_end_numbers_4 = function(n){
+  outer(1:n, 1:n, FUN = "*") %% 10 %>%
+    table %>%
+    return
+}
+
+# jak widac tylko 0.03, czyli znowu wyrazne zwiekszenie efektywnosc
+system.time({
+  v = how_many_end_numbers_4(200)  
+}
+)
+
+# a teraz uwaga! najefektywniejsze rozwiazanie
+# to samo tylko zamiast TABLE uzyc mozna TABULATE - jest wyraznie szybsze
+how_many_end_numbers_5 = function(n){
+  outer(1:n, 1:n, FUN = "*") %% 10 %>%
+    tabulate %>%
+    return
+}
+
+# 0 !!!
+system.time({
+  v = how_many_end_numbers_5(200)  
+}
+)
+
+v = how_many_end_numbers_5(2000)  
