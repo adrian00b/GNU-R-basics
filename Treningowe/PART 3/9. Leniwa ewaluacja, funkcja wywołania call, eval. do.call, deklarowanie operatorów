@@ -1,0 +1,53 @@
+# tworzenie wlasnych operatorow
+# operatorem moze byc dowolny ciag otoczony znakami % %
+
+"%op%" <- function(a, b) 2*a+3*b
+1 %op% 1
+
+# obiekty wywolan funkcji
+
+wywolanie <- call('round', 1.59)
+wywolanie
+eval(wywolanie)
+
+# podobnie do lozenia call+eval dziala funkcja do.call, podajemy w niej lsite argumentow
+do.call('round', list(2.59, 1))
+
+#wykorzystac mozna w ponizszy sposob
+functions_name <- c('runif', 'rnorm', 'rexp')
+
+# sapply - apply a function over a list or vector
+
+sapply(functions_name, FUN = do.call, list(3))
+
+# w R ma miejsce tzw. leniwa ewaluacja - tzn. ze wartosc argumentow zdefiniowanych w miejscu wywolania funkcji
+# nie jest wyznaczanae dopoki ich wartosc nie bedzie potrzebna
+
+example1 <- function(x = y){
+  y <- 2
+  return(x)
+}
+
+
+# tutaj jak widac funkcja nie zwraca bledu mimo ze wartosc y nie jest znana przed wywolaniem funkcji
+example1()
+
+# a teraz zauwazmy ze nawet jak zdefinujemy y = 1, to i tak funkcja zwraca wartosc 2
+# poniewaz x zostanie wyznaczone dopiero w momencie gdy jest potrzebne, a wtedy y juz zmienil wartosc na 2
+y = 1
+example1()
+
+# a teraz ta sama funkcja, tylko ze na jej poczatku uzywamy argumentu x, co zmieni sytuacje jak widac na przykladach ponizej
+example2 <- function(x = y){
+  x;
+  y <- 2;
+  return(x)
+}
+
+example2()
+
+y = 100;
+example2()
+
+
+
