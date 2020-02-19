@@ -1,0 +1,77 @@
+# zasieg symboli w przestrzeniach nazw
+# <-, ->, = przypisuje wartosc d osymbolu w lokalnej przestrzeni nazw
+# <<- , ->> przypisuja wartosc do zmiennej ktora juz istnieje w wyzszej przestrzeni nazw
+
+c = 0;
+example1 <- function(a, b){
+  c = a + b
+  return(c)
+}
+
+# w powyzszej funkcji symbol c jest pamietamy jedynie wewnatrz funkcji, jak widac w global environment nie zmienna sie wartosc c
+example1(2,4)
+
+c = 0;
+example2 <- function(a, b){
+  c <<- a + b
+  return(c)
+}
+
+# tym razem uzyto przypisania <<-, mozna zaobserwowac ze zmienia sie wartosc c w global environment
+# uwaga! symbol jest wyszukiwany w wyzszej przestrzeni nazw i do niego przypisywana jest wartosc
+# wiec jesli symbol nie istnieje wystapi blad
+
+example2(2,3)
+
+
+# wystepuje tez roznica miedzy operatorami = a <-, ten 1szy
+# w przypadku funkcji = wskazuje ktoremu argumentowi funkcji przypisujemy wartosc
+# operator <- przypisuje wartosc
+
+plot(1:100)
+plot(liczby <- 1:100)
+plot(liczby = 1:100)
+# jak widac w przypadku = jest error, poniewa w tym przypadku liczby zostaly potraktowane tak jakby to byl argument funkcji
+
+# lista obiektow
+ls()
+# usuwanie wszystkich zmiennych  przestrzeni roboczej
+rm(list = ls())
+
+
+# tworzac funkcje, tworzy sie nowa przestrzen nazw!
+
+# na poczatek ciekawa konstrukcja- anonimowa funkcja zwracajaca w wyniku funkcje f1 oraz f2
+fun_anon <- {function(){
+  a = 0
+  f1 <- function(){
+    a
+  }
+  f2 <- function(){
+    a + 1
+  }
+  list(f1 = f1, f2 = f2)
+}}()
+
+fun_anon$f1()
+fun_anon$f2()
+
+# teraz podobna funkcja - funkcje get, set, inc, te funkcje wspoldziela przestrzen nazw, nadrzedna do ich przestrzeni nazw,
+# zawierajaca obiekt licznik
+
+rejestr <- { function(){
+ licznik <- 0
+ get <- function() licznik
+ # tutaj stosujemy <<-, poniewaz chcemy zmienic wartosc obiektu licznik ktory jest w wyzszej przestrzeni nazw
+ set <- function(x) licznik <<- x
+ inc <- function() licznik <<- licznik + 1
+ list(get = get, set = set, inc = inc)
+}}()
+
+rejestr$get()
+rejestr$set(5)
+rejestr$inc()
+
+
+
+

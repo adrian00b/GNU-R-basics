@@ -1,0 +1,83 @@
+# obiekty
+
+# class() - klasa
+# mode() - typ przechowywania obiektu (np. numeric)
+# typeof() - typ zmiennej (np.integer)
+
+imie <- factor('Adrian')
+summary(imie)
+
+class(imie)
+mode(imie)
+typeof(imie)
+
+# str pokazuje strukture obiektu
+str(imie)
+
+# dzieki temu latwo mozna wyciagnac z obiektu istotna skladowa
+# szczegolnie w przypadku modeli 
+hist1 <- hist(1:10)
+str(hist1)
+
+a1 = c(1:10)
+
+# fix() - dzieki temu mozemy zmodyfikowac wartosc zmiennej, funkcji, ramki danych
+fix(a1)
+
+# rodzina funkcji *APPLY
+
+# tapply - wykonuje funkcje dla podzbiorow
+
+library('SmarterPoland')
+wypadkiWaska <- getEurostatRCV("sdg_11_40")
+
+# chcemy obliczyc srednia dla kazdego geo - pierw zrobimy przy pomocy dplyr i sqldf, pozniej tapply
+
+library(sqldf)
+ex1 <- sqldf(
+"
+  SELECT geo
+    , AVG(value) AS avg_value
+  FROM wypadkiWaska
+  GROUP BY geo
+  ORDER BY 2 DESC
+"
+)
+
+class(ex1)
+mode(ex1)
+
+library(dplyr)
+
+ex2 <- group_by(wypadkiWaska, geo) %>%
+  summarise(avg_value = mean(value)) %>%
+  arrange(desc(avg_value))
+
+class(ex2)
+mode(ex2)
+str(ex2)
+
+ex3 <- tapply(wypadkiWaska$value, wypadkiWaska$geo, FUN = mean)
+
+class(ex3)
+mode(ex3)
+str(ex3)
+
+# zamiast tapply mozna uzyc by - zwraca wyniki w innej formie
+ex4 <- by(wypadkiWaska$value, wypadkiWaska$geo, FUN = mean)
+
+class(ex4)
+mode(ex4)
+str(ex4)
+
+# mozna tez uzyc funkcji aggregate
+aggregate(wypadkiWaska$value, by = list(wypadkiWaska$geo), FUN = mean)
+
+
+wypadkiWaska$value > 1000
+
+
+
+
+
+
