@@ -1,0 +1,20 @@
+# plyr package
+# umozliwia zastosowanie tej samej funkcji dla roznych podzbiorow wejsciowego zbioru danych
+
+library('SmarterPoland')
+wypadkiWaska <- getEurostatRCV("sdg_11_40")
+
+library('plyr')
+library('dplyr')
+# regresja w podzbiorach okreslonych zmienna geo
+head(wypadkiWaska)
+
+
+# postac ax+b, oraz srednia
+regre_v2 <-  ddply(filter(wypadkiWaska, unit == 'NR') , .variables = .(geo),  summarize
+                , a = lm(value ~ time)$coef[2]
+                , b = lm(value ~ time)$coef[1]
+                , srednia = mean(value, na.rm = T))
+
+
+
