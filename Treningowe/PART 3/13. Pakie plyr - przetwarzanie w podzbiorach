@@ -9,12 +9,29 @@ library('dplyr')
 # regresja w podzbiorach okreslonych zmienna geo
 head(wypadkiWaska)
 
-
-# postac ax+b, oraz srednia
-regre_v2 <-  ddply(filter(wypadkiWaska, unit == 'NR') , .variables = .(geo),  summarize
-                , a = lm(value ~ time)$coef[2]
-                , b = lm(value ~ time)$coef[1]
+# postac a + bx, oraz srednia
+regr_coeff <-  ddply(filter(wypadkiWaska, unit == 'NR') , .variables = .(geo),  summarize
+                , a = lm(value ~ as.numeric(time))$coef[1]
+                , b = lm(value ~ as.numeric(time))$coef[2]
                 , srednia = mean(value, na.rm = T))
+# w ten porsty sposob otrzymalismy regresje dla 34 krajow z osobna
+# teraz fajnie byloby pokazac to na wykresie
 
+# na poczatek mozna wygenerowac sobie rozne kolory (aby wyroznialy sie na grafice)
+# RColorBrewer package  can be used to generate colors
+library(RColorBrewer)
+display.brewer.all()
 
+# choose palets, only category qual (distinct colors, not different shadow)
+qual_col_pals = brewer.pal.info[brewer.pal.info$category == 'qual', ]
+# mapply - applies arguments to function brewer.pal - col_vector is vector with different colors!
+col_vector = unlist(mapply(brewer.pal, qual_col_pals$maxcolors, rownames(qual_col_pals)))
+
+regr_coeff_adjusted <- filter(regr_coeff, !(geo %in% c('EU27_2019', 'EU28')))
+plot(x = c(), y = c(), xlim = c(0, 18), ylim = c(0, max(regr_coeff_adjusted$a) + 500), xlab = '', ylab = '')
+for(i in seq_along(regr_coeff_adjusted$a)){
+  abline(coef = c(regr_coeff_adjusted$a[i], regr_coeff_adjusted$b[i]), col = col_vector[i])
+}
+# of course the chart hasnt legend or labels - it's only show trends - maybe after learning more about graphics in R
+# i will be able to do similar but better charts 
 
