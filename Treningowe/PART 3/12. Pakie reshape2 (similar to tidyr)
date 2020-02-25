@@ -1,0 +1,56 @@
+library('SmarterPoland')
+library(dplyr)
+
+wypadki1 <- getEurostatRCV('sdg_11_40')
+
+head(wypadki1)
+summary(wypadki1)
+head(arrange(wypadki1, geo, time), 100)
+
+# pakiet reshape2 pozwala na manipulowanie zbiorami danych (postac z waskiej do szerokiej)
+# operacje analogiczne do tych ktore mozna wykonac w tidyr
+
+library(reshape2)
+# chcemy miec kraje w wierszach i lata w kolumnach (tworzymy tabele przestawna)
+# funkcja dcast
+# lewa strona formuly wiersze, a prawa to kolumny
+
+
+wypadki_wide_v1 <- filter(wypadki1, unit == 'NR') %>%
+  dcast(, formula = geo ~ time, fun.aggregate = mean)
+
+# teraz to samo z wykorzystaniem tidyr
+library(tidyr)
+
+# wczesniej byla to funkcja SPREAD, nowa wersja to PIVOT_WIDER
+wypadki_wide_v2 <- filter(wypadki1, unit == 'NR') %>%
+  pivot_wider(, names_from = time, values_from = value, values_fn = list(mean) )
+
+# a teraz to samo, ale chcemy miec nie tylko unit = 'NR' , ale srednia z wartosci dla NR i RT
+# reshape2
+wypadki1 %>%
+  dcast(, formula = geo ~ time, fun.aggregate = mean)
+
+# tidyr
+wypadki1 %>%
+  pivot_wider(id_cols = geo, names_from = time, values_from = value, values_fn = list(value = mean))
+
+# operator %in% !!! jak IN w SQL
+wypadki_wide_v1[wypadki_wide_v1$geo %in% c('UK', 'PL', 'ES'), 1:5]
+
+wypadki_wide_v1 %>%
+  filter(geo %in% c('UK', 'PL', 'ES')) %>%
+  select(1:5)
+
+# teraz przekztalcone dane na postac szeroka przeksztalcimy z powrotem na waska
+# reshape2
+head(wypadki_wide_v1, 5)
+wypadki_long_v1 <- wypadki_wide_v1 %>%
+  melt(, id.vars = 'geo', measure.vars = paste(2000:2017))
+
+#tidyr - wczesniej funkcja GATHER, aktualnie PIVOT_LONGER()
+wypadki_long_v2 <- wypadki_wide_v2 %>%
+  pivot_longer(, cols = paste(2000:2017))
+
+
+
