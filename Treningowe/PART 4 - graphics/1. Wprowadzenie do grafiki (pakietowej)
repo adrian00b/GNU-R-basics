@@ -1,0 +1,23 @@
+# GRAPHICS
+# few different package, for example: lattice, ggplot2, graphics, rCharts
+
+# the same type of graph has a different view in different package
+# for example - scatterplot
+library('PBImisc')
+# datasource kidney
+
+# 1 standard scatterplot in car package
+library(car)
+sp(MDRD12 ~ MDRD7, data = kidney)
+# as we can see, by default smooth and regLine is set on TRUE, so on the chart are regression line and smooth regressions line (?)
+# what's the method of calculation the smooth line?
+sp(MDRD12 ~ MDRD7, data = kidney, smooth = F)
+# ellipse shows data-consentration elipses
+# what's the method of calulation the ellipse line?
+sp(MDRD12 ~ MDRD7, data = kidney, regLine = F, smooth = F, ellipse = T)
+# grid - siatka w tle
+sp(MDRD12 ~ MDRD7, data = kidney, regLine = F, smooth = F, grid = T)
+
+
+# just scatter plot without additives:
+sp(MDRD12 ~ MDRD7, data = kidney, regLine = F, smooth = F, boxplots = F)
