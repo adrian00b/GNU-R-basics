@@ -1,0 +1,19 @@
+# current working directory
+getwd()
+
+setwd("/Users/abrodowicz.ARDA/Desktop/GNU R/GNU-R-basics/Treningowe/PART 3/2. Instrukcje warunkowe/")
+getwd()
+setwd("/Users/abrodowicz.ARDA/Desktop/GNU R/GNU-R-basics/Treningowe/PART 3")
+
+# list of files in working directory - list.fileS() / dir()
+list.files()
+dir()
+
+list.files("/Users/abrodowicz.ARDA/Desktop/GNU R/GNU-R-basics/Treningowe/PART 2")
+dir("/Users/abrodowicz.ARDA/Desktop/GNU R/GNU-R-basics/Treningowe/PART 2")
+
+#basic operation on file
+file.create('test.txt')
+file.exists('test.txt')
+file.rename('test.txt', 'test2.txt')
+file.remove('test2.txt')

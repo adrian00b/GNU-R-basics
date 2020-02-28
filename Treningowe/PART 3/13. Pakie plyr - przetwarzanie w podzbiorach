@@ -35,3 +35,21 @@ for(i in seq_along(regr_coeff_adjusted$a)){
 # of course the chart hasnt legend or labels - it's only show trends - maybe after learning more about graphics in R
 # i will be able to do similar but better charts 
 
+# funkcje r*ply() , w przypadki data_frame jest to rdply - powtarza wykonanie oparcji zadana liczbe razy
+
+
+rdply(20, mean(runif(100)))
+
+# funkcja each! allows you to combine few functions - returnig a named vector of outputs
+each(length, mean, var)(rnorm(100))
+rdply(20, each(mean, var)(runif(100)))
+# mozna tez funkcje wpisywac jako wektor stringow
+rdply(20, each(c('mean', 'var'))(runif(100)))
+
+n <- nrow(filter(wypadkiWaska, unit == 'NR'))
+result <- rdply(100, .expr = lm(value ~ as.numeric(time), data = wypadkiWaska[sample(n, replace = T), ])$coeff
+)
+head(result, 5)
+summary(result)
+
+
