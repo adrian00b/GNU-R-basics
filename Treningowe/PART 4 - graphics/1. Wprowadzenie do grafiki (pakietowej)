@@ -21,3 +21,13 @@ sp(MDRD12 ~ MDRD7, data = kidney, regLine = F, smooth = F, grid = T)
 
 # just scatter plot without additives:
 sp(MDRD12 ~ MDRD7, data = kidney, regLine = F, smooth = F, boxplots = F)
+
+# graphics
+plot(MDRD12 ~ MDRD7, data = kidney)
+
+# lattice
+library('lattice')
+xyplot(MDRD12 ~ MDRD7, data = kidney)
+
+library('ggplot2')
+qplot(MDRD12, MDRD7, data = kidney)
