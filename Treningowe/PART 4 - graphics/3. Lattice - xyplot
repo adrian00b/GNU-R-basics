@@ -1,0 +1,55 @@
+library('PBImisc')
+# datasource kidney - zbior danych o funkcjonowaniu nerki
+
+library('lattice')
+head(kidney)
+
+xyplot(MDRD12 ~ MDRD7, data = kidney, col = 'black')
+
+library(dplyr)
+kidney %>%
+  select(discrepancy.DR) %>%
+  distinct()
+
+# it's possible to obtain unique values in easier way - just using function UNIQUE
+unique(kidney$discrepancy.DR)
+
+# | oznacza zmienna warunkujaca - postanie tyle wykresow ile wartosci przyjmuje ta zmienna 
+xyplot(MDRD12 ~ MDRD7 | discrepancy.DR, data = kidney)
+
+# it's possible to set layout
+# https://www.r-bloggers.com/conditioning-and-grouping-with-lattice-graphics/
+
+xyplot(MDRD12 ~ MDRD7 | discrepancy.DR, data = kidney, layout = c(3,1))
+# przy takim zapisie nie mamy podanych wprost wartosci discrepancy.DR - mozna to obsluzyc uzywajac funkcji factor
+
+xyplot(MDRD12 ~ MDRD7 | factor(discrepancy.DR), data = kidney, layout = c(3,1))
+
+xyplot(MDRD12 ~ MDRD7 | factor(discrepancy.DR, labels = c('DR = 0', 'DR = 1', 'DR = 2'))
+       , data = kidney
+       , layout = c(3,1))
+
+# more complex example below - DR is conditioning variable but also grouping is added
+# types - in Beciek book page 303
+xyplot(MDRD12 ~ MDRD7 | factor(discrepancy.DR, labels = c('DR = 0', 'DR = 1', 'DR = 2'))
+       , groups = factor(discrepancy.AB, labels = c('AB = 0', 'AB = 1', 'AB = 2', 'AB = 3', 'AB = 4'))
+       , data = kidney
+       , layout = c(3,1)
+       , type = c('p', 'g')
+       , pch = 16
+       , auto.key = list(columns = 5)
+       , main = 'DR and AB'
+)
+
+# regresja i krzywa lokalnie wygladzona () - smooth = smoothing cubic splines
+xyplot(MDRD12 ~ MDRD7 | factor(discrepancy.DR, labels = c('DR = 0', 'DR = 1', 'DR = 2'))
+       , data = kidney
+       , layout = c(3,1)
+       , type = c('p', 'g', 'r', 'smooth')
+       , col.line = 'red'
+       , lwd = 2
+       , pch = 16
+       , auto.key = list(columns = 5)
+       , main = 'DR and AB'
+)
+
