@@ -1,0 +1,54 @@
+# we can save graphics in different formats
+# example functions
+# png(), bmp(), jpeg(), pdf(), postscript(), bitmap() z pakietu grDevices
+
+library('PBImisc')
+
+# schema of oeparion
+# png(..)
+# graphics
+# dev.off() - closing of graphic device (urz¹dzenie graficzne)
+# default graphic device = Plots window in RStudio, using function like png() we create nwe graphics device
+
+png('Graphics/kidney1.png')
+plot(MDRD12 ~ MDRD7, data = kidney)
+dev.off()
+
+png('Graphics/kidney1.png', width = 800, height = 800)
+plot(MDRD12 ~ MDRD7, data = kidney)
+dev.off()
+
+
+# formaty rastrowe (siatka z pikselami) - jpeg, png itd - width i height = pixele
+# formaty wektorowe - obraz zapisany za pomoca figut geometrycznych, np, pdf, ps
+
+pdf('Graphics/kidney1.pdf')
+plot(MDRD12 ~ MDRD7, data = kidney)
+dev.off()
+
+pdf('Graphics/kidney1.pdf', width = 8, height = 8)
+plot(MDRD12 ~ MDRD7, data = kidney)
+dev.off()
+
+# current device
+dev.cur()
+# list of devices
+dev.list()
+
+# we can open second device to easy compare chart
+# X11() function open new device (new window)
+X11()
+plot(MDRD12 ~ MDRD7, data = kidney)
+dev.off()
+
+
+
+
+
+
+
+
+
+
+
+
