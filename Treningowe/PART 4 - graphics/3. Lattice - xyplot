@@ -2,11 +2,13 @@ library('PBImisc')
 # datasource kidney - zbior danych o funkcjonowaniu nerki
 
 library('lattice')
+library(dplyr)
+
 head(kidney)
 
 xyplot(MDRD12 ~ MDRD7, data = kidney, col = 'black')
 
-library(dplyr)
+
 kidney %>%
   select(discrepancy.DR) %>%
   distinct()
@@ -53,3 +55,5 @@ xyplot(MDRD12 ~ MDRD7 | factor(discrepancy.DR, labels = c('DR = 0', 'DR = 1', 'D
        , main = 'DR and AB'
 )
 
+# in files to analyses different things are AM is a lot of more complex application of xyplot (with legend, scale, abline etc)
+# also using of latticeExtra and gridExtra packages

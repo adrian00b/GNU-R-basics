@@ -1,0 +1,66 @@
+library(lattice)
+library(PBImisc)
+
+head(kidney)
+
+# MATRIX OF SCATTER PLOTS
+# splom - matrix of scatter plots
+# not formula as input, just dataframe with attributes we want to plot
+
+splom(kidney[c("MDRD7", "MDRD30", "MDRD60")]
+      , main = "Matrix of scatter plots"
+      , type = c("p", "smooth", "g")
+)
+
+# BOXPLOT - bwplot()
+# https://homerhanumat.github.io/tigerstats/bwplot.html
+# basic version
+bwplot(
+  ~ MDRD7
+  , data = kidney
+)
+
+# basic version with two variables - like in boxplot functions, if you want for example MDRD7 and MDRD30 at the same plot
+# you should do a union and then do MDRD_value ~ MDRD_name
+
+bwplot(
+  diabetes ~ MDRD7
+  , data = kidney
+  , main = "Bar plot of MDRD7 by diabetes"
+)
+
+bwplot(
+  MDRD7 ~ factor(diabetes)
+  , data = kidney
+  # without outliers
+  , do.out = F
+  , xlab = "diabetes"
+  , main = "Bar plot of MDRD7 by diabetes vertical"
+  , panel = function(...){
+    panel.abline(h = seq(0, 100, 10), col = "gray95")
+    panel.bwplot(...)
+  }
+)
+
+# STRIPPLOT- elements distirbution with points instead of boxes
+
+# basic version
+stripplot(
+   factor(diabetes) ~ MDRD7
+  , data = kidney
+  , main = "Distribution of MDRD7 by diabetes"
+  , ylab = "diabetes"
+)
+
+stripplot(
+  factor(diabetes) ~ MDRD7
+  , data = kidney
+  , main = "Distribution of MDRD7 by diabetes"
+  , ylab = "diabetes"
+  , jitter.data = T
+)
+
+
+
+
+

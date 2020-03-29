@@ -1,0 +1,183 @@
+library('PBImisc')
+# datasource kidney - zbior danych o funkcjonowaniu nerki
+library('lattice')
+library(dplyr)
+library(latticeExtra)
+
+# histogram function
+
+head(kidney)
+histogram(~ recipient.age, data = kidney)
+
+histogram(~ recipient.age
+          , data = kidney
+          , n = 7
+          , main = "Histogram of recipient age"
+          # type = c("percent", "count", "density")
+          , type = "percent"
+          , col = "powderblue"
+          , panel = function(...){
+            panel.abline(h = seq(0, 25, 5), col = "grey95")
+            panel.histogram(...)
+          }
+)
+# how to get an unequal sections - breaks parameters
+
+histogram(~ recipient.age
+          , data = kidney
+          , breaks = c(0, 40, 50, 60, 90)
+          , main = "Histogram of recipient age"
+          # type = c("percent", "count", "density")
+          , type = "percent"
+          , col = "powderblue"
+          , panel = function(...){
+            panel.abline(h = seq(0, 25, 5), col = "grey95")
+            panel.histogram(...)
+          }
+)
+
+# kernel density plot (estymator j¹drowy gêstoœci)
+
+densityplot(~ recipient.age
+          , data = kidney
+          , main = "Kernel density of recipient age"
+          , col = "navy"
+          , bw = 2.5
+)
+
+# za pokazanie punktow odpowiedzialny jest parametr plot.points = T/F
+densityplot(~ recipient.age
+            , data = kidney
+            , main = "Kernel density of recipient age"
+            , col = "navy"
+            , bw = 2.5
+            , plot.points = F
+)
+
+# histogram +  kernel density in one chart (latticeExtra function)
+histogram(~ recipient.age
+          , data = kidney
+          , main = "Density of recipient age"
+          , type = "density"
+          , ylab = "density"
+          , col = "powderblue"
+          , panel = function(...){
+            panel.abline(h = seq(0, 25, 5), col = "grey95")
+            panel.histogram(...)
+          }
+) + as.layer(
+  densityplot(~ recipient.age
+              , data = kidney
+              , main = "Kernel density of recipient age"
+              , col = "navy"
+              , bw = 3
+              , plot.points = F
+              , lw = 2
+  )
+)
+
+
+# histogram with grouping varaible
+histogram(~ recipient.age | diabetes
+          , data = kidney
+          , main = "Histogram of recipient age"
+          , type = "percent"
+          , col = "powderblue"
+          , panel = function(...){
+            panel.abline(h = seq(0, 25, 5), col = "grey95")
+            panel.histogram(...)
+          }
+)
+
+
+histogram(~ recipient.age | factor(diabetes, label = c("diabetes = 0", "diabetes = 1"))
+          , data = kidney
+          , main = "Histograms of recipient age by diabetes"
+          , type = "density"
+          , col = "powderblue"
+          , ylab = "denisty"
+          , panel = function(...){
+            panel.abline(h = seq(0, 0.05, 0.01), col = "grey95")
+            panel.histogram(...)
+          }
+) + as.layer(
+  densityplot(~ recipient.age | diabetes
+              , data = kidney
+              , main = "Kernel density of recipient age"
+              , col = "navy"
+              , bw = 3
+              , plot.points = F
+              , lw = 2
+  )
+)
+
+
+# comparison of kernel denisty using latticeExtra
+densityplot(~ recipient.age
+            , data = filter(kidney, diabetes == 0)
+            , main = "Age density comparison by diabetes"
+            , col = "blue"
+            , bw = 3
+            , plot.points = F
+            , xlim = c(0, 80)
+            , ylim = c(0, 0.045)
+            , lw = 2
+            , scales = list(
+              x = list(at = seq(0, 80, 10))
+            )
+            , panel = function(...){
+              panel.abline(v = seq(0, 80, 10), col = "gray95")
+              panel.densityplot(...)
+            }
+            , key = list(
+              columns = 2
+              , text = list(lab = c("diabetes = 0", "diabetes = 1"))
+              , lines = list(lw = 2, col = c("blue", "firebrick"))
+            )
+) + as.layer(
+  densityplot(~ recipient.age
+              , data = filter(kidney, diabetes == 1)
+              , col = "firebrick"
+              , bw = 3
+              , plot.points = F
+              , lw = 2
+  )
+)
+
+# grupowanie jest rowniez mozliwe po zmiennej ilosciowej!
+# robimy to z wykorzystaniem equal.count() lub shingle() - shingle mozemy ustalac zachodzace na sb przedzialy
+
+histogram( ~ recipient.age | equal.count(MDRD30, 4)
+           , data = kidney
+)
+# jak widac problemem sa niejasne oznaczenia tych podzialow (pewnie da sie lepiej, ale narazie to zostawiam)
+
+
+# some useful examples of density plot - https://homerhanumat.github.io/tigerstats/densityplot.html
+# https://www.r-bloggers.com/arguments-of-statsdensity/
+# da sie grupowac inaczej - jezeli zmienna grupujaca istnieje w zrodle danych jako wymiar to mozemy uzyc parametru GROUP = zmienna
+densityplot(~ recipient.age
+            , data = kidney
+            , group = diabetes
+            , main = "Age density comparison by diabetes"
+            , col = c("blue", "firebrick")
+            , bw = 3
+            , plot.points = F
+            , xlim = c(0, 80)
+            , ylim = c(0, 0.045)
+            , lw = 2
+            , scales = list(
+              x = list(at = seq(0, 80, 10))
+            )
+            , panel = function(...){
+              panel.abline(v = seq(0, 80, 10), col = "gray95")
+              panel.densityplot(...)
+            }
+            , key = list(
+              columns = 2
+              , text = list(lab = c("diabetes = 0", "diabetes = 1"))
+              , lines = list(lw = 2, col = c("blue", "firebrick"))
+            )
+)
+
+
