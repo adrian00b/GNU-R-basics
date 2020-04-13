@@ -1,0 +1,72 @@
+library(lattice)
+library(PBImisc)
+library(tibble)
+
+head(kidney)
+
+# more about histogram in file no 4. - breaks, number od intervals etc
+histogram( ~ recipient.age
+  , data = kidney
+)
+
+
+# jadrowy estymator gestosci - also in file no 4 :
+densityplot( ~ recipient.age
+  , data = kidney
+)
+
+# kolejnym sposobem na przedstawienie rokzladu danych jest dystrybuanta empiryczna - ecdf
+# ecdf w pakiecie latticeExtra
+
+library(latticeExtra)
+
+ecdfplot( ~ recipient.age
+  , data = kidney
+)
+
+ecdfplot( ~ recipient.age 
+  , data = kidney
+  , groups = diabetes
+  , type = "l"
+  , auto.key = list(columns = 2)
+)
+
+# HOW TO CREATE A SMOOTH ECDF????
+# it's possible to create using a density and cumulative sum of density
+
+# extend range of density
+e <- 0.1 * diff(range(kidney$recipient.age))
+dens <- density(kidney$recipient.age
+                # adjust parameter (bw, bandwidth) - im wiekszy tym wieksze dopasowanie krzywej (np. dla 0.1 duzo bardziej dopasowne)
+                , adjust = 1
+                , from = min(kidney$recipient.age) - e
+                , to = max(kidney$recipient.age) + e
+)
+
+dens <- tibble(
+  x = dens$x
+  , y = dens$y
+  , y_ecdf = cumsum(dens$y)/sum(dens$y)
+)
+
+xyplot( y_ecdf ~ x
+  , data = dens
+  , type = "l"
+  , lw = 2
+) + as.layer(
+  ecdfplot( ~ recipient.age
+            , data = kidney
+            , col = "orangered"
+  )
+)
+
+
+
+
+
+
+
+
+
+
+

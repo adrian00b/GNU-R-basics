@@ -1,0 +1,118 @@
+library('Przewodnik')
+library(tibble)
+head(daneSoc)
+?table
+
+typeof(daneSoc)
+class(daneSoc)
+
+# tabela przestawna, ktora liczy count
+# tzw. TABLICA KONRYNGENCJI
+education_by_sex <- table(daneSoc$wyksztalcenie, daneSoc$plec)
+
+education_by_sex[,1]/sum(education_by_sex[,1])
+
+
+education_by_sex_percentage = education_by_sex
+for (i in 1:ncol(education_by_sex)){
+  education_by_sex_percentage[, i] = education_by_sex[, i]/sum(education_by_sex[, i])
+}
+  
+education_by_sex_percentage
+
+
+# DOTPLOT - wykres kropkowy
+# zauwazmy ze dotplot nie obsluguje df/tibble - musi miec dziwny format table aby dobrze pokazywal dane (?)
+dotplot(education_by_sex
+        , groups = F
+        , origin = 0
+        , type = c('p', 'h')
+        , lw = 3
+)
+
+dotplot(education_by_sex
+        , main = "Education by sex"
+        , groups = T
+        , origin = 0
+        , type = c('o')
+        , lw = 3
+        , pch = 16
+        , col = c("violetred1", "blue")
+        , key = list(
+          columns = 2
+          , text = list(lab = c("women", "men"))
+          , points = list(col = c("violetred1", "blue"), pch = 16)
+          )
+)
+
+## but it's compare just amount, not structure (important information is a percentage chart)
+head(daneSoc)
+
+education_by_sex_percentage <- tibble(
+  education = c("podstawowe", "srednie", "wyzsze", "zawodowe")
+  , kobieta = education_by_sex[, 1]/sum(education_by_sex[, 1])
+  , mezczyzna = education_by_sex[, 2]/sum(education_by_sex[, 2])
+)
+
+education_by_sex_percentage
+
+dotplot(education_by_sex_percentage
+        , main = "Education by sex"
+        , groups = T
+        , origin = 0
+        , type = c('o')
+        , lw = 3
+        , pch = 16
+        , col = c("violetred1", "blue")
+        , key = list(
+          columns = 2
+          , text = list(lab = c("women", "men"))
+          , points = list(col = c("violetred1", "blue"), pch = 16)
+        )
+)
+
+# barchart- wykres slupkowy
+attach(daneSoc)
+education_by_sex_tibble <- as_tibble(table(wyksztalcenie, plec, praca))
+barchart(n ~ wyksztalcenie 
+         , data = education_by_sex_tibble
+)
+
+barchart(n ~ wyksztalcenie 
+         , data = education_by_sex_tibble
+         , groups = plec
+         , auto.key = list(columns = 2)
+)
+
+barchart(n ~ wyksztalcenie | plec 
+         , data = education_by_sex_tibble
+         , groups = praca
+         , auto.key = list(columns = 2)
+)
+
+# PARALLELPLOT function - pokazuje zmiennosc wielu cech jednoczesnie (przebieg dla roznych wierszy, krotek)
+test <- tibble(
+  # simple way to create a vector with indexes variables like x1, x2, ...
+  var = paste("x", 1:5, sep = "")
+  , a = 1:5
+  , b = 10:6
+  , c = c(4, 5, 3, 4, 2)
+)
+
+parallelplot(
+  ~ test[, c(2:4)]
+  , data = test
+  , horizontal.axis = F
+  , groups = a < 3
+  # par alpha - wyjasnienie
+  #, alpha = 0.8
+  , scales = list(
+    # rot - rotacja !
+    x = list(rot = 0)
+  )
+  , auto.key = list(columns = 2)
+)
+
+
+
+
