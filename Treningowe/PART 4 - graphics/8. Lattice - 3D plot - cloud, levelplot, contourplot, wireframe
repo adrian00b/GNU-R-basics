@@ -1,0 +1,61 @@
+library(lattice)
+library(PBImisc)
+library(MASS)
+library(viridis)
+
+# but first, cloud plot
+# as we see it's hard to read  
+cloud(MDRD30 ~ MDRD7 + MDRD12
+  , data = kidney
+)
+
+
+
+head(kidney)
+
+# MASS PACKAGE: "Modern Applied Statistics with S"
+# kde2d - dwuwymiarowy jadrowy estymator gestosci
+# a two-dimensional density for MDRD7 and MDRD30
+
+density_2d <- kde2d(kidney$MDRD7, kidney$MDRD30, n = 50)
+# we create all combination of x, y by expand.grid(x_name = x, y_name = y) function
+coords <- data.frame(
+  expand.grid(MDRD7 = density_2d$x, MDRD30 = density_2d$y)
+  , z = c(density_2d$z)
+)
+
+levelplot( z ~ MDRD7 + MDRD30
+  , data = coords
+  , colorkey = T
+  , cuts = 20
+  , col.regions = magma(30)
+)
+
+# more about palletes etc - https://www.r-graph-gallery.com/27-levelplot-with-lattice.html
+
+contourplot( z ~ MDRD7 + MDRD30
+             , data = coords
+             , cuts = 20
+)
+
+
+# wireframe()  - real 3D objects
+wireframe(z ~ MDRD7 + MDRD30
+  , data = coords
+  , cuts = 20
+  , shade = T
+)
+
+# with custom palletes
+wireframe(z ~ MDRD7 + MDRD30
+          , data = coords
+          , cuts = 20
+          , drape = T
+          , col.regions = magma(30)
+)
+
+wireframe(z ~ MDRD7 + MDRD30
+          , data = coords
+          , cuts = 20
+          , shade = F
+)

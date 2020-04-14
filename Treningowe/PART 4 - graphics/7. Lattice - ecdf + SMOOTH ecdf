@@ -61,9 +61,33 @@ xyplot( y_ecdf ~ x
 )
 
 
+# aby sprawdzic zgodnosc rozkladu empriycznego z wybranym rozkladem teoretycznym mozemy uzyc funkcji qqmath()
+# more about distributions -> https://www.statmethods.net/advgraphs/probability.html
+# also here !  - http://zoonek2.free.fr/UNIX/48_R/07.html
+# and more about firrint distributions
+
+# teraz to zostawiam, bo potrzeba przysiasc wiecej do teorii zeby w pelni skorzystac z tych wykresow (qqmath, qq)
+
+densityplot(kidney$recipient.age)
+x <- seq(-10, 10, length = 100)
+
+qqmath( ~ recipient.age
+        , data = kidney
+        , distribution = qnorm
+)
 
 
 
+
+qqmath( ~ recipient.age
+        , data = kidney
+        , distribution = qcauchy
+)
+
+cauchy = dcauchy(x)
+
+xyplot(cauchy ~ x
+)
 
 
 
