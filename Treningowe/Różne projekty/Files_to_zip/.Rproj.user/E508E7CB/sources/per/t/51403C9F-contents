@@ -1,0 +1,16 @@
+library(zip)
+
+df1 <- head(mtcars)
+df2 <- head(iris)
+
+write.csv(df1, file = "Output\\Test_File1.csv", row.names = FALSE, quote = FALSE)
+write.csv(df2, file = "Output\\Test_File2.csv", row.names = FALSE, quote = FALSE)
+
+# Read CSV files names from working directory
+Zip_Files <- list.files(path = "Output", pattern = ".csv$", full.names=TRUE)
+
+# Zip the files and place the zipped file in working directory
+zipr(zipfile = "Output\\Files.Zip", files = Zip_Files)
+
+# delete csv
+file.remove(Zip_Files)
