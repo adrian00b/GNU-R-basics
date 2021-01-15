@@ -1,0 +1,119 @@
+# SEGMENTS, mechanizm warunkowania
+# in lattice: group oraz in formula using |
+# in ggplot2: facet_grid, facet_wrap
+
+library(lattice)
+library(latticeExtra)
+library(ggplot2)
+library(Przewodnik)
+
+head(countries)
+# scatter plor of birth vs death rate by CONTINENTS (on different panels)
+# lattice
+xyplot( death.rate ~ birth.rate | continent
+  , data = countries
+  , layout = c(5,1)
+  , pch = 16
+  , main = "Birth and death rate by continent"
+  , panel = function(...){
+    panel.abline(v=seq(0,50,10), col="gray95")
+    panel.abline(h=seq(0,20,2.5), col="gray95")
+    panel.xyplot(...)
+  }
+)
+
+# 2) in ggplot2 = using facet_grid(formula)
+# formula(variable_in_row ~ variable_in_column)
+
+ggplot(countries, aes(birth.rate, death.rate)) +
+  geom_point(color = "blue") +
+  facet_grid( ~ continent) +
+  labs(title = "Birth and death rate by continent")
+
+# it's also posiible to change colors of background in titles but it's can be done by 
+ggplot(countries, aes(birth.rate, death.rate)) +
+  geom_point(color = "blue") +
+  facet_grid( ~ continent) +
+  labs(title = "Birth and death rate by continent") +
+  scale_x_continuous(minor_breaks = seq(0,50,10)) +
+  theme(panel.background = element_rect(fill = "white")
+        , panel.grid.major = element_line(colour = "grey95")
+        , panel.grid.minor = element_line(colour = "grey95")
+        , axis.line.x = element_line(color = "black")
+        , axis.line.y = element_line(colour = "black")
+        , panel.border = element_rect(colour = "black", fill = NA)
+        # color of titles creating by facet_grid options
+        , strip.background = element_rect(fill = "grey85")
+        , plot.title = element_text(size = rel(1.4))
+  )
+
+# now we want to have all points in the bacground of every panel
+# lattice
+# it's possible to do using latticeExtra, but it's walkaround
+# firstly needs to create a plot with panels but white dots and after ads layers with all dots and with continens using two 
+# as.layers statement
+
+xyplot( death.rate ~ birth.rate | continent
+        , data = countries
+        , layout = c(5,1)
+        , pch = 16
+        , col = "white"
+        , cex = 1.1
+        , main = "Birth and death rate by continent"
+        , panel = function(...){
+          panel.abline(v=seq(0,50,10), col="gray95")
+          panel.abline(h=seq(0,20,2.5), col="gray95")
+          panel.xyplot(...)
+        }
+) + as.layer(
+  xyplot( death.rate ~ birth.rate 
+          , data = countries
+          , layout = c(5,1)
+          , pch = 16
+          , cex = 0.8
+          , col = "grey"
+  ) 
+) + as.layer(
+  xyplot( death.rate ~ birth.rate | continent
+        , data = countries
+        , layout = c(5,1)
+        , pch = 16
+        , col = "blue"
+        , cex = 1.1
+  )
+)
+
+# ggplot2
+# it's possible without walkaround using only ggplot2 package
+head(countries)
+countries[,-5]
+countries
+ggplot(countries, aes(birth.rate, death.rate)) +
+  facet_grid( ~ continent) +
+  #all dots, we add datasource but without continent 
+  geom_point(data=countries[, -5], size=rel(0.9), col="grey") +
+  geom_point(col="blue", size=rel(1.8))
+
+# white background + ellipse function
+head(countries)
+countries[,-5]
+countries
+ggplot(countries, aes(birth.rate, death.rate)) +
+  facet_grid( ~ continent) +
+  #all dots, we add datasource but without continent 
+  geom_point(data=countries[, -5], size=rel(0.9), col="grey") +
+  geom_point(col="blue", size=rel(1.8)) +
+  labs(title = "Birth and death rate by continent") +
+  scale_x_continuous(minor_breaks = seq(0,50,10)) +
+  theme(panel.background = element_rect(fill = "white")
+        , panel.grid.major = element_line(colour = "grey95")
+        , panel.grid.minor = element_line(colour = "grey95")
+        , axis.line.x = element_line(color = "black")
+        , axis.line.y = element_line(colour = "black")
+        , panel.border = element_rect(colour = "black", fill = NA)
+        # color of titles creating by facet_grid options
+        , strip.background = element_rect(fill = "grey85")
+        , plot.title = element_text(size = rel(1.4))
+  ) +
+  stat_ellipse(col="blue")
+

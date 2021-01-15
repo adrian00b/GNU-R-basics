@@ -70,7 +70,7 @@ dotplot(education_by_sex_percentage
           , points = list(col = c("violetred1", "blue"), pch = 16)
         )
 )
-
+head(daneSoc)
 # barchart- wykres slupkowy
 attach(daneSoc)
 education_by_sex_tibble <- as_tibble(table(wyksztalcenie, plec, praca))

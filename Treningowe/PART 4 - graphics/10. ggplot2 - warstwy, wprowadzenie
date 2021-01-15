@@ -1,0 +1,52 @@
+library(Przewodnik)
+library(ggplot2)
+
+head(countries)
+
+# wykresy w ggplot tworzymy korzystaj¹c z kolejnych cegielek, ktore nakladaja kolejne warstwy
+# odpalajac kolejne linijki dodajemy kolejne warstwy
+
+# np. tutaj robimy scatter_plota - funkcja geom_point() oraz wykorzystujemy regresje lasso do wyrysowania trendu
+# geom.smooth
+ggplot(countries, aes(birth.rate, death.rate)) +
+  geom_point() +
+  geom_smooth(se = F, size = 2)
+
+# ponizej przyklad nalozenia n asiebie wiekszej ilosci wartstw
+ggplot(countries, aes(x = continent, y = birth.rate, label = country, fill = continent)) +
+  geom_violin(scale = "width") +
+  geom_jitter(position = position_jitter(width = .45)) +
+  geom_text(color = "blue3") +
+  geom_rug(sides = "l")
+
+# MAPOWANIE ZMIENNYCH 
+# dziala to troche jak w tableau, tzn mamy osie, color, size
+
+ggplot(countries, aes(x = birth.rate, y = death.rate, color = continent, size = population)) +
+  geom_point()
+
+# we can also attribute to color qunatitative variables
+ggplot(countries, aes(x = birth.rate, y = death.rate, color = birth.rate)) +
+  geom_point()
+
+
+# LAYERS have a lot of shared characteristics - data, axis, legends etc
+# but every layer may have different geometric
+
+# przyklad jak mozna uzyskac rozne wykresy ze wspolnej 1szej warstwy
+base_layer <- ggplot(countries, aes(x = continent, y = birth.rate, color = continent, fill = continent))
+# kropkowy wykres rozkladu
+base_layer + geom_point()
+# jiter plot
+base_layer + geom_jitter(position = position_jitter(width = .35))
+# boxplot
+base_layer + geom_boxplot()
+# violin plot (distribution)
+base_layer + geom_violin(scale = "width")
+# dotplot - ciekawy wykres, cos na wzor violin tylko ze sa kropki zamiast obszaru
+base_layer + geom_dotplot(binaxis = "y", stackdir = "center")
+base_layer + geom_dotplot(binaxis = "y")
+
+
+
+
